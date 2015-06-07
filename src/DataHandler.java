@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /* This class handles reading and writing data to the program's data file
  * A DataHandler is initialized with the name of the local file that stores data
@@ -70,12 +71,11 @@ public class DataHandler {
     public ArrayList<Session> getSessions() {
         ArrayList<Session> stored_sessions = new ArrayList<Session>();
         ArrayList<String> data = getData();
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = data.indexOf("Log:") + 1; i < data.size(); i++) {
             if (data.get(i).equals("Log:")) { /* start of logs */
                 try {
                     stored_sessions.add(new Session(data.get(i)));
-                } catch (Exception e) {
-                } /* just ignore corrupt data */
+                } catch (Exception e) {} /* just ignore corrupt data */
             }
         }
         for (int i = 1; i < stored_sessions.size(); i++) {
@@ -95,19 +95,26 @@ public class DataHandler {
         }
         return stored_sessions;
     }
-    
+    /* reads datafile and returns ArrayList of Goals */
+    public ArrayList<Goal> getGoals() {
+        ArrayList<Goal> stored_goals = new ArrayList<Goal>();
+        ArrayList<String> data = getData();
+        for(int i = data.indexOf("Goals:") + 1; !data.get(i).equals("Log:") ; i++) {
+            try {
+                stored_goals.add(new Goal(data.get(i)));
+            } catch(Exception e) {} /* ignore corrupted data */
+        }
+        return stored_goals;
+    }
     /* reads datafile and returns ArrayList of names of activities */
     public ArrayList<String> getActivities() {
         ArrayList<String> stored_activities = new ArrayList<String>();
         ArrayList<String> data = getData();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).equals("Activities:")) { /* start of activities */
-                stored_activities.add(data.get(i));
-            }
+        for (int i = data.indexOf("Activities:"); !data.get(i).equals("Goals:"); i++) {
+            stored_activities.add(data.get(i));
         }
         return stored_activities;
     }
-    // todo: getGoals
     /* reads log and returns ArrayList of the num_sessions most recent sessions */
     public ArrayList<Session> getMostRecentSessions(int num_sessions) {
         /* get stored sessions from log, which are stored from newest to oldest */
@@ -117,18 +124,53 @@ public class DataHandler {
             recent_sessions.add(stored_sessions.get(i));
         return recent_sessions;
     }
-
+    /* reads datafile and returns ArrayList of goals that are currently relevant
+     * THIS DOES NOT FILTER OUT GOALS THAT HAVE BEEN COMPLETED */
+    public ArrayList<Goal> getCurrentGoals() {
+        ArrayList<Goal> stored_goals = getGoals();
+        /* get current time in milliseconds */
+        long current_time = Calendar.getInstance().get(Calendar.MILLISECOND);
+        for(int i = 0; i < stored_goals.size(); i++) {
+            /* remove any goals that aren't relevant at current System time */
+            if(!stored_goals.get(i).isRelevant(current_time))
+                stored_goals.remove(i);
+        }
+        return stored_goals;
+    }
     /* adds session to log, by default as first session after "Logs:" */
     public boolean addSession(Session add) {
         ArrayList<String> data = getData();
         data.add(data.indexOf("Logs:") + 1, add.toString());
         return writeData(data);
     }
-
     /* adds activity to datafile under "Activities:" header */
     public boolean addActivity(String activity_name) {
         ArrayList<String> data = getData();
         data.add(data.indexOf("Activities") + 1, activity_name);
+        return writeData(data);
+    }
+    /* removes activity from datafile */
+    public boolean removeActivity(String activity_name) {
+        ArrayList<String> data = getData();
+        for(int i = data.indexOf("Activities:"); !data.get(i).equals("Goals:"); i++) {
+            if(data.get(i).equals(activity_name))
+                data.remove(i);
+        }
+        return writeData(data);
+    }
+    /* adds goal to datafile under "Goals:" header */
+    public boolean addGoal(Goal add) {
+        ArrayList<String> data = getData();
+        data.add(data.indexOf("Goals:") + 1, add.toString());
+        return writeData(data);
+    }
+    /* removes goal from datafile */
+    public boolean removeGoal(Goal remove) {
+        ArrayList<String> data = getData();
+        for(int i = data.indexOf("Goals:"); !data.get(i).equals("Log:"); i++) {
+            if(data.get(i).equals(remove.toString()))
+                data.remove(i);
+        }
         return writeData(data);
     }
 }
