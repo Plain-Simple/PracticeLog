@@ -66,7 +66,6 @@ public class DataHandler {
         writer.newLine();
         writer.close();
     }
-
     /* reads log and returns ArrayList of saved Sessions, in order of newest to oldest */
     public ArrayList<Session> getSessions() {
         ArrayList<Session> stored_sessions = new ArrayList<Session>();
