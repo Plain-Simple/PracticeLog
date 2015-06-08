@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <FlowPane prefHeight="49.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Practice Log">
+               <font>
+                  <Font name="Arial Bold" size="60.0" />
+               </font>
+            </Text>
+            <Pane prefHeight="59.0" prefWidth="16.0" />
+            <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="62.0">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Alarm%20Clock%20(Alan%20Cleaver)%20Modified.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane prefHeight="59.0" prefWidth="16.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="56.0" prefWidth="62.0">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Pencil%20Icon%20(Benn%20Wolfe)%20Modified.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane prefHeight="59.0" prefWidth="16.0" />
+            <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="62.0">
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../CheckList%20Modified%20(Oliver%20Tacke).jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane prefHeight="8.0" prefWidth="369.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Practicing!" />
+            <Pane prefHeight="17.0" prefWidth="12.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Log a Time" />
+            <Pane prefHeight="17.0" prefWidth="26.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Set a Goal" />
+         </children>
+      </FlowPane>
+   </top>
+   <center>
+      <FlowPane prefHeight="334.0" prefWidth="556.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Activity">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+                  <ListView prefHeight="135.0" prefWidth="470.0" />
+               </children>
+            </VBox>
+            <HBox>
+               <children>
+                  <Pane prefHeight="25.0" prefWidth="390.0" />
+                  <Button mnemonicParsing="false" text="See Full Log" />
+               </children>
+            </HBox>
+            <Pane prefHeight="16.0" prefWidth="470.0" />
+         </children>
+      </FlowPane>
+   </center>
+   <left>
+      <Pane prefHeight="315.0" prefWidth="72.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
