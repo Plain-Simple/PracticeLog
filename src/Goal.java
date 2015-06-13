@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /* A Goal has a fair amount of variability
  * The user can set the goal to be a number of times to
@@ -54,19 +53,19 @@ public class Goal {
         ArrayList<Session> data = new ArrayList<Session>();
         if (data_handler.isValid()) { // todo: what if it isn't?
             data = data_handler.getSessions();
-             /* we need to remove any Sessions that aren't relevant to the goal */
-            if (time_limit != 0) { /* a goal_time limit was specified */
+             /* we need to remove any sessions that aren't relevant to the goal */
+            if (time_limit != 0) { /* a time limit was specified */
                 long end_time = start_time + time_limit;
                 for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getDate().before(start_time)
-                            || data.get(i).getDate().after(end_time))
-                        data.remove(i); /* remove goal_sessions that happened before/after goal_time limit */
+                    if (data.get(i).getDate() < start_time
+                            || data.get(i).getDate() > end_time)
+                        data.remove(i); /* remove sessions that happened before/after goal_time limit */
                 }
             }
             if (!activity.equals("")) { /* a specific activity was specified */
                 for (int i = 0; i < data.size(); i++) {
                     if (!data.get(i).getActivity().equals(activity))
-                        data.remove(i); /* remove goal_sessions that have a different activity */
+                        data.remove(i); /* remove sessions that have a different activity */
                 }
             }
         }
@@ -81,7 +80,7 @@ public class Goal {
          if(goal_time != 0) { /* goal time specified */
              long time_spent = 0;
              for (int i = 0; i < data.size(); i++)
-                 time_spent += data.get(i).getTime();
+                 time_spent += data.get(i).getTimePracticed();
              /* total time spent, in milliseconds */
              progress[0] = time_spent;
             /* calculated as total time spent during relevant sessions divided by target time */

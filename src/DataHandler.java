@@ -82,7 +82,7 @@ public class DataHandler {
             boolean keep_going = false; /* whether to keep looking ahead */
             Session this_session = stored_sessions.get(i); /* current element in loop, which is being evaluated */
             do {
-                if (this_session.getDate().after(stored_sessions.get(i - counter).getDate())) { /* more recent */
+                if (this_session.getDate() > stored_sessions.get(i - counter).getDate()) { /* more recent */
                     keep_going = true;
                     /* move other session back one */
                     stored_sessions.set(i - counter + 1, stored_sessions.get(i - counter));
@@ -91,6 +91,16 @@ public class DataHandler {
                     counter++;
                 }
             } while (keep_going && counter <= i);
+        }
+        return stored_sessions;
+    }
+    /* returns ArrayList of all Sessions that happened between specified times */
+    public ArrayList<Session> getSessionsWithinDates(long date_1, long date_2) {
+        ArrayList<Session> stored_sessions = getSessions(); // be careful of arrayindexoutofbounds when arraylist gets smaller
+        for(int i = 0; i < stored_sessions.size(); i++) {// todo: this can be made more efficient by using the fact sessions are already sorted by date
+            if(stored_sessions.get(i).getDate() < date_1 || // todo: iterator instead?
+                    stored_sessions.get(i).getDate() > date_2)
+                stored_sessions.remove(i);
         }
         return stored_sessions;
     }
