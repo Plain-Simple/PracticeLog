@@ -1,5 +1,5 @@
-package plainsimple;/* This class starts the JavaFX Application using MainScreen.fxml
-   as the root stage */
+package plainsimple;
+
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/* This class starts the JavaFX Application using MainScreen.fxml
+   as the root stage */
 public class MainApp extends Application {
 
     private Stage primaryStage;
@@ -37,9 +39,7 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Shows the person overview inside the root layout.
-     */
+    /* shows mainscreen inside root layout */
     public void showMainScreen() {
         try {
             // Load person overview.
@@ -54,10 +54,7 @@ public class MainApp extends Application {
         }
     }
 
-    /**
-     * Returns the main stage.
-     * @return
-     */
+    /* returns main stage */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
