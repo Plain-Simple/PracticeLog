@@ -12,6 +12,12 @@ public class Session {
     private long time_practiced = 0;
     private long date = 0;
 
+    /* constructs Session using given parameters */
+    public Session(String practice_activity, long practice_time, long practice_date) {
+        activity = practice_activity;
+        time_practiced = practice_time;
+        date = practice_date;
+    }
     /* constructs Session using data from log, which is in format "[activity],[time_practiced],[date]" */
     public Session(String log) throws Exception {
         String data[] = log.split(","); // does comma need to be escaped?

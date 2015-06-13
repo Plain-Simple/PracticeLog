@@ -6,7 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import plainsimple.view.LogTimeDialogController;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
    as the root stage */
@@ -57,6 +59,36 @@ public class MainApp extends Application {
     /* returns main stage */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public boolean showLogTimeDialog() {
+        try {
+            /* load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            /* create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Submit an Entry");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            LogTimeDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setFileName("Data");
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static void main(String[] args) {

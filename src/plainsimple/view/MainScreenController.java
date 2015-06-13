@@ -9,8 +9,9 @@ import plainsimple.MainApp;
 
 /* Controller Class for the MainScreen */
 public class MainScreenController {
+
     @FXML private FlowPane recentActivity_pane;
-    @FXML private Button logTime_button;
+    @FXML private Button logTime_button; // todo: get rid of fxml buttons that aren't used. A handler class is sufficient
     @FXML private Button showAnalytics_button;
     @FXML private Text hrs_365days;
     @FXML private Button startPracticing_button;
@@ -20,6 +21,7 @@ public class MainScreenController {
     @FXML private Text hrs_30days;
     @FXML private Button showLog_button;
     @FXML private FlowPane goals_pane;
+
     private MainApp mainApp; /* reference to main application */
 
     /* constructor */
