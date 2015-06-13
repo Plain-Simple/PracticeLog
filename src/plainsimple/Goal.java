@@ -1,3 +1,7 @@
+package plainsimple;
+
+import plainsimple.DataHandler;
+
 import java.util.ArrayList;
 
 /* A Goal has a fair amount of variability
@@ -8,6 +12,7 @@ import java.util.ArrayList;
  * Goals are constructed using a String taken from the
  * program's datafile, which holds all necessary information */
 public class Goal {
+
     private String file_name = ""; /* name of local file where program data can be retrieved */
     private String activity = "";
     private int goal_sessions = 0;
@@ -15,6 +20,7 @@ public class Goal {
     private long start_time = 0;
     private long time_limit = 0; /* timelimit stored in milliseconds */
     private boolean recurring = false;
+
     /* initializes Goal using stored data */
     public Goal(String constructor) throws Exception {
         /* parse constructor into individual values */

@@ -1,3 +1,5 @@
+package plainsimple;
+
 import java.util.Calendar;
 
 /* A Session holds all the information about a single practice session:
@@ -5,9 +7,11 @@ import java.util.Calendar;
  * A Session is constructed using a String taken from the program's datafile
  * This String holds all necessary information */
 public class Session {
+
     private String activity = "";
     private long time_practiced = 0;
     private long date = 0;
+
     /* constructs Session using data from log, which is in format "[activity],[time_practiced],[date]" */
     public Session(String log) throws Exception {
         String data[] = log.split(","); // does comma need to be escaped?

@@ -1,3 +1,5 @@
+package plainsimple;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,7 +9,9 @@ import java.util.Calendar;
  * It is STRONGLY recommended that the "isValid" method be used to make sure
  * specified file exists and is accessible before any other methods are used */
 public class DataHandler {
+
     private String file_name = "";
+
     /* initializes a new DataHandler with name of file to read/write */
     public DataHandler(String file_name) {
         this.file_name = file_name;
