@@ -20,6 +20,7 @@ public class MainApp extends Application {
     @Override public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("PracticeLog");
+
         initRootLayout();
 
         showMainScreen();
@@ -44,12 +45,12 @@ public class MainApp extends Application {
     /* shows mainscreen inside root layout */
     public void showMainScreen() {
         try {
-            // Load person overview.
+            /* load MainScreen.fxml */
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/MainScreen.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane personOverview = loader.load();
 
-            // Set person overview into the center of root layout.
+            /* set MainScreen in center of root layout */
             rootLayout.setCenter(personOverview);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,31 +62,31 @@ public class MainApp extends Application {
         return primaryStage;
     }
 
-public boolean showLogTimeDialog() {
-    try {
-        /* load the fxml file and create a new stage for the popup dialog */
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
+    public boolean showLogTimeDialog() {
+        try {
+            /* load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
-        /* create the dialog stage */
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Submit an Entry");
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(primaryStage);
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
+            /* create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Submit an Entry");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
 
-        LogTimeDialogController controller = loader.getController();
-        controller.setDialogStage(dialogStage);
+            LogTimeDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
 
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
 
-        return controller.isOkClicked();
-    } catch(IOException e) {
-        e.printStackTrace();
-        return false;
+            return controller.isOkClicked();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return false;
     }
 }
 

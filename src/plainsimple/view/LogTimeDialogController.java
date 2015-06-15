@@ -16,7 +16,7 @@ import java.util.InputMismatchException;
 /* Controller class for "Log a Time" Dialog */
 public class LogTimeDialogController {
 
-    @FXML private ChoiceBox<String> month_field;
+    @FXML private ChoiceBox<String> month_field = new ChoiceBox<String>();
     @FXML private TextField year_field;
     @FXML private TextField activity_field;
     @FXML private TextField day_field;
