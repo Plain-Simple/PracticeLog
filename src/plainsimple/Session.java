@@ -26,8 +26,9 @@ public class Session {
         date = Long.parseLong(data[2]);
     }
     public void setActivity(String activity_name) { activity = activity_name; }
-    public void setTimePracticed(int min) { time_practiced = min; }
+    public void setTimePracticed(long time) { time_practiced = time; }
     public void setDate(long date) { this.date = date; }
+    public void setDate(Calendar date) { this.date = date.getTimeInMillis(); }
     public String getActivity() { return activity; }
     public long getTimePracticed() { return time_practiced; }
     public long getDate() { return date; }

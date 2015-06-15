@@ -11,6 +11,7 @@ import plainsimple.DataHandler;
 import plainsimple.Session;
 
 import java.util.Calendar;
+import java.util.InputMismatchException;
 
 /* Controller class for "Log a Time" Dialog */
 public class LogTimeDialogController {
@@ -22,7 +23,7 @@ public class LogTimeDialogController {
     @FXML private TextField min_field;
     @FXML private TextField hrs_field;
 
-    private String file_name; /* name of file to save new log to */
+    private Session session;
     private Stage dialogStage;
     private boolean okClicked = false;
 
@@ -38,9 +39,6 @@ public class LogTimeDialogController {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-    public void setFileName(String file_name) {
-        this.file_name = file_name;
-    }
     /* returns whether user has clicked the "Ok" button */
     public boolean isOkClicked() {
         return okClicked;
@@ -50,12 +48,15 @@ public class LogTimeDialogController {
         /* input validation */
         if (isInputValid()) {  /* isInputValid() will take care of any errors */
             okClicked = true;
-            DataHandler data_handler = new DataHandler(file_name);
-            if(data_handler.isValid()) { // todo: what if it isn't?
-                try {data_handler.addSession(getSession()); } catch (Exception e) {}
+            session.setActivity(activity_field.getText());
+            session.setTimePracticed(getPracticeTime());
+            try {
+                session.setDate(getDate());
+            } catch(Exception e) {}
+                okClicked = true;
+                dialogStage.close();
             }
             dialogStage.close();
-        }
     }
     /* handles user pressing "Cancel" button */
     @FXML private void handleCancel() {
@@ -71,19 +72,33 @@ public class LogTimeDialogController {
     /* validates user input in text fields and generates an alert if errors are found */
     private boolean isInputValid() {
         String error_message = "";
-        if(activity_field.getText() == null || activity_field.getText().length() == 0
-                || year_field.getText() == null || year_field.getText().length() == 0
-                || day_field.getText() == null || day_field.getText().length() == 0
-                || min_field.getText() == null || min_field.getText().length() == 0
-                || hrs_field.getText() == null || hrs_field.getText().length() == 0) {
-            error_message += "Missing Text Fields!\n";
+        if(isEmpty(activity_field))
+            error_message += "Missing Activity Name";
+        if(isEmpty(min_field) && isEmpty(hrs_field)) { /* at least one must have text */
+            error_message += "Missing Time Practiced";
+        } else if(!isEmpty(min_field)) { /* validate field if it has text */
+            try {
+                Integer.parseInt(min_field.getText());
+            } catch(NumberFormatException e) {
+                error_message += "Min Practiced Must be an Integer";
+            }
+        } else if(!isEmpty(hrs_field)) { /* validate field if it has text */
+            try {
+                Integer.parseInt(hrs_field.getText());
+            } catch (NumberFormatException e) {
+                error_message += "Hrs Practiced Must be an Integer";
+            }
         }
-        try {
-            getSession(); /* attempt parsing info */
-        } catch(IndexOutOfBoundsException e) {
-            error_message += "Invalid Date Entered!\n";
+        if(isEmpty(day_field)) {
+            error_message += "Missing Day of Practice Session";
+        }
+        if(isEmpty(year_field)) {
+            error_message += "Missing Year of Practice Session";
+        }
+        try { /* validate date entered */
+            getDate();
         } catch(Exception e) {
-            error_message += "Invalid Input\n";
+            error_message += "Invalid Date Entered";
         }
         if(error_message.length() == 0) {
             return true;
@@ -97,18 +112,29 @@ public class LogTimeDialogController {
             return false;
         }
     }
-    /* constructs a Session using information entered by the user
-     * input should be validated first */
-    private Session getSession() throws Exception {
-        String activity = activity_field.getText();
-        long practice_time = Integer.parseInt(hrs_field.getText()) * 60 * 60 * 1000;
-        practice_time += Integer.parseInt(min_field.getText()) * 1000;
+    /* simple helper function, returns whether a TextField is empty or not */
+    private boolean isEmpty(TextField field) {
+        return field.getText() == null || field.getText().length() == 0;
+    }
+    /* constructs a Calendar object using information from text fields
+     * input should first be validated with isValid() before using this method */
+    private Calendar getDate() throws Exception { // todo: how to validate date?
         Calendar date = Calendar.getInstance();
         int year = Integer.parseInt(year_field.getText());
         int month = monthToInt(month_field.getValue());
         int day = Integer.parseInt(day_field.getText());
         date.set(year, month, day);
-        return new Session(activity, practice_time, date.getTimeInMillis());
+        return date;
+    }
+    /* calculates milliseconds practiced using "hrs" and "min" fields
+     * input should first be validated with isValid() before using this method */
+    private long getPracticeTime() {
+        long time = 0;
+        if(!isEmpty(hrs_field))
+            time += Integer.parseInt(hrs_field.getText()) * 60 * 60 * 1000;
+        if(!isEmpty(min_field))
+            time += Integer.parseInt(min_field.getText()) * 60 * 1000;
+        return time;
     }
     /* takes a month name and returns its associated integer */
     private int monthToInt(String month) throws IndexOutOfBoundsException {
