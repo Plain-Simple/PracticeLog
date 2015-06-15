@@ -8,18 +8,22 @@ import java.util.Calendar;
  * This String holds all necessary information */
 public class Session {
 
-    private String activity = "";
-    private long time_practiced = 0;
-    private long date = 0;
+    private String activity;
+    private long time_practiced;
+    private long date;
 
+    /* default constructor */
     public Session() {
+        this("", 0, 0);
     }
+
     /* constructs Session using given parameters */
-    public Session(String practice_activity, long practice_time, long practice_date) {
-        activity = practice_activity;
-        time_practiced = practice_time;
-        date = practice_date;
+    public Session(String activity, long time_practiced, long date) {
+        this.activity = activity;
+        this.time_practiced = time_practiced;
+        this.date = date;
     }
+
     /* constructs Session using data from log, which is in format "[activity],[time_practiced],[date]" */
     public Session(String log) throws Exception {
         String data[] = log.split(","); // does comma need to be escaped?
@@ -27,13 +31,35 @@ public class Session {
         time_practiced = Integer.parseInt(data[1]);
         date = Long.parseLong(data[2]);
     }
-    public void setActivity(String activity_name) { activity = activity_name; }
-    public void setTimePracticed(long time) { time_practiced = time; }
-    public void setDate(long date) { this.date = date; }
-    public void setDate(Calendar date) { this.date = date.getTimeInMillis(); }
-    public String getActivity() { return activity; }
-    public long getTimePracticed() { return time_practiced; }
-    public long getDate() { return date; }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity_name) {
+        activity = activity_name;
+    }
+
+    public long getTimePracticed() {
+        return time_practiced;
+    }
+
+    public void setTimePracticed(long time) {
+        time_practiced = time;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date.getTimeInMillis();
+    }
+
     /* returns a String representation of session, for logging purposes */
     @Override public String toString() {
         return activity + "," + time_practiced + "," + date;
