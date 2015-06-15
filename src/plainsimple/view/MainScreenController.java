@@ -5,7 +5,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
+import plainsimple.DataHandler;
 import plainsimple.MainApp;
+import plainsimple.Session;
 
 /* Controller Class for the MainScreen */
 public class MainScreenController {
@@ -42,7 +44,11 @@ public class MainScreenController {
     }
     /* handles user pressing the "Log a Time" button */
     @FXML private void handleLogTime() {
+        Session tempSession = new Session();
+        boolean okClicked = mainApp.showLogTimeDialog();
+            if (okClicked) { /* user has successfully added a session */
 
+            }
     }
     /* handles user pressing the "Set a Goal" button */
     @FXML private void handleSetGoal() {

@@ -61,35 +61,33 @@ public class MainApp extends Application {
         return primaryStage;
     }
 
-    public boolean showLogTimeDialog() {
-        try {
-            /* load the fxml file and create a new stage for the popup dialog */
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+public boolean showLogTimeDialog() {
+    try {
+        /* load the fxml file and create a new stage for the popup dialog */
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
 
-            /* create the dialog stage */
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Submit an Entry");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+        /* create the dialog stage */
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Submit an Entry");
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.initOwner(primaryStage);
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
 
-            // Set the person into the controller.
-            LogTimeDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setFileName("Data");
+        LogTimeDialogController controller = loader.getController();
+        controller.setDialogStage(dialogStage);
 
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
+        // Show the dialog and wait until the user closes it
+        dialogStage.showAndWait();
 
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return controller.isOkClicked();
+    } catch(IOException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 
     public static void main(String[] args) {
         launch(args);

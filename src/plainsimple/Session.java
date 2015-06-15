@@ -12,6 +12,8 @@ public class Session {
     private long time_practiced = 0;
     private long date = 0;
 
+    public Session() {
+    }
     /* constructs Session using given parameters */
     public Session(String practice_activity, long practice_time, long practice_date) {
         activity = practice_activity;
