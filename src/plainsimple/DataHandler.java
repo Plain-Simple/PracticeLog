@@ -1,6 +1,8 @@
 package plainsimple;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,6 +34,7 @@ public class DataHandler {
             return file_text;
         }
     }
+
     /* writes data to file as an ArrayList of lines*/
     public boolean writeData(ArrayList<String> data) {
         try {
@@ -46,6 +49,7 @@ public class DataHandler {
             return false;
         }
     }
+
     /* returns whether the file associated with this handler exists and
     is readable */
     public boolean isValid() {
@@ -70,6 +74,7 @@ public class DataHandler {
         writer.newLine();
         writer.close();
     }
+
     /* reads log and returns ArrayList of saved Sessions, in order of newest to oldest */
     public ArrayList<Session> getSessions() {
         ArrayList<Session> stored_sessions = new ArrayList<Session>();
@@ -86,7 +91,7 @@ public class DataHandler {
             boolean keep_going = false; /* whether to keep looking ahead */
             Session this_session = stored_sessions.get(i); /* current element in loop, which is being evaluated */
             do {
-                if (this_session.getDate() > stored_sessions.get(i - counter).getDate()) { /* more recent */
+                if (this_session.getDate().isAfter(stored_sessions.get(i - counter).getDate())) { /* more recent */
                     keep_going = true;
                     /* move other session back one */
                     stored_sessions.set(i - counter + 1, stored_sessions.get(i - counter));
@@ -98,16 +103,24 @@ public class DataHandler {
         }
         return stored_sessions;
     }
+
     /* returns ArrayList of all Sessions that happened between specified times */
-    public ArrayList<Session> getSessionsWithinDates(long date_1, long date_2) {
+    public ArrayList<Session> getSessionsWithinDates(LocalDate date_1, LocalDate date_2) {
+        /* make sure date_1 is earlier than date_2 */
+        if(date_1.isAfter(date_2)) {
+            LocalDate swap = date_2;
+            date_2 = date_1;
+            date_1 = swap;
+        }
         ArrayList<Session> stored_sessions = getSessions(); // be careful of arrayindexoutofbounds when arraylist gets smaller
         for(int i = 0; i < stored_sessions.size(); i++) {// todo: this can be made more efficient by using the fact sessions are already sorted by date
-            if(stored_sessions.get(i).getDate() < date_1 || // todo: iterator instead?
-                    stored_sessions.get(i).getDate() > date_2)
+            if(stored_sessions.get(i).getDate().isBefore(date_1) || // todo: iterator instead?
+                    stored_sessions.get(i).getDate().isAfter(date_2))
                 stored_sessions.remove(i);
         }
         return stored_sessions;
     }
+
     /* reads datafile and returns ArrayList of Goals */
     public ArrayList<Goal> getGoals() {
         ArrayList<Goal> stored_goals = new ArrayList<Goal>();
@@ -119,6 +132,7 @@ public class DataHandler {
         }
         return stored_goals;
     }
+
     /* reads datafile and returns ArrayList of names of activities */
     public ArrayList<String> getActivities() {
         ArrayList<String> stored_activities = new ArrayList<String>();
@@ -128,6 +142,7 @@ public class DataHandler {
         }
         return stored_activities;
     }
+
     /* reads log and returns ArrayList of the num_sessions most recent sessions */
     public ArrayList<Session> getMostRecentSessions(int num_sessions) {
         /* get stored sessions from log, which are stored from newest to oldest */
@@ -137,6 +152,7 @@ public class DataHandler {
             recent_sessions.add(stored_sessions.get(i));
         return recent_sessions;
     }
+
     /* reads datafile and returns ArrayList of goals that are currently relevant
      * THIS DOES NOT FILTER OUT GOALS THAT HAVE BEEN COMPLETED */
     public ArrayList<Goal> getCurrentGoals() {
@@ -150,18 +166,21 @@ public class DataHandler {
         }
         return stored_goals;
     }
+
     /* adds session to log, by default as first session after "Logs:" */
     public boolean addSession(Session add) {
         ArrayList<String> data = getData();
         data.add(data.indexOf("Logs:") + 1, add.toString());
         return writeData(data);
     }
+
     /* adds activity to datafile under "Activities:" header */
     public boolean addActivity(String activity_name) {
         ArrayList<String> data = getData();
         data.add(data.indexOf("Activities") + 1, activity_name);
         return writeData(data);
     }
+
     /* removes activity from datafile */
     public boolean removeActivity(String activity_name) {
         ArrayList<String> data = getData();
@@ -171,12 +190,14 @@ public class DataHandler {
         }
         return writeData(data);
     }
+
     /* adds goal to datafile under "Goals:" header */
     public boolean addGoal(Goal add) {
         ArrayList<String> data = getData();
         data.add(data.indexOf("Goals:") + 1, add.toString());
         return writeData(data);
     }
+
     /* removes goal from datafile */
     public boolean removeGoal(Goal remove) {
         ArrayList<String> data = getData();
