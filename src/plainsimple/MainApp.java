@@ -85,6 +85,7 @@ public class MainApp extends Application {
         return primaryStage;
     }
 
+    /* pops up the "Log a Time" dialog */
     public boolean showLogTimeDialog() {
         try {
             /* load the fxml file and create a new stage for the popup dialog */
@@ -110,8 +111,15 @@ public class MainApp extends Application {
         } catch(IOException e) {
             e.printStackTrace();
             return false;
+        }
     }
-}
+
+    /* adds Session to sessionData, sorts sessionData, and recalculates stuff */
+    public void addSession(Session add) {
+        sessionData.add(add);
+        sessionData = SessionUtil.sort(sessionData);
+        // todo: add recalculation and access MainScreen somehow
+    }
 
     public static void main(String[] args) {
         launch(args);

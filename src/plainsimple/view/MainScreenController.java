@@ -62,7 +62,7 @@ public class MainScreenController {
         Session temp_session = new Session();
         boolean okClicked = mainApp.showLogTimeDialog();
             if (okClicked) { /* user has successfully added a session */
-                mainApp.getSessionData().add(temp_session);
+                mainApp.addSession(temp_session);
             }
     }
 
