@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.view.LogTimeDialogController;
+import plainsimple.view.MainScreenController;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
    as the root stage */
@@ -20,7 +21,8 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     /* Sessions stored as an observable list */
-    private ObservableList<Session> sessionData = FXCollections.observableArrayList();
+    private ObservableList<Session> sessionData =
+            FXCollections.observableArrayList();
 
     /* constructor */
     public MainApp() {
@@ -68,6 +70,11 @@ public class MainApp extends Application {
 
             /* set MainScreen in center of root layout */
             rootLayout.setCenter(personOverview);
+
+            /* give controller access to MainApp and stored data */
+            MainScreenController controller = loader.getController();
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

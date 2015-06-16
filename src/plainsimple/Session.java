@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 
 /* Model class for a Session
@@ -15,27 +17,27 @@ import java.util.Calendar;
 public class Session {
 
     private final StringProperty activity;
-    private final ObjectProperty<Long> time_practiced;
-    private final ObjectProperty<Long> date;
+    private LocalTime time_practiced;
+    private LocalDate date;
 
     /* default constructor */
     public Session() {
-        this("", 0, 0);
+        this("", LocalTime.now(), LocalDate.now());
     }
 
     /* constructs Session using given parameters */
-    public Session(String activity, long time_practiced, long date) {
+    public Session(String activity, LocalTime time_practiced, LocalDate date) {
         this.activity = new SimpleStringProperty(activity);
-        this.time_practiced = new SimpleObjectProperty<Long>(time_practiced);
-        this.date = new SimpleObjectProperty<Long>(date);
+        this.time_practiced = time_practiced;
+        this.date = date;
     }
 
     /* constructs Session using data from log, which is in format "[activity],[time_practiced],[date]" */
     public Session(String log) throws Exception {
         String data[] = log.split(","); // does comma need to be escaped?
         this.activity = new SimpleStringProperty(data[0]);
-        this.time_practiced = new SimpleObjectProperty<Long>(Long.parseLong(data[1]));
-        this.date = new SimpleObjectProperty<Long>(Long.parseLong(data[2]));
+        this.time_practiced = LocalTime.parse(data[1]);
+        this.date = LocalDate.parse(data[2]);
     }
 
     public String getActivity() {
@@ -50,32 +52,28 @@ public class Session {
         return activity;
     }
 
-    public long getTimePracticed() {
-        return time_practiced.get();
-    }
-
-    public void setTimePracticed(long time_practiced) {
-        this.time_practiced.set(time_practiced);
-    }
-
-    public ObjectProperty<Long> timePracticedProperty() {
+    public LocalTime getTimePracticed() {
         return time_practiced;
     }
 
-    public long getDate() {
-        return date.get();
+    public void setTimePracticed(LocalTime time_practiced) {
+        this.time_practiced = time_practiced;
     }
 
-    public void setDate(long date) {
-        this.date.set(date);
+    public StringProperty timePracticedProperty() {
+        return new SimpleStringProperty(time_practiced.toString());
     }
 
-    public void setDate(Calendar date) {
-        this.date.set(date.getTimeInMillis());
-    }
-
-    public ObjectProperty<Long> dateProperty() {
+    public LocalDate getDate() {
         return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public StringProperty dateProperty() {
+        return new SimpleStringProperty(date.toString());
     }
 
     /* returns a String representation of session, for logging purposes */

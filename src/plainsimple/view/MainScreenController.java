@@ -11,6 +11,9 @@ import plainsimple.DataHandler;
 import plainsimple.MainApp;
 import plainsimple.Session;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /* Controller Class for the MainScreen */
 public class MainScreenController {
 
@@ -38,9 +41,8 @@ public class MainScreenController {
      * called automatically once fxml file has been loaded */
     @FXML private void initialize() {
         activity_column.setCellValueFactory(cellData -> cellData.getValue().activityProperty());
-        // todo: need to figure this out. need to represent as a string yet store info as a long
-        //timePracticed_column.setCellValueFactory(cellData -> cellData.getValue().timePracticedProperty());
-        //date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        timePracticed_column.setCellValueFactory(cellData -> cellData.getValue().timePracticedProperty());
+        date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
     }
 
     /* set main app */
