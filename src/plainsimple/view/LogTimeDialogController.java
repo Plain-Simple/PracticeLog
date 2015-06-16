@@ -39,6 +39,15 @@ public class LogTimeDialogController {
         this.dialogStage = dialogStage;
     }
 
+    /* sets Session to be edited in dialog
+     * currently not in use */
+    public void setSession(Session session) {
+        activity_field.setText(session.getActivity());
+        hrs_field.setText(Integer.toString(session.getTimePracticed().getHour()));
+        min_field.setText(Integer.toString(session.getTimePracticed().getMinute()));
+        //date_picker.setChronology(); // todo: set datepicker to correct date
+    }
+
     /* returns whether user has clicked the "Ok" button */
     public boolean isOkClicked() {
         return okClicked;
@@ -49,9 +58,13 @@ public class LogTimeDialogController {
     private void handleOk() {
         if (isInputValid()) {  /* isInputValid() will take care of any input errors */
             okClicked = true;
+            session = new Session();
             session.setActivity(activity_field.getText());
             session.setTimePracticed(getPracticeTime());
             session.setDate(date_picker.getValue());
+            System.out.println("Activity:" + activity_field.getText() +
+                    "\nTime Practiced:" + getPracticeTime() + "\nDate:" + date_picker.getValue()
+                    + "\nLog:" + session.toString());
             dialogStage.close();
         }
     }
@@ -65,25 +78,26 @@ public class LogTimeDialogController {
     private boolean isInputValid() {
         String error_message = "";
         if(isEmpty(activity_field))
-            error_message += "Missing Activity Name";
+            error_message += "Missing Activity Name\n";
         if(isEmpty(min_field) && isEmpty(hrs_field)) { /* at least one must have text */
-            error_message += "Missing Time Practiced";
+            error_message += "Missing Time Practiced\n";
         } else if(!isEmpty(min_field)) { /* validate field if it has text */
             try {
                 Integer.parseInt(min_field.getText());
             } catch(NumberFormatException e) {
-                error_message += "Min Practiced Must be an Integer";
+                error_message += "Min Practiced Must be an Integer\n";
             }
         } else if(!isEmpty(hrs_field)) { /* validate field if it has text */
             try {
                 Integer.parseInt(hrs_field.getText());
             } catch (NumberFormatException e) {
-                error_message += "Hrs Practiced Must be an Integer";
+                error_message += "Hrs Practiced Must be an Integer\n";
             }
         }
         if(error_message.length() == 0) {
             return true;
         } else {
+            System.out.println(error_message);
             /* popup error message */ // todo: find workaround for javafx Alert
             //Alert alert = new Alert(AlertType.ERROR);
             //alert.initOwner(dialogStage);
@@ -99,19 +113,16 @@ public class LogTimeDialogController {
         return field.getText() == null || field.getText().length() == 0;
     }
 
-    /* constructs LocalTime object using entries from "hrs" and "min" fields of dialog */
+    /* constructs LocalTime object using entries from "hrs" and "min" fields of dialog
+     * entries must me validated first with isValid() method */
     private LocalTime getPracticeTime() {
-        String time = "";
-        if(isEmpty(hrs_field)) {
-            time += "00:";
-        } else {
-            time += hrs_field.getText() + ":";
+        int hrs = 0, min = 0;
+        if(!isEmpty(hrs_field)) {
+            hrs = Integer.parseInt(hrs_field.getText());
         }
-        if(isEmpty(min_field)) {
-            time += "00:";
-        } else {
-            time += min_field.getText() + ":";
+        if(!isEmpty(min_field)) {
+            min = Integer.parseInt(min_field.getText());
         }
-        return LocalTime.parse(time + "00");
+        return LocalTime.of(hrs, min);
     }
  }

@@ -59,10 +59,10 @@ public class MainScreenController {
 
     /* handles user pressing the "Log a Time" button */
     @FXML private void handleLogTime() {
-        Session tempSession = new Session();
+        Session temp_session = new Session();
         boolean okClicked = mainApp.showLogTimeDialog();
             if (okClicked) { /* user has successfully added a session */
-
+                mainApp.getSessionData().add(temp_session);
             }
     }
 
