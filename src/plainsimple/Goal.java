@@ -63,8 +63,8 @@ public class Goal {
             if (time_limit != 0) { /* a time limit was specified */
                 long end_time = start_time + time_limit;
                 for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getDate() < start_time
-                            || data.get(i).getDate() > end_time)
+                   // if (data.get(i).getDate() < start_time
+                   //        || data.get(i).getDate() > end_time)
                         data.remove(i); /* remove sessions that happened before/after goal_time limit */
                 }
             }
@@ -86,7 +86,7 @@ public class Goal {
          if(goal_time != 0) { /* goal time specified */
              long time_spent = 0;
              for (int i = 0; i < data.size(); i++)
-                 time_spent += data.get(i).getTimePracticed();
+                // time_spent += data.get(i).getTimePracticed();
              /* total time spent, in milliseconds */
              progress[0] = time_spent;
             /* calculated as total time spent during relevant sessions divided by target time */
