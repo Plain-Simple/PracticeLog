@@ -4,16 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 //import javafx.scene.control.Alert;
 //import javafx.scene.control.Alert.AlertType; // todo: get Alert working
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import plainsimple.DataHandler;
+import javafx.util.Callback;
 import plainsimple.Session;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 /* Controller class for "Log a Time" dialog, which allows user to enter a
  * new Session to the log */
@@ -33,6 +32,23 @@ public class LogTimeDialogController {
      * called automatically once fxml file has been loaded */
     @FXML
     private void initialize() {
+        /* disable all DateCells after today's date (see Oracle's "Working With JavaFX UI Components" #26) */
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                if (item.isAfter(LocalDate.now())) {
+                                    setDisable(true);
+                                }
+                            }
+                        };
+                    }
+                };
+        date_picker.setDayCellFactory(dayCellFactory);
     }
 
     /* sets stage of dialog  */
@@ -48,7 +64,7 @@ public class LogTimeDialogController {
             hrs_field.setText(Integer.toString(session.getTimePracticed().getHour()));
         if(session.getTimePracticed().getMinute() != 0)
             min_field.setText(Integer.toString(session.getTimePracticed().getMinute()));
-        date_picker.setValue(LocalDate.now()); // todo: set datepicker to correct date
+        date_picker.setValue(LocalDate.now());
     }
 
     /* returns whether user has clicked the "Ok" button */

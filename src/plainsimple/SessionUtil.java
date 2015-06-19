@@ -57,7 +57,7 @@ public class SessionUtil {
     /* returns ObservableList of Sessions that happened in the last [days] days */
     public static ObservableList<Session> getRecentSessions(ObservableList<Session> data, int days) {
         /* calculate "cutoff" date, which is today's date minus days */
-        LocalDate cut_off = LocalDate.now().minusDays(days);
+        LocalDate cut_off = LocalDate.now().minusDays(days - 1);
         for(int i = 0; i < data.size(); i++) {
             if(data.get(i).getDate().isBefore(cut_off))
                 data.remove(i);
@@ -70,7 +70,9 @@ public class SessionUtil {
         double total = 0.0;
         for(int i = 0; i < data.size(); i++) {
             total += data.get(i).getTimePracticed().getHour();
+            System.out.println("Total = " + total);
             total += data.get(i).getTimePracticed().getMinute() / 60;
+            System.out.println("Total = " + total);
         }
         return total;
     }
