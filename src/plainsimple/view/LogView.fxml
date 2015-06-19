@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="69.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="211.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Practice Log">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
+            <Text layoutX="248.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartDate - EndDate">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <ScrollPane layoutX="11.0" layoutY="75.0" prefHeight="374.0" prefWidth="578.0">
+         <content>
+            <TextArea prefHeight="0.0" prefWidth="576.0" />
+         </content>
+      </ScrollPane>
+      <Button layoutX="260.0" layoutY="455.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Close" />
+   </children>
+</AnchorPane>
