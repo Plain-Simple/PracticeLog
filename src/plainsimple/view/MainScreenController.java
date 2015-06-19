@@ -65,8 +65,7 @@ public class MainScreenController {
             if (okClicked) { /* user has successfully added a session */
                 mainApp.getSessionData().add(temp_session);
                 SessionUtil.sort(mainApp.getSessionData());
-
-                //setHoursToday(SessionUtil.) // todo: recalculate stuff
+                //setHoursToday(SessionUtil.getRecentSessions(mainApp.getSessionData(), 1)) // todo: recalculate stuff
             }
     }
 
