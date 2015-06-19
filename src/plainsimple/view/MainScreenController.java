@@ -84,6 +84,7 @@ public class MainScreenController {
 
 
     }
+    
     /* handles user pressing the "Set a Goal" button */
     @FXML private void handleSetGoal() {
 
