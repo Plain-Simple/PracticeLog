@@ -22,7 +22,7 @@ public class Session {
 
     /* default constructor */
     public Session() {
-        this("", LocalTime.now(), LocalDate.now());
+        this("", LocalTime.of(0, 0), LocalDate.now());
     }
 
     /* constructs Session using given parameters */

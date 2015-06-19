@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import plainsimple.DataHandler;
 import plainsimple.Session;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 
@@ -42,10 +43,12 @@ public class LogTimeDialogController {
     /* sets Session to be edited in dialog */
     public void setSession(Session session) {
         this.session = session;
-        /*activity_field.setText(session.getActivity());
-        hrs_field.setText(Integer.toString(session.getTimePracticed().getHour()));
-        min_field.setText(Integer.toString(session.getTimePracticed().getMinute()));
-        //date_picker.setChronology(); */// todo: set datepicker to correct date
+        activity_field.setText(session.getActivity());
+        if(session.getTimePracticed().getHour() != 0)
+            hrs_field.setText(Integer.toString(session.getTimePracticed().getHour()));
+        if(session.getTimePracticed().getMinute() != 0)
+            min_field.setText(Integer.toString(session.getTimePracticed().getMinute()));
+        date_picker.setValue(LocalDate.now()); // todo: set datepicker to correct date
     }
 
     /* returns whether user has clicked the "Ok" button */
