@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import plainsimple.DataHandler;
 import plainsimple.MainApp;
 import plainsimple.Session;
+import plainsimple.SessionUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,7 +49,7 @@ public class MainScreenController {
     /* set main app */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        /* add observable list data to the table */
+        /* add observable list data to session_table */
         session_table.setItems(mainApp.getSessionData());
     }
 
@@ -60,9 +61,12 @@ public class MainScreenController {
     /* handles user pressing the "Log a Time" button */
     @FXML private void handleLogTime() {
         Session temp_session = new Session();
-        boolean okClicked = mainApp.showLogTimeDialog();
+        boolean okClicked = mainApp.showLogTimeDialog(temp_session);
             if (okClicked) { /* user has successfully added a session */
-                mainApp.addSession(temp_session);
+                mainApp.getSessionData().add(temp_session);
+                SessionUtil.sort(mainApp.getSessionData());
+
+                //setHoursToday(SessionUtil.) // todo: recalculate stuff
             }
     }
 
@@ -82,22 +86,20 @@ public class MainScreenController {
     }
 
     /* sets value of hours practiced today */
-    public void setHoursToday(double hours) {
-        hrs_today.setText(Double.toString(hours));
-    }
+    public void setHoursToday(double hours) { hrs_today.setText(Double.toString(hours) + " Hours"); }
 
     /* sets value of hours practiced last 7 days */
     public void setHours7Days(double hours) {
-        hrs_7days.setText(Double.toString(hours));
+        hrs_7days.setText(Double.toString(hours) + " Hours");
     }
 
     /* sets value of hours practiced last 30 days */
     public void setHours30Days(double hours) {
-        hrs_30days.setText(Double.toString(hours));
+        hrs_30days.setText(Double.toString(hours) + "Hours");
     }
 
     /* sets value of hours practiced last 365 days */
     public void setHours365Days(double hours) {
-        hrs_365days.setText(Double.toString(hours));
+        hrs_365days.setText(Double.toString(hours) + "Hours");
     }
 }

@@ -86,7 +86,7 @@ public class MainApp extends Application {
     }
 
     /* pops up the "Log a Time" dialog */
-    public boolean showLogTimeDialog() {
+    public boolean showLogTimeDialog(Session new_session) {
         try {
             /* load the fxml file and create a new stage for the popup dialog */
             FXMLLoader loader = new FXMLLoader();
@@ -103,6 +103,7 @@ public class MainApp extends Application {
 
             LogTimeDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setSession(new_session);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -112,13 +113,6 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /* adds Session to sessionData, sorts sessionData, and recalculates stuff */
-    public void addSession(Session add) {
-        sessionData.add(add);
-        sessionData = SessionUtil.sort(sessionData);
-        // todo: add recalculation and access MainScreen somehow
     }
 
     public static void main(String[] args) {

@@ -39,13 +39,13 @@ public class LogTimeDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /* sets Session to be edited in dialog
-     * currently not in use */
+    /* sets Session to be edited in dialog */
     public void setSession(Session session) {
-        activity_field.setText(session.getActivity());
+        this.session = session;
+        /*activity_field.setText(session.getActivity());
         hrs_field.setText(Integer.toString(session.getTimePracticed().getHour()));
         min_field.setText(Integer.toString(session.getTimePracticed().getMinute()));
-        //date_picker.setChronology(); // todo: set datepicker to correct date
+        //date_picker.setChronology(); */// todo: set datepicker to correct date
     }
 
     /* returns whether user has clicked the "Ok" button */
@@ -58,13 +58,15 @@ public class LogTimeDialogController {
     private void handleOk() {
         if (isInputValid()) {  /* isInputValid() will take care of any input errors */
             okClicked = true;
-            session = new Session();
+            if(session == null)
+                session = new Session();
             session.setActivity(activity_field.getText());
             session.setTimePracticed(getPracticeTime());
             session.setDate(date_picker.getValue());
-            System.out.println("Activity:" + activity_field.getText() +
+            System.out.println("LogTimeDialogController.java:\nActivity:" + activity_field.getText() +
                     "\nTime Practiced:" + getPracticeTime() + "\nDate:" + date_picker.getValue()
                     + "\nLog:" + session.toString());
+            System.out.println("Time Practiced:" + session.activityProperty());
             dialogStage.close();
         }
     }

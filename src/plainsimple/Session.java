@@ -60,8 +60,14 @@ public class Session {
         this.time_practiced = time_practiced;
     }
 
+    /* returns time_practiced as a StringProperty in custom format */
     public StringProperty timePracticedProperty() {
-        return new SimpleStringProperty(time_practiced.toString());
+        String time = "";
+        if(time_practiced.getHour() != 0)
+            time += time_practiced.getHour() + "h";
+        if(time_practiced.getMinute() != 0)
+            time += time_practiced.getMinute() + "m";
+        return new SimpleStringProperty(time);
     }
 
     public LocalDate getDate() {
