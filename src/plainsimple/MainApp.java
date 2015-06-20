@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.view.LogTimeDialogController;
+import plainsimple.view.LogViewController;
 import plainsimple.view.MainScreenController;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
@@ -24,12 +25,12 @@ public class MainApp extends Application {
     private ObservableList<Session> sessionData =
             FXCollections.observableArrayList();
 
-    /* constructor */
+    /* Constructor */
     public MainApp() {
         // todo: read datafile and add to sessionData
     }
 
-    /* returns sessionData */
+    /* Returns sessionData */
     public ObservableList<Session> getSessionData() { return sessionData; }
 
     @Override
@@ -42,7 +43,7 @@ public class MainApp extends Application {
         showMainScreen();
     }
 
-    /* initializes root layout */
+    /* Initializes root layout */
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -58,7 +59,7 @@ public class MainApp extends Application {
         }
     }
 
-    /* shows mainscreen inside root layout */
+    /* Shows mainscreen inside root layout */
     public void showMainScreen() {
         try {
             /* load MainScreen.fxml */
@@ -78,12 +79,17 @@ public class MainApp extends Application {
         }
     }
 
-    /* returns main stage */
+    /* Returns main stage */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    /* pops up the "Log a Time" dialog */
+    /* Pops up the "Log a Time" dialog to edit/create a new Session
+     * If the user clicks OK, the changes are saved into the provided
+     * Session object and true is returned.
+     *
+     * @param person the Session object to be edited
+     * @return true if the user clicked OK, false otherwise. */
     public boolean showLogTimeDialog(Session new_session) {
         try {
             /* load the fxml file and create a new stage for the popup dialog */
@@ -108,6 +114,41 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
         } catch(IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /* Pops up the "See Full Log" dialog to show the full practice log
+     *
+     * @param data the ObservableList of Session data to be displayed
+     * @return true if the dialog displayed correctly, false otherwise */
+    public boolean showLogViewDialog(ObservableList<Session> data) {
+        try {
+            /* Load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/LogView.fxml"));
+            AnchorPane page = loader.load();
+
+            /* Create the dialog Stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("View Log");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            /* Sets controller's data */
+            LogViewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setData(data);
+
+            /* Show the dialog and wait until the user closes it */
+            dialogStage.showAndWait();
+
+            return true;
+
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

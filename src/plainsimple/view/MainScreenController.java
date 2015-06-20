@@ -106,7 +106,10 @@ public class MainScreenController {
 
     /* handles user pressing the "See Full Log" button */
     @FXML private void handleShowLog() {
-
+        boolean okClicked = mainApp.showLogViewDialog(mainApp.getSessionData());
+        if (false) {
+            System.out.println("Error occurred");
+        }
     }
 
     /* handles user pressing the "More Detailed Analytics" button */

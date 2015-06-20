@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.LogViewController">
    <children>
       <Pane prefHeight="69.0" prefWidth="600.0">
          <children>
@@ -15,7 +14,7 @@
                   <Font size="33.0" />
                </font>
             </Text>
-            <Text layoutX="248.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartDate - EndDate">
+            <Text fx:id="sub_heading" layoutX="248.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StartDate - EndDate">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
@@ -24,9 +23,9 @@
       </Pane>
       <ScrollPane layoutX="11.0" layoutY="75.0" prefHeight="374.0" prefWidth="578.0">
          <content>
-            <TextArea prefHeight="0.0" prefWidth="576.0" />
+            <TextArea fx:id="log_display" prefHeight="0.0" prefWidth="576.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="260.0" layoutY="455.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Close" />
+      <Button layoutX="260.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="25.0" prefWidth="81.0" text="Close" />
    </children>
 </AnchorPane>
