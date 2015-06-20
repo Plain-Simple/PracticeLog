@@ -58,6 +58,16 @@ public class Session {
         this.time_practiced = time_practiced;
     }
 
+    /* returns time_practiced as a String in custom format */
+    public String timePracticedString() {
+        String time = "";
+        if(time_practiced.getHour() != 0)
+            time += time_practiced.getHour() + "h";
+        if(time_practiced.getMinute() != 0)
+            time += time_practiced.getMinute() + "m";
+        return time;
+    }
+
     /* returns time_practiced as a StringProperty in custom format */
     public StringProperty timePracticedProperty() {
         String time = "";
@@ -75,6 +85,8 @@ public class Session {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public String dateString() { return DateUtil.format(date); }
 
     public StringProperty dateProperty() { return new SimpleStringProperty(DateUtil.format(date)); }
 

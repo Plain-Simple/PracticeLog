@@ -51,7 +51,62 @@ public class LogViewController {
     }
 
     /* Sets "log_display" textarea using data */
-    private void setLogDisplay() {
+    private void setLogDisplay() { // todo: painful to look at
+        String log = "";
+        Session this_session;
+        int firstColumn_width = 0;
+        int secondColumn_width = 0;
+        int thirdColumn_width = 0;
+        /* space between columns */
+        int columnSeparation = 5;
+        /* total width of table */
+        int total_width = 0;
 
+        /* Speed up - If no Sessions to show display "No Data to Show" */
+        if(data.isEmpty())
+            log = "Log is Empty: No Sessions to Show";
+        else {
+        /* Establish length of longest String in each column */
+            for (int i = 0; i < data.size(); i++) {
+                this_session = data.get(i);
+                if (this_session.getActivity().length() > firstColumn_width)
+                    firstColumn_width = this_session.getActivity().length();
+                if (this_session.timePracticedString().length() > secondColumn_width)
+                    secondColumn_width = this_session.timePracticedProperty().get().length();
+                if (this_session.dateString().length() > thirdColumn_width)
+                    thirdColumn_width = this_session.dateString().length();
+            }
+
+        /* Format first two rows */
+            log = "Activity";
+            firstColumn_width += columnSeparation;
+            for (int i = 0; i < firstColumn_width; i++)
+                log += " ";
+            log += "Time Practiced";
+            secondColumn_width += columnSeparation;
+            for (int i = 0; i < secondColumn_width; i++)
+                log += " ";
+            log += "Date";
+            thirdColumn_width += columnSeparation;
+            for (int i = 0; i < thirdColumn_width; i++)
+                log += " ";
+            log += "\n";
+            for (int i = 0; i < total_width; i++)
+                log += "-";
+
+        /* Fill the table with information from data */
+            for (int i = 0; i < data.size(); i++) {
+                log += data.get(i).getActivity();
+                for (int j = data.get(i).getActivity().length(); j < firstColumn_width; j++)
+                    log += " ";
+                log += data.get(i).timePracticedString();
+                for (int j = data.get(i).timePracticedString().length(); j < secondColumn_width; j++)
+                    log += " ";
+                log += data.get(i).dateString() + "\n";
+            }
+        }
+        
+        /* Set textarea */
+        log_display.setText(log);
     }
 }
