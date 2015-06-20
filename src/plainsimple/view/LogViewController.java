@@ -45,6 +45,8 @@ public class LogViewController {
     private void setSubHeading() {
         if(data.size() == 0) /* Nothing to show */
             sub_heading.setText("");
+        else if(data.size() == 1)
+            sub_heading.setText(DateUtil.format(data.get(0).getDate()));
         else
             sub_heading.setText(DateUtil.format(SessionUtil.getOldestDate(data)) +
                     " - " + DateUtil.format(SessionUtil.getNewestDate(data)));
@@ -54,11 +56,11 @@ public class LogViewController {
     private void setLogDisplay() { // todo: painful to look at
         String log = "";
         Session this_session;
-        int firstColumn_width = 0;
-        int secondColumn_width = 0;
-        int thirdColumn_width = 0;
         /* space between columns */
         int columnSeparation = 5;
+        int firstColumn_width = "Activity".length() + columnSeparation;
+        int secondColumn_width = "Time Practiced".length() + columnSeparation;
+        int thirdColumn_width = "Date".length() + columnSeparation;
         /* total width of table */
         int total_width = 0;
 
@@ -105,7 +107,7 @@ public class LogViewController {
                 log += data.get(i).dateString() + "\n";
             }
         }
-        
+
         /* Set textarea */
         log_display.setText(log);
     }
