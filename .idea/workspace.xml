@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdbf90ba-1a87-4859-99c0-50d8335f726f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/plainsimple/DateUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/PracticeLog/plainsimple/Session.class" afterPath="$PROJECT_DIR$/out/production/PracticeLog/plainsimple/Session.class" />
+      <change type="MOVED" beforePath="C:\Users\Stefan\Documents\GitHub\PracticeLog\src\plainsimple\DateUtil.java" afterPath="$PROJECT_DIR$/src/plainsimple/util/DateUtil.java" />
+      <change type="MOVED" beforePath="C:\Users\Stefan\Documents\GitHub\PracticeLog\src\plainsimple\SessionUtil.java" afterPath="$PROJECT_DIR$/src/plainsimple/util/SessionUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/view/LogViewController.java" afterPath="$PROJECT_DIR$/src/plainsimple/view/LogViewController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java" afterPath="$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/Session.java" afterPath="$PROJECT_DIR$/src/plainsimple/Session.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PracticeLog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +34,8 @@
       <file leaf-file-name="Session.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plainsimple/Session.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1224">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="827" max-vertical-offset="1241">
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -64,24 +64,24 @@
               <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#762#763#0" expanded="true" />
-                <element signature="e#808#809#0" expanded="true" />
-                <element signature="e#1087#1088#0" expanded="true" />
-                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#772#773#0" expanded="true" />
+                <element signature="e#818#819#0" expanded="true" />
+                <element signature="e#1097#1098#0" expanded="true" />
+                <element signature="e#1132#1133#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="DateUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/plainsimple/DateUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/plainsimple/util/DateUtil.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="986">
               <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1753#1754#0" expanded="true" />
-                <element signature="e#1810#1811#0" expanded="true" />
+                <element signature="e#1758#1759#0" expanded="true" />
+                <element signature="e#1815#1816#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,28 +90,28 @@
       <file leaf-file-name="MainScreenController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="661" max-vertical-offset="2465">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="2380">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4367#4368#0" expanded="true" />
-                <element signature="e#4441#4442#0" expanded="true" />
-                <element signature="e#4539#4540#0" expanded="true" />
-                <element signature="e#4613#4614#0" expanded="true" />
-                <element signature="e#4713#4714#0" expanded="true" />
-                <element signature="e#4788#4789#0" expanded="true" />
-                <element signature="e#4890#4891#0" expanded="true" />
-                <element signature="e#4966#4967#0" expanded="true" />
+                <element signature="e#4203#4204#0" expanded="true" />
+                <element signature="e#4277#4278#0" expanded="true" />
+                <element signature="e#4375#4376#0" expanded="true" />
+                <element signature="e#4449#4450#0" expanded="true" />
+                <element signature="e#4549#4550#0" expanded="true" />
+                <element signature="e#4624#4625#0" expanded="true" />
+                <element signature="e#4726#4727#0" expanded="true" />
+                <element signature="e#4802#4803#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="SessionUtil.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/plainsimple/SessionUtil.java">
+        <entry file="file://$PROJECT_DIR$/src/plainsimple/util/SessionUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1184" max-vertical-offset="1972">
-              <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1201" max-vertical-offset="1989">
+              <caret line="108" column="22" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -243,6 +243,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="view" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PracticeLog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PracticeLog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plainsimple" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -479,7 +501,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -494,7 +516,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30503145" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13543192" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13543192" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -574,14 +596,14 @@
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4367#4368#0" expanded="true" />
-            <element signature="e#4441#4442#0" expanded="true" />
-            <element signature="e#4539#4540#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4713#4714#0" expanded="true" />
-            <element signature="e#4788#4789#0" expanded="true" />
-            <element signature="e#4890#4891#0" expanded="true" />
-            <element signature="e#4966#4967#0" expanded="true" />
+            <element signature="e#4203#4204#0" expanded="true" />
+            <element signature="e#4277#4278#0" expanded="true" />
+            <element signature="e#4375#4376#0" expanded="true" />
+            <element signature="e#4449#4450#0" expanded="true" />
+            <element signature="e#4549#4550#0" expanded="true" />
+            <element signature="e#4624#4625#0" expanded="true" />
+            <element signature="e#4726#4727#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -647,14 +669,14 @@
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4367#4368#0" expanded="true" />
-            <element signature="e#4441#4442#0" expanded="true" />
-            <element signature="e#4539#4540#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4713#4714#0" expanded="true" />
-            <element signature="e#4788#4789#0" expanded="true" />
-            <element signature="e#4890#4891#0" expanded="true" />
-            <element signature="e#4966#4967#0" expanded="true" />
+            <element signature="e#4203#4204#0" expanded="true" />
+            <element signature="e#4277#4278#0" expanded="true" />
+            <element signature="e#4375#4376#0" expanded="true" />
+            <element signature="e#4449#4450#0" expanded="true" />
+            <element signature="e#4549#4550#0" expanded="true" />
+            <element signature="e#4624#4625#0" expanded="true" />
+            <element signature="e#4726#4727#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -720,14 +742,14 @@
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4367#4368#0" expanded="true" />
-            <element signature="e#4441#4442#0" expanded="true" />
-            <element signature="e#4539#4540#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4713#4714#0" expanded="true" />
-            <element signature="e#4788#4789#0" expanded="true" />
-            <element signature="e#4890#4891#0" expanded="true" />
-            <element signature="e#4966#4967#0" expanded="true" />
+            <element signature="e#4203#4204#0" expanded="true" />
+            <element signature="e#4277#4278#0" expanded="true" />
+            <element signature="e#4375#4376#0" expanded="true" />
+            <element signature="e#4449#4450#0" expanded="true" />
+            <element signature="e#4549#4550#0" expanded="true" />
+            <element signature="e#4624#4625#0" expanded="true" />
+            <element signature="e#4726#4727#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -950,10 +972,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plainsimple/SessionUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/plainsimple/util/SessionUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1541" max-vertical-offset="1972">
-          <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1201" max-vertical-offset="1989">
+          <caret line="108" column="22" selection-start-line="108" selection-start-column="22" selection-end-line="108" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -962,30 +984,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="661" max-vertical-offset="2465">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="576" max-vertical-offset="2380">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4367#4368#0" expanded="true" />
-            <element signature="e#4441#4442#0" expanded="true" />
-            <element signature="e#4539#4540#0" expanded="true" />
-            <element signature="e#4613#4614#0" expanded="true" />
-            <element signature="e#4713#4714#0" expanded="true" />
-            <element signature="e#4788#4789#0" expanded="true" />
-            <element signature="e#4890#4891#0" expanded="true" />
-            <element signature="e#4966#4967#0" expanded="true" />
+            <element signature="e#4203#4204#0" expanded="true" />
+            <element signature="e#4277#4278#0" expanded="true" />
+            <element signature="e#4375#4376#0" expanded="true" />
+            <element signature="e#4449#4450#0" expanded="true" />
+            <element signature="e#4549#4550#0" expanded="true" />
+            <element signature="e#4624#4625#0" expanded="true" />
+            <element signature="e#4726#4727#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/plainsimple/DateUtil.java">
+    <entry file="file://$PROJECT_DIR$/src/plainsimple/util/DateUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="181" max-vertical-offset="986">
           <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1753#1754#0" expanded="true" />
-            <element signature="e#1810#1811#0" expanded="true" />
+            <element signature="e#1758#1759#0" expanded="true" />
+            <element signature="e#1815#1816#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1008,8 +1030,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/plainsimple/Session.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="1224">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="827" max-vertical-offset="1241">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1032,10 +1054,10 @@
           <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#762#763#0" expanded="true" />
-            <element signature="e#808#809#0" expanded="true" />
-            <element signature="e#1087#1088#0" expanded="true" />
-            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#818#819#0" expanded="true" />
+            <element signature="e#1097#1098#0" expanded="true" />
+            <element signature="e#1132#1133#0" expanded="true" />
           </folding>
         </state>
       </provider>

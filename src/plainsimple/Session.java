@@ -2,6 +2,7 @@ package plainsimple;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import plainsimple.util.DateUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

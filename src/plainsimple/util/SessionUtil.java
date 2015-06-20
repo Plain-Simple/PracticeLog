@@ -1,6 +1,7 @@
-package plainsimple;
+package plainsimple.util;
 
 import javafx.collections.ObservableList;
+import plainsimple.Session;
 
 import java.time.LocalDate;
 import java.util.Collections;

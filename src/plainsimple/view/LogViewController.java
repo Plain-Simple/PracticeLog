@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import plainsimple.DateUtil;
+import plainsimple.util.DateUtil;
 import plainsimple.Session;
-import plainsimple.SessionUtil;
+import plainsimple.util.SessionUtil;
 
 /* Dialog to display full practice log */
 public class LogViewController {

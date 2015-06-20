@@ -1,21 +1,16 @@
 package plainsimple.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-import plainsimple.DataHandler;
 import plainsimple.MainApp;
 import plainsimple.Session;
-import plainsimple.SessionUtil;
+import plainsimple.util.SessionUtil;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Period;
-import java.time.temporal.ChronoUnit;
 
 /* Controller Class for the MainScreen */
 public class MainScreenController {
