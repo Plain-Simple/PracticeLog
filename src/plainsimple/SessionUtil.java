@@ -9,7 +9,7 @@ import java.util.Comparator;
 /* Helper functions for handling Sessions */
 public class SessionUtil {
 
-    /* sorts data by date, from newest to oldest */
+    /* Sorts data by date, from newest to oldest */
     public static ObservableList<Session> sort(ObservableList<Session> data) {
         int calculations = 0;
         int counter;
@@ -33,7 +33,7 @@ public class SessionUtil {
         return data;
     }
 
-    /* returns ObservableList of all Sessions that happened between specified times */
+    /* Returns ObservableList of all Sessions that happened between specified times */
     public static ObservableList<Session> getSessionsWithinDates(ObservableList<Session> data, LocalDate date_1, LocalDate date_2) {
         boolean equal = false; /* date_1 == date_2 */
         if(date_1.isEqual(date_2)) {
@@ -60,7 +60,7 @@ public class SessionUtil {
         return data;
     }
 
-    /* returns ObservableList of Sessions that happened in the last [days] days */
+    /* Returns ObservableList of Sessions that happened in the last [days] days */
     public static ObservableList<Session> getRecentSessions(ObservableList<Session> data, int days) {
         /* calculate "cutoff" date
          * for this to work we need to take today's date minus days and add one
@@ -73,7 +73,7 @@ public class SessionUtil {
         return data;
     }
 
-    /* returns total hours of practice time of all sessions in ObservableList */
+    /* Returns total hours of practice time of all sessions in ObservableList */
     public static float getTotalHours(ObservableList<Session> data) {
         float total = 0.0f;
         for(int i = 0; i < data.size(); i++) {
@@ -81,5 +81,30 @@ public class SessionUtil {
             total += (float) data.get(i).getTimePracticed().getMinute() / 60;
         }
         return total;
+    }
+
+    /* Returns date of most recent Session in ObservableList */
+    public static LocalDate getNewestDate(ObservableList<Session> data) {
+        LocalDate most_recent = data.get(0).getDate();
+
+        for(int i = 0; i < data.size(); i++) {
+            /* Speed up - can't get more recent than today */
+            if(data.get(i).getDate().isEqual(LocalDate.now()))
+                return data.get(i).getDate();
+            if(data.get(i).getDate().isAfter(most_recent))
+                most_recent = data.get(i).getDate();
+        }
+        return most_recent;
+    }
+
+    /* Returns date of oldest Session in ObservableList */
+    public static LocalDate getOldestDate(ObservableList<Session> data) {
+        LocalDate oldest = data.get(0).getDate();
+
+        for(int i = 0; i < data.size(); i++) {
+            if(data.get(i).getDate().isBefore(oldest))
+                oldest = data.get(i).getDate();
+        }
+        return oldest;
     }
 }

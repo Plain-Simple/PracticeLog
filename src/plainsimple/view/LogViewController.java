@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import plainsimple.Session;
+import plainsimple.SessionUtil;
 
 /* Dialog to display full practice log */
 public class LogViewController {
@@ -41,11 +42,14 @@ public class LogViewController {
 
     /* Sets "sub_heading" text using data */
     private void setSubHeading() {
-
+        if(data.size() == 0) /* Nothing to show */
+            sub_heading.setText("");
+        else
+            sub_heading.setText(SessionUtil.getNewestDate(data) + " - " + SessionUtil.getOldestDate(data));
     }
 
     /* Sets "log_display" textarea using data */
     private void setLogDisplay() {
-        
+
     }
 }
