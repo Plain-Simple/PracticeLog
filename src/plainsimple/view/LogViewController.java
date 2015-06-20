@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import plainsimple.DateUtil;
 import plainsimple.Session;
 import plainsimple.SessionUtil;
 
@@ -45,7 +46,8 @@ public class LogViewController {
         if(data.size() == 0) /* Nothing to show */
             sub_heading.setText("");
         else
-            sub_heading.setText(SessionUtil.getNewestDate(data) + " - " + SessionUtil.getOldestDate(data));
+            sub_heading.setText(DateUtil.format(SessionUtil.getOldestDate(data)) +
+                    " - " + DateUtil.format(SessionUtil.getNewestDate(data)));
     }
 
     /* Sets "log_display" textarea using data */

@@ -1,13 +1,10 @@
 package plainsimple;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 /* Model class for a Session
  * Holds all the information about a single practice session:
@@ -78,9 +75,7 @@ public class Session {
         this.date = date;
     }
 
-    public StringProperty dateProperty() {
-        return new SimpleStringProperty(date.toString());
-    }
+    public StringProperty dateProperty() { return new SimpleStringProperty(DateUtil.format(date)); }
 
     /* returns a String representation of session, for logging purposes */
     @Override public String toString() {
