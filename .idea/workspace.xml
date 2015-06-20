@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdbf90ba-1a87-4859-99c0-50d8335f726f" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Stefan\Documents\GitHub\PracticeLog\resources\images\Check1_Modified.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Stefan\Documents\GitHub\PracticeLog\resources\images\Pencil1_Modified.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Stefan\Documents\GitHub\PracticeLog\resources\images\StopWatch1_Modified.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/view/MainScreen.fxml" afterPath="$PROJECT_DIR$/src/plainsimple/view/MainScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java" afterPath="$PROJECT_DIR$/src/plainsimple/view/MainScreenController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/plainsimple/view/LogTimeDialog.fxml" afterPath="$PROJECT_DIR$/src/plainsimple/view/LogTimeDialog.fxml" />
     </list>
     <ignored path="PracticeLog.iws" />
     <ignored path=".idea/workspace.xml" />
