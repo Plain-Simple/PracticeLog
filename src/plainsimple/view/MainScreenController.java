@@ -67,12 +67,15 @@ public class MainScreenController {
             if (okClicked) {
                 /* add Session to sessionData */
                 mainApp.getSessionData().add(temp_session);
+                System.out.println("Session has been added\n");
 
                 /* sort sessionData */
                 SessionUtil.sort(mainApp.getSessionData());
+                System.out.println("Sessions have been sorted\n");
 
                 /* recalculate and redisplay recent analytics */
                 updateRecentStats(temp_session);
+                System.out.println("Recent Stats have been updated\n");
             }
     }
 

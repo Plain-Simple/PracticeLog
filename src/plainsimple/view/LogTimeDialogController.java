@@ -82,10 +82,6 @@ public class LogTimeDialogController {
             session.setActivity(activity_field.getText());
             session.setTimePracticed(getPracticeTime());
             session.setDate(date_picker.getValue());
-            System.out.println("LogTimeDialogController.java:\nActivity:" + activity_field.getText() +
-                    "\nTime Practiced:" + getPracticeTime() + "\nDate:" + date_picker.getValue()
-                    + "\nLog:" + session.toString());
-            System.out.println("Time Practiced:" + session.activityProperty());
             dialogStage.close();
         }
     }
@@ -104,13 +100,17 @@ public class LogTimeDialogController {
             error_message += "Missing Time Practiced\n";
         } else if(!isEmpty(min_field)) { /* validate field if it has text */
             try {
-                Integer.parseInt(min_field.getText());
+                int min = Integer.parseInt(min_field.getText());
+                if(min < 0)
+                    error_message += "Min Practiced Must be Positive\n";
             } catch(NumberFormatException e) {
                 error_message += "Min Practiced Must be an Integer\n";
             }
         } else if(!isEmpty(hrs_field)) { /* validate field if it has text */
             try {
-                Integer.parseInt(hrs_field.getText());
+                int hrs = Integer.parseInt(hrs_field.getText());
+                if(hrs < 0)
+                    error_message += "Hrs Practiced Must be Positive\n";
             } catch (NumberFormatException e) {
                 error_message += "Hrs Practiced Must be an Integer\n";
             }
@@ -143,6 +143,10 @@ public class LogTimeDialogController {
         }
         if(!isEmpty(min_field)) {
             min = Integer.parseInt(min_field.getText());
+        }
+        if(min > 59) {
+            hrs += min / 60;
+            min = min % 60;
         }
         return LocalTime.of(hrs, min);
     }

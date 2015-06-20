@@ -30,9 +30,7 @@ public class MainApp extends Application {
     }
 
     /* returns sessionData */
-    public ObservableList<Session> getSessionData() {
-        return sessionData;
-    }
+    public ObservableList<Session> getSessionData() { return sessionData; }
 
     @Override
     public void start(Stage primaryStage) {
