@@ -22,7 +22,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../resources/images/StopWatch1_Modified.png" />
+                              <Image url="@StopWatch1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -32,7 +32,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../resources/images/Pencil1_Modified.png" />
+                              <Image url="@Pencil1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -42,7 +42,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../resources/images/Check1_Modified.png" />
+                              <Image url="@Check1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -100,7 +100,7 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="hrs_today" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x.x Hours">
+                                    <Text fx:id="hrs_today" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0 Hours">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -114,7 +114,7 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="hrs_7days" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x.x Hours">
+                                    <Text fx:id="hrs_7days" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0 Hours">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -128,7 +128,7 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="hrs_30days" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x.x Hours">
+                                    <Text fx:id="hrs_30days" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0 Hours">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>
@@ -142,7 +142,7 @@
                                           <Font size="20.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="hrs_365days" layoutX="6.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="x.x Hours">
+                                    <Text fx:id="hrs_365days" layoutX="6.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0 Hours">
                                        <font>
                                           <Font name="System Bold" size="20.0" />
                                        </font>

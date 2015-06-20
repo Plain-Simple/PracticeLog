@@ -112,20 +112,22 @@ public class MainScreenController {
     }
 
     /* sets value of hours practiced today */
-    public void setHoursToday(float hours) { hrs_today.setText(String.format("%.2f", hours) + " Hours"); }
+    public void setHoursToday(float hours) {
+        hrs_today.setText(String.format("%.1f", hours) + " Hours");
+    }
 
     /* sets value of hours practiced last 7 days */
     public void setHours7Days(float hours) {
-        hrs_7days.setText(String.format("%.2f", hours) + " Hours");
+        hrs_7days.setText(String.format("%.1f", hours) + " Hours");
     }
 
     /* sets value of hours practiced last 30 days */
     public void setHours30Days(float hours) {
-        hrs_30days.setText(String.format("%.2f", hours) + " Hours");
+        hrs_30days.setText(String.format("%.1f", hours) + " Hours");
     }
 
     /* sets value of hours practiced last 365 days */
     public void setHours365Days(float hours) {
-        hrs_365days.setText(String.format("%.2f", hours) + " Hours");
+        hrs_365days.setText(String.format("%.1f", hours) + " Hours");
     }
 }
