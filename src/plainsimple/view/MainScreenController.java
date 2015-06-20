@@ -71,7 +71,7 @@ public class MainScreenController {
                 /* sort sessionData */
                 SessionUtil.sort(mainApp.getSessionData());
 
-                /* recalculate and redisplays analytics */
+                /* recalculate and redisplay recent analytics */
                 updateRecentStats(temp_session);
             }
     }
@@ -81,10 +81,21 @@ public class MainScreenController {
         /* calculate number of days between newest-added session and today */
         Period p = Period.between(added_session.getDate(), LocalDate.now());
         int days_since = p.getDays();
-
-
+        /* see what needs to be updated */
+        if(days_since == 0) {  //todo: this needs to be checked. A little confusing
+            setHoursToday(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 1)));
+        }
+        if(days_since < 7) {
+            setHours7Days(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 7)));
+        }
+        if(days_since < 30) {
+            setHours30Days(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 30)));
+        }
+        if(days_since < 365) {
+            setHours365Days(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 365)));
+        }
     }
-    
+
     /* handles user pressing the "Set a Goal" button */
     @FXML private void handleSetGoal() {
 
@@ -101,20 +112,20 @@ public class MainScreenController {
     }
 
     /* sets value of hours practiced today */
-    public void setHoursToday(double hours) { hrs_today.setText(hours + " Hours"); }
+    public void setHoursToday(float hours) { hrs_today.setText(String.format("%.2f", hours) + " Hours"); }
 
     /* sets value of hours practiced last 7 days */
-    public void setHours7Days(double hours) {
-        hrs_7days.setText(hours + " Hours");
+    public void setHours7Days(float hours) {
+        hrs_7days.setText(String.format("%.2f", hours) + " Hours");
     }
 
     /* sets value of hours practiced last 30 days */
-    public void setHours30Days(double hours) {
-        hrs_30days.setText(hours + " Hours");
+    public void setHours30Days(float hours) {
+        hrs_30days.setText(String.format("%.2f", hours) + " Hours");
     }
 
     /* sets value of hours practiced last 365 days */
-    public void setHours365Days(double hours) {
-        hrs_365days.setText(hours + " Hours");
+    public void setHours365Days(float hours) {
+        hrs_365days.setText(String.format("%.2f", hours) + " Hours");
     }
 }

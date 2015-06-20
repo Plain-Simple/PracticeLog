@@ -56,7 +56,9 @@ public class SessionUtil {
 
     /* returns ObservableList of Sessions that happened in the last [days] days */
     public static ObservableList<Session> getRecentSessions(ObservableList<Session> data, int days) {
-        /* calculate "cutoff" date, which is today's date minus days */
+        /* calculate "cutoff" date
+         * for this to work we need to take today's date minus days and add one
+         * that way we can use the isBefore() method */
         LocalDate cut_off = LocalDate.now().minusDays(days - 1);
         for(int i = 0; i < data.size(); i++) {
             if(data.get(i).getDate().isBefore(cut_off))
@@ -66,13 +68,11 @@ public class SessionUtil {
     }
 
     /* returns total hours of practice time of all sessions in ObservableList */
-    public static double getTotalHours(ObservableList<Session> data) {
-        double total = 0.0;
+    public static float getTotalHours(ObservableList<Session> data) {
+        float total = 0.0f;
         for(int i = 0; i < data.size(); i++) {
             total += data.get(i).getTimePracticed().getHour();
-            System.out.println("Total = " + total);
-            total += data.get(i).getTimePracticed().getMinute() / 60;
-            System.out.println("Total = " + total);
+            total += (float) data.get(i).getTimePracticed().getMinute() / 60;
         }
         return total;
     }

@@ -22,7 +22,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@AlarmClockModified%20(Alan%20Cleaver).jpg" />
+                              <Image url="@../../../resources/images/StopWatch1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -32,7 +32,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@PencilIconModified%20(Benn%20Wolfe).jpg" />
+                              <Image url="@../../../resources/images/Pencil1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -42,7 +42,7 @@
                      <graphic>
                         <ImageView fitHeight="52.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@CheckListModified%20(Oliver%20Tacke).jpg" />
+                              <Image url="@../../../resources/images/Check1_Modified.png" />
                            </image>
                         </ImageView>
                      </graphic>
