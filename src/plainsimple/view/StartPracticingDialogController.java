@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import plainsimple.Session;
+import plainsimple.StopWatch;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,22 +29,15 @@ public class StartPracticingDialogController {
 
     private Stage dialogStage;
     private Session session;
-    private int seconds = 0;
-    private Timer second_timer;
-    private TimerTask task;
+    private StopWatch stopWatch;
     private boolean clockRunning = false;
     private boolean okClicked = false;
 
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
+    /* Initialize radiobuttons in ToggleGroup */
+    @FXML private void initialize() {
         group_1 = new ToggleGroup();
         count_up.setToggleGroup(group_1);
         count_down.setToggleGroup(group_1);
-        second_timer = new Timer();
     }
 
     /* Sets stage of StartPracticing dialog */
@@ -51,9 +45,30 @@ public class StartPracticingDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /* sets Session to be created in dialog */
+    /* Sets Session to be created in dialog */
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    /* Sets StopWatch to control clock */
+    public void setStopWatch(StopWatch stopWatch) {
+        this.stopWatch = stopWatch;
+    }
+
+    /* Updates hr_field to display hours on clock */
+    public void updateHrs(int hours) {
+
+        hr_field.setText("  " + hours);
+    }
+
+    /* Updates min_field to display minutes on clock */
+    public void updateMin(int minutes) {
+        min_field.setText("  " + minutes);
+    }
+
+    /* Updates sec_field to display seconds on clock */
+    public void updateSec(int seconds) {
+        sec_field.setText("  " + seconds);
     }
 
     /**
@@ -75,36 +90,19 @@ public class StartPracticingDialogController {
             /* Clock was running - stop it */
             startStop_button.setText("Go");
             clockRunning = false;
-
-            /* Stop timer */
-            second_timer.cancel();
-            second_timer.purge();
+            stopWatch.stop();
 
         } else {
-            /* Initialize timer and task */
-            task = new TimerTask() {
-                @Override public void run() {
-                    /* Increments seconds field and updates clock */
-                    seconds++;
-                    updateClock(seconds);
-                }
-            };
-
             startStop_button.setText("Stop");
             clockRunning = true;
-
-            /* Start timer */
-            second_timer.schedule(task, 0, 1000);
+            stopWatch.start();
         }
-    }
-
-    private void updateClock(int seconds_elapsed) {
-
     }
 
     /* Handles user pressing count_up radiobutton
      * This sets all fields to "00" and makes them non-editable */
     @FXML private void handleCountUp() {
+        stopWatch.setCountUp(true);
         hr_field.setText("  00");
         hr_field.setEditable(false);
         min_field.setText("  00");
@@ -116,6 +114,7 @@ public class StartPracticingDialogController {
     /* Handles user pressing count_down radiobutton
      * This makes all fields editable and selects the hour field */
     @FXML private void handleCountDown() {
+        stopWatch.setCountUp(false);
         hr_field.setEditable(true);
         min_field.setEditable(true);
         sec_field.setEditable(true);

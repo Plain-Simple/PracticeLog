@@ -1,6 +1,8 @@
 package plainsimple;
 
 import java.io.IOException;
+import java.time.LocalTime;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -178,6 +180,7 @@ public class MainApp extends Application {
             StartPracticingDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setSession(new Session());
+            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1000));
 
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();

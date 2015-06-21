@@ -1,6 +1,8 @@
 package plainsimple;
 
+import javafx.application.Platform;
 import javafx.scene.control.TextField;
+import plainsimple.view.StartPracticingDialogController;
 
 import java.time.LocalTime;
 import java.util.Timer;
@@ -23,33 +25,47 @@ public class StopWatch {
     /* True if clock is a countup stopwatch; false if countdown timer */
     private boolean countUp;
 
-    /* Javafx Textfields displaying currentTime */
-    private TextField hourField;
-    private TextField minuteField;
-    private TextField secondField;
+    /* Javafx Controller displaying currentTime */
+    private StartPracticingDialogController controller;
 
     private Timer timer;
     private TimerTask task;
 
     /* Default constructor
      * @param start_time the time clock is set at initially
-     * @param count_up whether the clock counts up (true) or down (false)
      * @param increment the length, in milliseconds, of each measured interval */
-    public StopWatch(LocalTime start_time, boolean count_up, long increment) {
+    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, long increment) {
+        this.controller = controller;
         currentTime = start_time;
-        countUp = count_up;
         this.increment = increment;
         secondsIncrement = increment / 1000;
 
-        /* Initialize timer and task */
-        timer = new Timer();
+        /* Initialize task to update clock when it is called */
         task = new TimerTask() {
-            @Override public void run() { updateClock(); }
+            @Override public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        updateClock();
+                    }
+                });
+            }
         };
+    }
+
+    /* Sets whether stopwatch counts up (true) or down (false)
+     * @param countUp */
+    public void setCountUp(boolean countUp) {
+        this.countUp = countUp;
+    }
+
+    /* Sets controller where clock is displayed */
+    public void setController(StartPracticingDialogController controller) {
+        this.controller = controller;
     }
 
     /* Starts the clock */
     public void start() {
+        timer = new Timer();
         timer.schedule(task, 0, increment);
     }
 
@@ -59,13 +75,18 @@ public class StopWatch {
         timer.purge();
     }
 
-    /* Updates currentTime and incrementsElapsed
-     * Sets TextFields */
+    /* Updates currentTime and incrementsElapsed and sets TextFields */
     public void updateClock() {
         incrementsElapsed++;
         if(countUp)
             currentTime.plusSeconds(secondsIncrement);
-        else
+        else {
             currentTime.minusSeconds(secondsIncrement);
+            // todo: tell if finished
+        }
+        System.out.println("Current Time: " + currentTime.toString());
+        controller.updateHrs(currentTime.getHour());
+        controller.updateMin(currentTime.getMinute());
+        controller.updateSec(currentTime.getSecond());
     }
 }
