@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import plainsimple.view.LogTimeDialogController;
 import plainsimple.view.LogViewController;
 import plainsimple.view.MainScreenController;
+import plainsimple.view.StartPracticingDialogController;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
    as the root stage */
@@ -59,6 +60,11 @@ public class MainApp extends Application {
         }
     }
 
+    /* Returns main stage */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     /* Shows mainscreen inside root layout */
     public void showMainScreen() {
         try {
@@ -79,15 +85,9 @@ public class MainApp extends Application {
         }
     }
 
-    /* Returns main stage */
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     /* Pops up the "Log a Time" dialog to edit/create a new Session
      * If the user clicks OK, the changes are saved into the provided
      * Session object and true is returned.
-     *
      * @param person the Session object to be edited
      * @return true if the user clicked OK, false otherwise. */
     public boolean showLogTimeDialog(Session new_session) {
@@ -95,7 +95,7 @@ public class MainApp extends Application {
             /* load the fxml file and create a new stage for the popup dialog */
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
             /* create the dialog stage */
             Stage dialogStage = new Stage();
@@ -120,7 +120,6 @@ public class MainApp extends Application {
     }
 
     /* Pops up the "See Full Log" dialog to show the full practice log
-     *
      * @param data the ObservableList of Session data to be displayed
      * @return true if the dialog displayed correctly, false otherwise */
     public boolean showLogViewDialog(ObservableList<Session> data) {
@@ -148,6 +147,42 @@ public class MainApp extends Application {
 
             return true;
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /* Pops up the "Start Practicing!" dialog to allow the user to
+     * time themselves with a countdown/countup clock // todo: figure out logic
+     *
+     * @param session the Session object to be created
+     * @return true if the user clicked OK, false otherwise.
+     */
+    public boolean showStartPracticingDialog(Session session) {
+        try {
+            /* Load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/StartPracticingDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            /* Create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Start Practicing!");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            /* Set's Session to be created */
+            StartPracticingDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setSession(new Session());
+
+            /* Show the dialog and wait until the user closes it */
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
             return false;

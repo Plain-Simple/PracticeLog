@@ -7,8 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.StartPracticingDialogController">
    <children>
       <ImageView fitHeight="204.0" fitWidth="264.0" layoutX="297.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,7 +18,7 @@
          <children>
             <HBox layoutX="174.0" layoutY="256.0">
                <children>
-                  <TextField layoutX="164.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="hr_field" layoutX="164.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
                      <font>
                         <Font size="33.0" />
                      </font>
@@ -29,7 +28,7 @@
                         <Font size="39.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="329.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="min_field" layoutX="329.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
                      <font>
                         <Font size="33.0" />
                      </font>
@@ -39,7 +38,7 @@
                         <Font size="39.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="490.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="sec_field" layoutX="490.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
                      <font>
                         <Font size="33.0" />
                      </font>
@@ -61,23 +60,22 @@
                   <Font name="System Italic" size="12.0" />
                </font>
             </Text>
-            <RadioButton layoutX="604.0" layoutY="294.0" mnemonicParsing="false" text="Count Down">
+            <RadioButton fx:id="count_down" layoutX="604.0" layoutY="294.0" mnemonicParsing="false" onAction="#handleCountDown" text="Count Down">
                <font>
                   <Font size="15.0" />
                </font>
             </RadioButton>
-            <Button layoutX="174.0" layoutY="363.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="421.0" text="Go!">
+            <Button fx:id="startStop_button" layoutX="174.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleStartStop" prefHeight="60.0" prefWidth="421.0" text="Go!">
                <font>
                   <Font size="28.0" />
                </font>
             </Button>
-            <RadioButton layoutX="604.0" layoutY="263.0" mnemonicParsing="false" text="Count Up">
+            <RadioButton fx:id="count_up" layoutX="604.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleCountUp" text="Count Up">
                <font>
                   <Font size="15.0" />
                </font>
             </RadioButton>
          </children>
       </Group>
-      <Button layoutX="679.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Close" />
    </children>
 </AnchorPane>

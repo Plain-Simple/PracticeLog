@@ -52,7 +52,11 @@ public class MainScreenController {
 
     /* handles user pressing the "Start Practicing!" button */
     @FXML private void handleStartPracticing() {
-
+        Session tempSession = new Session();
+        boolean okClicked = mainApp.showStartPracticingDialog(tempSession);
+        if (okClicked) {
+           
+        }
     }
 
     /* handles user pressing the "Log a Time" button */
