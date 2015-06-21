@@ -78,6 +78,7 @@ public class StartPracticingDialogController {
 
             /* Stop timer */
             second_timer.cancel();
+            second_timer.purge();
 
         } else {
             /* Initialize timer and task */
@@ -98,7 +99,7 @@ public class StartPracticingDialogController {
     }
 
     private void updateClock(int seconds_elapsed) {
-        
+
     }
 
     /* Handles user pressing count_up radiobutton
