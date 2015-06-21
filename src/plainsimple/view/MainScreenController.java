@@ -55,7 +55,7 @@ public class MainScreenController {
         Session tempSession = new Session();
         boolean okClicked = mainApp.showStartPracticingDialog(tempSession);
         if (okClicked) {
-           
+
         }
     }
 
