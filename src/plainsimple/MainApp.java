@@ -176,11 +176,11 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            /* Set's Session to be created */
+            /* Sets Session to be created */
             StartPracticingDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setSession(new Session());
-            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1000));
+            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1));
 
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();

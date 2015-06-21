@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import plainsimple.Session;
 import plainsimple.StopWatch;
 
+import java.time.LocalTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,18 +58,26 @@ public class StartPracticingDialogController {
 
     /* Updates hr_field to display hours on clock */
     public void updateHrs(int hours) {
-
-        hr_field.setText("  " + hours);
+        if(hours < 10)
+            hr_field.setText("  0" + hours);
+        else
+            hr_field.setText("  " + hours);
     }
 
     /* Updates min_field to display minutes on clock */
     public void updateMin(int minutes) {
-        min_field.setText("  " + minutes);
+        if(minutes < 10)
+            min_field.setText("  0" + minutes);
+        else
+            min_field.setText("  " + minutes);
     }
 
     /* Updates sec_field to display seconds on clock */
     public void updateSec(int seconds) {
-        sec_field.setText("  " + seconds);
+        if(seconds < 10)
+            sec_field.setText("  0" + seconds);
+        else
+            sec_field.setText("  " + seconds);
     }
 
     /**
@@ -95,11 +104,21 @@ public class StartPracticingDialogController {
         } else {
             startStop_button.setText("Stop");
             clockRunning = true;
+            stopWatch.setCurrentTime(getTime());
             stopWatch.start();
         }
     }
 
-    /* Handles user pressing count_up radiobutton
+    /* Extracts data from TextFields and returns time as a LocalTime object
+     * @return set_time  */
+    private LocalTime getTime() { // todo: error-handling
+        int hours = Integer.parseInt(hr_field.getText().substring(2));
+        int min = Integer.parseInt(min_field.getText().substring(2));
+        int seconds = Integer.parseInt(sec_field.getText().substring(2));
+        return LocalTime.of(hours, min, seconds);
+    }
+
+     /* Handles user pressing count_up radiobutton
      * This sets all fields to "00" and makes them non-editable */
     @FXML private void handleCountUp() {
         stopWatch.setCountUp(true);

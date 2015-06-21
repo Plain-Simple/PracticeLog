@@ -13,14 +13,8 @@ public class StopWatch {
     /* The "current time" of the clock, which is displayed */
     private LocalTime currentTime;
 
-    /* Increment, in milleseconds, to count. Should be a multiple of 1000 */
-    private long increment;
-
-    /* Increment, in seconds, to count. Used for calculation of currentTime */
-    private long secondsIncrement;
-
-    /* Number of increments that have passed since clock started */
-    private int incrementsElapsed;
+    /* Increment, in seconds, to count */
+    private int increment;
 
     /* True if clock is a countup stopwatch; false if countdown timer */
     private boolean countUp;
@@ -29,19 +23,20 @@ public class StopWatch {
     private StartPracticingDialogController controller;
 
     private Timer timer;
-    private TimerTask task;
 
     /* Default constructor
      * @param start_time the time clock is set at initially
      * @param increment the length, in milliseconds, of each measured interval */
-    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, long increment) {
+    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, int increment) {
         this.controller = controller;
         currentTime = start_time;
         this.increment = increment;
-        secondsIncrement = increment / 1000;
+        timer = new Timer();
+    }
 
-        /* Initialize task to update clock when it is called */
-        task = new TimerTask() {
+    /* Initialize task to update clock when it is called */
+    private TimerTask getTask() {
+        return new TimerTask() {
             @Override public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
@@ -51,7 +46,6 @@ public class StopWatch {
             }
         };
     }
-
     /* Sets whether stopwatch counts up (true) or down (false)
      * @param countUp */
     public void setCountUp(boolean countUp) {
@@ -63,10 +57,17 @@ public class StopWatch {
         this.controller = controller;
     }
 
+    /* Sets currentTime
+     * @param time */
+    public void setCurrentTime(LocalTime time) {
+        currentTime = time;
+    }
+
     /* Starts the clock */
     public void start() {
         timer = new Timer();
-        timer.schedule(task, 0, increment);
+        /* Schedule timer to execute update */
+        timer.schedule(getTask(), 0, increment * 1000);
     }
 
     /* Stops the clock, cancels and purges timer */
@@ -77,11 +78,10 @@ public class StopWatch {
 
     /* Updates currentTime and incrementsElapsed and sets TextFields */
     public void updateClock() {
-        incrementsElapsed++;
         if(countUp)
-            currentTime.plusSeconds(secondsIncrement);
+            currentTime = currentTime.plusSeconds(increment);
         else {
-            currentTime.minusSeconds(secondsIncrement);
+            currentTime = currentTime.minusSeconds(increment);
             // todo: tell if finished
         }
         System.out.println("Current Time: " + currentTime.toString());
