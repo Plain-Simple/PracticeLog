@@ -180,7 +180,7 @@ public class MainApp extends Application {
             StartPracticingDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setSession(new Session());
-            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1));
+            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1, true));
 
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();

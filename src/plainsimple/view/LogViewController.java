@@ -107,6 +107,7 @@ public class LogViewController {
                 log += data.get(i).dateString() + "\n";
             }
         }
+        // todo: look into field.setPrefWidth(TextUtils.computeTextWidth(field.getFont(),field.getText(), 0.0D) + 10);
 
         /* Set textarea */
         log_display.setText(log);

@@ -25,12 +25,14 @@ public class StopWatch {
     private Timer timer;
 
     /* Default constructor
+     * @param controller the class that contains the clock GUI display
      * @param start_time the time clock is set at initially
      * @param increment the length, in milliseconds, of each measured interval */
-    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, int increment) {
+    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, int increment, boolean countUp) {
         this.controller = controller;
         currentTime = start_time;
         this.increment = increment;
+        this.countUp = countUp;
         timer = new Timer();
     }
 

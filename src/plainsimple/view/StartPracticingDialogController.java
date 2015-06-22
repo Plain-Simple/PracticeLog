@@ -41,9 +41,6 @@ public class StartPracticingDialogController {
         group_1 = new ToggleGroup();
         count_up.setToggleGroup(group_1);
         count_down.setToggleGroup(group_1);
-        addFocusListener(sec_field);
-        addFocusListener(min_field);
-        addFocusListener(hr_field);
     }
 
     /* Sets stage of StartPracticing dialog */
@@ -64,25 +61,25 @@ public class StartPracticingDialogController {
     /* Updates hr_field to display hours on clock */
     public void updateHrs(int hours) {
         if(hours < 10)
-            hr_field.setText("  0" + hours);
+            hr_field.setText("0" + hours);
         else
-            hr_field.setText("  " + hours);
+            hr_field.setText(Integer.toString(hours));
     }
 
     /* Updates min_field to display minutes on clock */
     public void updateMin(int minutes) {
         if(minutes < 10)
-            min_field.setText("  0" + minutes);
+            min_field.setText("0" + minutes);
         else
-            min_field.setText("  " + minutes);
+            min_field.setText(Integer.toString(minutes));
     }
 
     /* Updates sec_field to display seconds on clock */
     public void updateSec(int seconds) {
         if(seconds < 10)
-            sec_field.setText("  0" + seconds);
+            sec_field.setText("0" + seconds);
         else
-            sec_field.setText("  " + seconds);
+            sec_field.setText(Integer.toString(seconds));
     }
 
     /**
@@ -122,21 +119,21 @@ public class StartPracticingDialogController {
     /* Extracts data from TextFields and returns time as a LocalTime object
      * @return set_time  */
     private LocalTime getTime() { // todo: error-handling
-        int hours = Integer.parseInt(hr_field.getText().substring(2));
-        int min = Integer.parseInt(min_field.getText().substring(2));
-        int seconds = Integer.parseInt(sec_field.getText().substring(2));
+        int hours = Integer.parseInt(hr_field.getText());
+        int min = Integer.parseInt(min_field.getText());
+        int seconds = Integer.parseInt(sec_field.getText());
         return LocalTime.of(hours, min, seconds);
     }
 
      /* Handles user pressing count_up radiobutton
-     * This sets all fields to "00" and makes them non-editable */
+     * This resets all fields to "00" and makes them non-editable */
     @FXML private void handleCountUp() {
         stopWatch.setCountUp(true);
-        hr_field.setText("  00");
+        hr_field.setText("00");
         hr_field.setEditable(false);
-        min_field.setText("  00");
+        min_field.setText("00");
         min_field.setEditable(false);
-        sec_field.setText("  00");
+        sec_field.setText("00");
         sec_field.setEditable(false);
     }
 
@@ -155,26 +152,4 @@ public class StartPracticingDialogController {
         count_up.setDisable(!count_up.isDisable());
         count_down.setDisable(!count_down.isDisable());
     }
-
-    /* Adds a listener to the TextField's focusedProperty and applies logic
-     * to manage the text in the hr/min/sec fields upon selection and deselection
-     * This is necessary because values in these textfields are preceded by "  " */
-    private void addFocusListener(TextField text_field) {
-        text_field.focusedProperty().addListener(new ChangeListener<Boolean>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> arg, Boolean old_value, Boolean new_value)
-            {
-                /* Textfield in focus */
-                if (new_value) {
-                    text_field.positionCaret(1);
-                    //text_field.selectRange(2, 3);
-                } else { /* Textfield defocused */
-                    text_field.setText(text_field.getText().trim());
-                    text_field.setText("  " + text_field.getText());
-                }
-            }
-        });
-    }
-
 }

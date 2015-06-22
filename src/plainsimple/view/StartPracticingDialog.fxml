@@ -18,7 +18,7 @@
          <children>
             <HBox layoutX="174.0" layoutY="256.0">
                <children>
-                  <TextField fx:id="hr_field" editable="false" layoutX="164.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="hr_field" alignment="CENTER" editable="false" layoutX="164.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="00">
                      <font>
                         <Font size="33.0" />
                      </font>
@@ -28,7 +28,7 @@
                         <Font size="39.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="min_field" editable="false" layoutX="329.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="min_field" alignment="CENTER" editable="false" layoutX="329.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="00">
                      <font>
                         <Font size="33.0" />
                      </font>
@@ -38,7 +38,7 @@
                         <Font size="39.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="sec_field" editable="false" layoutX="490.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="  00">
+                  <TextField fx:id="sec_field" alignment="CENTER" editable="false" layoutX="490.0" layoutY="253.0" prefHeight="75.0" prefWidth="111.0" text="00">
                      <font>
                         <Font size="33.0" />
                      </font>
