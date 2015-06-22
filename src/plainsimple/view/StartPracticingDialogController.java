@@ -1,5 +1,7 @@
 package plainsimple.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -39,6 +41,9 @@ public class StartPracticingDialogController {
         group_1 = new ToggleGroup();
         count_up.setToggleGroup(group_1);
         count_down.setToggleGroup(group_1);
+        addFocusListener(sec_field);
+        addFocusListener(min_field);
+        addFocusListener(hr_field);
     }
 
     /* Sets stage of StartPracticing dialog */
@@ -100,12 +105,17 @@ public class StartPracticingDialogController {
             startStop_button.setText("Go");
             clockRunning = false;
             stopWatch.stop();
+            /* Re-enable radio buttons */
+            toggleRadioButtons();
 
         } else {
+            /* Clock was not running - start it */
             startStop_button.setText("Stop");
             clockRunning = true;
             stopWatch.setCurrentTime(getTime());
             stopWatch.start();
+            /* Disable radio buttons  */
+            toggleRadioButtons();
         }
     }
 
@@ -139,4 +149,32 @@ public class StartPracticingDialogController {
         sec_field.setEditable(true);
         hr_field.requestFocus();
     }
+
+    /* Toggles enabled state of count_up and count_down RadioButtons */
+    private void toggleRadioButtons() {
+        count_up.setDisable(!count_up.isDisable());
+        count_down.setDisable(!count_down.isDisable());
+    }
+
+    /* Adds a listener to the TextField's focusedProperty and applies logic
+     * to manage the text in the hr/min/sec fields upon selection and deselection
+     * This is necessary because values in these textfields are preceded by "  " */
+    private void addFocusListener(TextField text_field) {
+        text_field.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg, Boolean old_value, Boolean new_value)
+            {
+                /* Textfield in focus */
+                if (new_value) {
+                    text_field.positionCaret(1);
+                    //text_field.selectRange(2, 3);
+                } else { /* Textfield defocused */
+                    text_field.setText(text_field.getText().trim());
+                    text_field.setText("  " + text_field.getText());
+                }
+            }
+        });
+    }
+
 }

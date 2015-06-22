@@ -65,6 +65,7 @@ public class StopWatch {
 
     /* Starts the clock */
     public void start() {
+        /* Reset timer (cannot restart a canceled Timer) */
         timer = new Timer();
         /* Schedule timer to execute update */
         timer.schedule(getTask(), 0, increment * 1000);
