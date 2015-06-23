@@ -90,33 +90,43 @@ public class StartPracticingDialogController {
         return okClicked;
     }
 
-    /* Handles user pressing startStop_button, which controls the clock */
-    @FXML private void handleStartStop() {
+    /* Handles user pressing startStop_button, which toggles the clock's on/off state */
+    @FXML private void handleStartStop() { // todo: toggle function and start/stop functions
         hr_field.setEditable(false);
         min_field.setEditable(false);
         sec_field.setEditable(false);
 
         if(clockRunning) {
             /* Clock was running - stop it */
-            startStop_button.setText("Go");
-            clockRunning = false;
-            stopWatch.stop();
-            /* Re-enable radio buttons */
-            toggleRadioButtons();
-
+            stopClock();
         } else {
             /* Clock was not running - start it */
-            startStop_button.setText("Stop");
-            clockRunning = true;
-            stopWatch.setStartTime(getTime());
-            stopWatch.start();
-            /* Disable radio buttons  */
-            toggleRadioButtons();
+            startClock();
         }
+    }
+
+    /* Stops stopWatch and changes GUI to reflect this */
+    private void stopClock() {
+        startStop_button.setText("Go");
+        clockRunning = false;
+        stopWatch.stop();
+        /* Re-enable radio buttons */
+        disableRadioButtons(false);
+    }
+
+    /* Starts stopWatch and changes GUI to reflect this */
+    private void startClock() {
+        startStop_button.setText("Stop");
+        clockRunning = true;
+        stopWatch.setStartTime(getTime());
+        stopWatch.start();
+        /* Disable radio buttons  */
+        disableRadioButtons(true);
     }
 
     /* Handles user pressing "Log Time" button, which opens up a LogTimeDialog */
     @FXML private void handleLogTime() {
+        stopClock();
         session.setTimePracticed(stopWatch.getTimeElapsed());
         session.setDate(LocalDate.now());
         try {
@@ -126,19 +136,19 @@ public class StartPracticingDialogController {
             AnchorPane page = loader.load();
 
             /* Create the dialog stage */
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Submit an Entry");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(dialogStage);
+            Stage logDialogStage = new Stage();
+            logDialogStage.setTitle("Submit an Entry");
+            logDialogStage.initModality(Modality.WINDOW_MODAL);
+            logDialogStage.initOwner(dialogStage);
             Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            logDialogStage.setScene(scene);
 
             LogTimeDialogController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
+            controller.setDialogStage(logDialogStage);
             controller.setSession(session);
 
             // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
+            logDialogStage.showAndWait();
 
             okClicked = controller.isOkClicked();
         } catch(IOException e) {
@@ -149,8 +159,8 @@ public class StartPracticingDialogController {
 
     /* Handles user pressing "Reset" button, which resets clock and clock display */
     @FXML private void handleReset() {
+        stopClock();
         stopWatch.reset();
-        handleStartStop();
     }
 
     /* Extracts data from TextFields and returns time as a LocalTime object
@@ -166,27 +176,32 @@ public class StartPracticingDialogController {
      * This resets all fields to "00" and makes them non-editable */
     @FXML private void handleCountUp() {
         stopWatch.setCountUp(true);
+        disableTextFields(true);
         hr_field.setText("00");
-        hr_field.setEditable(false);
         min_field.setText("00");
-        min_field.setEditable(false);
         sec_field.setText("00");
-        sec_field.setEditable(false);
     }
 
     /* Handles user pressing count_down radiobutton
      * This makes all fields editable and selects the hour field */
     @FXML private void handleCountDown() {
         stopWatch.setCountUp(false);
-        hr_field.setEditable(true);
-        min_field.setEditable(true);
-        sec_field.setEditable(true);
+        disableTextFields(false);
         hr_field.requestFocus();
     }
 
-    /* Toggles enabled state of count_up and count_down RadioButtons */
-    private void toggleRadioButtons() {
-        count_up.setDisable(!count_up.isDisable());
-        count_down.setDisable(!count_down.isDisable());
+    /* Can enable/disable count_up and count_down RadioButtons
+     * @param disable true disables fields, false enables fields */
+    private void disableRadioButtons(boolean disable) {
+        count_up.setDisable(disable);
+        count_down.setDisable(disable);
+    }
+
+    /* Can enable/disable sec_field, min_field, and hr_field TextFields
+     * @param disable true sets fields non-editable, false sets editable */
+    private void disableTextFields(boolean disable) {
+        hr_field.setEditable(!disable);
+        min_field.setEditable(!disable);
+        sec_field.setEditable(!disable);
     }
 }

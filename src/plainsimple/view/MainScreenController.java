@@ -58,10 +58,10 @@ public class MainScreenController {
             /* add Session to sessionData */
             mainApp.getSessionData().add(temp_session);
 
-                /* sort sessionData */
+            /* sort sessionData */
             SessionUtil.sort(mainApp.getSessionData());
 
-                /* recalculate and redisplay recent analytics */
+            /* recalculate and redisplay recent analytics */
             updateRecentStats(temp_session);
         }
     }
