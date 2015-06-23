@@ -52,10 +52,17 @@ public class MainScreenController {
 
     /* handles user pressing the "Start Practicing!" button */
     @FXML private void handleStartPracticing() {
-        Session tempSession = new Session();
-        boolean okClicked = mainApp.showStartPracticingDialog(tempSession);
+        Session temp_session = new Session();
+        boolean okClicked = mainApp.showStartPracticingDialog(temp_session);
         if (okClicked) {
+            /* add Session to sessionData */
+            mainApp.getSessionData().add(temp_session);
 
+                /* sort sessionData */
+            SessionUtil.sort(mainApp.getSessionData());
+
+                /* recalculate and redisplay recent analytics */
+            updateRecentStats(temp_session);
         }
     }
 
@@ -66,15 +73,12 @@ public class MainScreenController {
             if (okClicked) {
                 /* add Session to sessionData */
                 mainApp.getSessionData().add(temp_session);
-                System.out.println("Session has been added\n");
 
                 /* sort sessionData */
                 SessionUtil.sort(mainApp.getSessionData());
-                System.out.println("Sessions have been sorted\n");
 
                 /* recalculate and redisplay recent analytics */
                 updateRecentStats(temp_session);
-                System.out.println("Recent Stats have been updated\n");
             }
     }
 

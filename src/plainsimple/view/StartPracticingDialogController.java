@@ -10,10 +10,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import plainsimple.MainApp;
 import plainsimple.Session;
 import plainsimple.StopWatch;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /* Dialog to display a countup/countdown clock for
@@ -83,11 +85,7 @@ public class StartPracticingDialogController {
             sec_field.setText(Integer.toString(seconds));
     }
 
-    /**
-     * Returns true if the user clicked OK, false otherwise.
-     *
-     * @return
-     */
+    /* Returns true if the user saved the Session correctly */
     public boolean isOkClicked() {
         return okClicked;
     }
@@ -119,7 +117,34 @@ public class StartPracticingDialogController {
 
     /* Handles user pressing "Log Time" button, which opens up a LogTimeDialog */
     @FXML private void handleLogTime() {
+        session.setTimePracticed(stopWatch.getTimeElapsed());
+        session.setDate(LocalDate.now());
+        try {
+            /* Load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/LogTimeDialog.fxml"));
+            AnchorPane page = loader.load();
 
+            /* Create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Submit an Entry");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(dialogStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            LogTimeDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setSession(session);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            okClicked = controller.isOkClicked();
+        } catch(IOException e) {
+            e.printStackTrace();
+            okClicked = false;
+        }
     }
 
     /* Handles user pressing "Reset" button, which resets clock and clock display */

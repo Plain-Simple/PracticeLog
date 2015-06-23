@@ -19,6 +19,9 @@ public class StopWatch {
     /* Increment, in seconds, to count */
     private int increment;
 
+    /* Number of increments that have elapsed since clock was started */
+    private int incrementsElapsed;
+
     /* True if clock is a countup stopwatch; false if countdown timer */
     private boolean countUp;
 
@@ -66,6 +69,12 @@ public class StopWatch {
      * @param time */
     public void setStartTime(LocalTime time) { startTime = time; currentTime = time; }
 
+    /* Calculates runtime and returns it as a LocalTime object
+     * @return time_elapsed */
+    public LocalTime getTimeElapsed() {
+        int seconds_elapsed = incrementsElapsed * increment;
+        return LocalTime.of(seconds_elapsed / 3600, seconds_elapsed / 60, seconds_elapsed % 60);
+    }
     /* Stops clock, resets currentTime to startTime, and updates TextFields */
     public void reset() {
         stop();
@@ -79,23 +88,27 @@ public class StopWatch {
         timer = new Timer();
         /* Schedule timer to execute update */
         timer.schedule(getTask(), 0, increment * 1000);
+        /* Reset incrementsElapsed */
+        incrementsElapsed = 0;
     }
 
     /* Stops the clock, cancels and purges timer */
     public void stop() {
-        timer.cancel();
-        timer.purge();
+        try {
+            timer.cancel();
+            timer.purge();
+        } catch(NullPointerException e) {} /* In case StopWatch never started */
     }
 
     /* Updates currentTime and incrementsElapsed and sets TextFields */
     public void updateTime() {
         if(countUp)
             currentTime = currentTime.plusSeconds(increment);
-        else {
+        else
             currentTime = currentTime.minusSeconds(increment);
             // todo: tell if finished
-        }
         updateFields();
+        incrementsElapsed++;
     }
 
     /* Sets TextFields to fields of currentTime */

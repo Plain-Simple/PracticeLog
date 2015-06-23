@@ -186,7 +186,6 @@ public class MainApp extends Application {
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();
 
-
             dialogStage.close(); // todo: how to stop process?
 
             /* Make sure stopwatch has been stopped */

@@ -73,12 +73,14 @@ public class LogTimeDialogController {
     }
 
     /* handles user pressing "Ok" button */
-    @FXML
-    private void handleOk() {
+    @FXML private void handleOk() {
         if (isInputValid()) {  /* isInputValid() will take care of any input errors */
             okClicked = true;
+
+            /* Make sure session is initialized */
             if(session == null)
                 session = new Session();
+
             session.setActivity(activity_field.getText());
             session.setTimePracticed(getPracticeTime());
             session.setDate(date_picker.getValue());
