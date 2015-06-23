@@ -1,7 +1,5 @@
 package plainsimple.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -12,8 +10,6 @@ import plainsimple.Session;
 import plainsimple.StopWatch;
 
 import java.time.LocalTime;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /* Dialog to display a countup/countdown clock for
  * user to time an practice session */
@@ -109,11 +105,21 @@ public class StartPracticingDialogController {
             /* Clock was not running - start it */
             startStop_button.setText("Stop");
             clockRunning = true;
-            stopWatch.setCurrentTime(getTime());
+            stopWatch.setStartTime(getTime());
             stopWatch.start();
             /* Disable radio buttons  */
             toggleRadioButtons();
         }
+    }
+
+    /* Handles user pressing "Log Time" button, which opens up a LogTimeDialog */
+    @FXML private void handleLogTime() {
+
+    }
+
+    /* Handles user pressing "Reset" button, which resets clock to last set time */
+    @FXML private void handleReset() {
+        setTime(stopWatch.getStartTime());
     }
 
     /* Extracts data from TextFields and returns time as a LocalTime object
@@ -123,6 +129,14 @@ public class StartPracticingDialogController {
         int min = Integer.parseInt(min_field.getText());
         int seconds = Integer.parseInt(sec_field.getText());
         return LocalTime.of(hours, min, seconds);
+    }
+
+    /* Sets TextFields to time fields
+     * @param time */
+    private void setTime(LocalTime time) {
+        updateHrs(time.getHour());
+        updateMin(time.getMinute());
+        updateSec(time.getSecond());
     }
 
      /* Handles user pressing count_up radiobutton

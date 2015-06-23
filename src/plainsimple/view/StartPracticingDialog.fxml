@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.StartPracticingDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.StartPracticingDialogController">
    <children>
       <ImageView fitHeight="204.0" fitWidth="264.0" layoutX="297.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -65,11 +65,6 @@
                   <Font size="15.0" />
                </font>
             </RadioButton>
-            <Button fx:id="startStop_button" layoutX="174.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleStartStop" prefHeight="60.0" prefWidth="421.0" text="Go!">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Button>
             <RadioButton fx:id="count_up" layoutX="604.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleCountUp" selected="true" text="Count Up">
                <font>
                   <Font size="15.0" />
@@ -77,5 +72,20 @@
             </RadioButton>
          </children>
       </Group>
+      <Button fx:id="startStop_button" layoutX="174.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleStartStop" prefHeight="60.0" prefWidth="421.0" text="Go!">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button layoutX="174.0" layoutY="419.0" mnemonicParsing="false" onAction="#handleLogTime" prefHeight="35.0" prefWidth="207.0" text="Log Time">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="388.0" layoutY="419.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="207.0" text="Reset">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -180,12 +180,17 @@ public class MainApp extends Application {
             StartPracticingDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setSession(new Session());
-            controller.setStopWatch(new StopWatch(controller, LocalTime.of(0, 0, 0), 1, true));
+            StopWatch initial_stopwatch = new StopWatch(controller, LocalTime.of(0, 0, 0), 1, true);
+            controller.setStopWatch(initial_stopwatch);
 
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();
 
+
             dialogStage.close(); // todo: how to stop process?
+
+            /* Make sure stopwatch has been stopped */
+            initial_stopwatch.stop();
 
             return controller.isOkClicked();
         } catch (IOException e) {

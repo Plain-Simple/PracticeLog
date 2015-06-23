@@ -10,6 +10,10 @@ import java.util.TimerTask;
 
 /* A class for managing a countup/countdown clock */
 public class StopWatch {
+
+    /* Starting time of the clock, which is time before it was started */
+    private LocalTime startTime;
+
     /* The "current time" of the clock, which is displayed */
     private LocalTime currentTime;
 
@@ -28,12 +32,12 @@ public class StopWatch {
      * @param controller the class that contains the clock GUI display
      * @param start_time the time clock is set at initially
      * @param increment the length, in milliseconds, of each measured interval */
-    public StopWatch(StartPracticingDialogController controller, LocalTime start_time, int increment, boolean countUp) {
+    public StopWatch(StartPracticingDialogController controller, LocalTime startTime, int increment, boolean countUp) {
         this.controller = controller;
-        currentTime = start_time;
+        this.startTime = startTime;
+        currentTime = startTime;
         this.increment = increment;
         this.countUp = countUp;
-        timer = new Timer();
     }
 
     /* Initialize task to update clock when it is called */
@@ -59,11 +63,12 @@ public class StopWatch {
         this.controller = controller;
     }
 
-    /* Sets currentTime
+    /* Sets startTime and resets currentTime to same value
      * @param time */
-    public void setCurrentTime(LocalTime time) {
-        currentTime = time;
-    }
+    public void setStartTime(LocalTime time) { startTime = time; currentTime = time; }
+
+    /* Returns startTime */
+    public LocalTime getStartTime() { return startTime; }
 
     /* Starts the clock */
     public void start() {
