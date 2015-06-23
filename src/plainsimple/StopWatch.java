@@ -1,7 +1,6 @@
 package plainsimple;
 
 import javafx.application.Platform;
-import javafx.scene.control.TextField;
 import plainsimple.view.StartPracticingDialogController;
 
 import java.time.LocalTime;
@@ -46,7 +45,7 @@ public class StopWatch {
             @Override public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
-                        updateClock();
+                        updateTime();
                     }
                 });
             }
@@ -67,8 +66,12 @@ public class StopWatch {
      * @param time */
     public void setStartTime(LocalTime time) { startTime = time; currentTime = time; }
 
-    /* Returns startTime */
-    public LocalTime getStartTime() { return startTime; }
+    /* Stops clock, resets currentTime to startTime, and updates TextFields */
+    public void reset() {
+        stop();
+        currentTime = startTime;
+        updateFields();
+    }
 
     /* Starts the clock */
     public void start() {
@@ -85,14 +88,18 @@ public class StopWatch {
     }
 
     /* Updates currentTime and incrementsElapsed and sets TextFields */
-    public void updateClock() {
+    public void updateTime() {
         if(countUp)
             currentTime = currentTime.plusSeconds(increment);
         else {
             currentTime = currentTime.minusSeconds(increment);
             // todo: tell if finished
         }
-        System.out.println("Current Time: " + currentTime.toString());
+        updateFields();
+    }
+
+    /* Sets TextFields to fields of currentTime */
+    public void updateFields() {
         controller.updateHrs(currentTime.getHour());
         controller.updateMin(currentTime.getMinute());
         controller.updateSec(currentTime.getSecond());

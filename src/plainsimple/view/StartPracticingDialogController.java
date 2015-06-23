@@ -1,14 +1,19 @@
 package plainsimple.view;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.Session;
 import plainsimple.StopWatch;
 
+import java.io.IOException;
 import java.time.LocalTime;
 
 /* Dialog to display a countup/countdown clock for
@@ -117,9 +122,10 @@ public class StartPracticingDialogController {
 
     }
 
-    /* Handles user pressing "Reset" button, which resets clock to last set time */
+    /* Handles user pressing "Reset" button, which resets clock and clock display */
     @FXML private void handleReset() {
-        setTime(stopWatch.getStartTime());
+        stopWatch.reset();
+        handleStartStop();
     }
 
     /* Extracts data from TextFields and returns time as a LocalTime object
@@ -129,14 +135,6 @@ public class StartPracticingDialogController {
         int min = Integer.parseInt(min_field.getText());
         int seconds = Integer.parseInt(sec_field.getText());
         return LocalTime.of(hours, min, seconds);
-    }
-
-    /* Sets TextFields to time fields
-     * @param time */
-    private void setTime(LocalTime time) {
-        updateHrs(time.getHour());
-        updateMin(time.getMinute());
-        updateSec(time.getSecond());
     }
 
      /* Handles user pressing count_up radiobutton
