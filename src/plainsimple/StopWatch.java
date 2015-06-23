@@ -107,8 +107,22 @@ public class StopWatch {
         else
             currentTime = currentTime.minusSeconds(increment);
             // todo: tell if finished
+
         updateFields();
         incrementsElapsed++;
+
+        /* Clock has hit 00:00:00 - play alarm */
+        if(currentTime.getSecond() == 0 && currentTime.getMinute() == 0
+                && currentTime.getHour() == 0) {
+            playAlarm();
+        }
+
+    }
+
+    /* Stops clock and plays an alarm signifying timer has hit 00:00:00 */
+    private void playAlarm() {
+        stop();
+        // todo: add alarm
     }
 
     /* Sets TextFields to fields of currentTime */
