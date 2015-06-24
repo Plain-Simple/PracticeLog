@@ -28,7 +28,7 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Any Activity">
+                  <RadioButton fx:id="anyActivity_button" mnemonicParsing="false" text="Any Activity">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,7 +40,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Time Range:">
+                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" text="Time Range:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_2" />
                      </toggleGroup>
@@ -48,9 +48,9 @@
                         <Font size="17.0" />
                      </font>
                   </RadioButton>
-                  <ChoiceBox layoutX="152.0" layoutY="1.0" prefHeight="25.0" prefWidth="161.0" />
-                  <DatePicker layoutX="39.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
-                  <DatePicker layoutX="190.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
+                  <ChoiceBox fx:id="timeRange_choice" layoutX="152.0" layoutY="1.0" prefHeight="25.0" prefWidth="161.0" />
+                  <DatePicker fx:id="startDate_picker" layoutX="39.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
+                  <DatePicker fx:id="endDate_picker" layoutX="190.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
                   <Text layoutX="56.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (inclusive)">
                      <font>
                         <Font name="System Italic" size="10.0" />
@@ -66,7 +66,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <RadioButton mnemonicParsing="false" text="No Time Range" toggleGroup="$group_2">
+                  <RadioButton fx:id="noTimeRange_button" mnemonicParsing="false" text="No Time Range" toggleGroup="$group_2">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -75,7 +75,7 @@
             </Pane>
             <Pane prefHeight="77.0" prefWidth="352.0" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Target Total Practice Time:">
+                  <RadioButton fx:id="targetTime_button" mnemonicParsing="false" text="Target Total Practice Time:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_3" />
                      </toggleGroup>
@@ -83,8 +83,8 @@
                         <Font size="17.0" />
                      </font>
                   </RadioButton>
-                  <TextField layoutX="54.0" layoutY="38.0" prefHeight="25.0" prefWidth="79.0" />
-                  <TextField layoutX="171.0" layoutY="38.0" prefHeight="25.0" prefWidth="79.0" />
+                  <TextField fx:id="goalTime_hrs" layoutX="54.0" layoutY="38.0" prefHeight="25.0" prefWidth="79.0" />
+                  <TextField fx:id="goalTime_min" layoutX="171.0" layoutY="38.0" prefHeight="25.0" prefWidth="79.0" />
                   <Text layoutX="136.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours">
                      <font>
                         <Font size="10.0" />
@@ -100,12 +100,12 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Target Number of Sessions:" toggleGroup="$group_3">
+                  <RadioButton fx:id="targetSessions_button" mnemonicParsing="false" text="Target Number of Sessions:" toggleGroup="$group_3">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </RadioButton>
-                  <TextField layoutX="79.0" layoutY="36.0" prefHeight="25.0" prefWidth="79.0" />
+                  <TextField fx:id="goalSessions" layoutX="79.0" layoutY="36.0" prefHeight="25.0" prefWidth="79.0" />
                   <Text layoutX="165.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sessions">
                      <font>
                         <Font size="10.0" />
@@ -115,7 +115,7 @@
             </Pane>
             <Pane prefHeight="60.0" prefWidth="342.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton mnemonicParsing="false" text="Specific Activity:">
+                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" text="Specific Activity:">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -128,13 +128,13 @@
                         <Font name="System Italic" size="10.0" />
                      </font>
                   </Text>
-                  <TextField layoutX="160.0" layoutY="2.0" />
+                  <TextField fx:id="activity_name" layoutX="160.0" layoutY="2.0" />
                   <Separator layoutY="58.0" prefHeight="3.0" prefWidth="591.0" />
                </children>
             </Pane>
          </children>
       </GridPane>
-      <RadioButton layoutX="52.0" layoutY="398.0" mnemonicParsing="false" text="Repeat">
+      <RadioButton fx:id="repeat_button" layoutX="52.0" layoutY="398.0" mnemonicParsing="false" text="Repeat">
          <font>
             <Font size="17.0" />
          </font>

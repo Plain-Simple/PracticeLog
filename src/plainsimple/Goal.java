@@ -50,12 +50,6 @@ public class Goal {
 
     public void setActivity(String activity) { this.activity = activity; }
 
-    public boolean specifiesSessions() { return !timeLimit; }
-
-    public int getSessions() { return goalSessions; }
-
-    public void setSession(int goalSessions) { this.goalSessions = goalSessions; }
-
     public boolean specifiesTimeLimit() { return timeLimit; }
 
     public LocalDate getStartDate() { return startDate; }
@@ -65,6 +59,18 @@ public class Goal {
     public LocalDate getEndDate() { return endDate; }
 
     public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+
+    public boolean specifiesSessions() { return goalSessions != 0; }
+
+    public int getSessions() { return goalSessions; }
+
+    public void setSession(int goalSessions) { this.goalSessions = goalSessions; }
+
+    public boolean specifiesTime() { return goalSessions == 0; }
+
+    public LocalTime getTime() { return goalTime; }
+
+    public void setTime(LocalTime goalTime) { this.goalTime = goalTime; }
 
     public boolean isRecurring() { return recurring; }
 
