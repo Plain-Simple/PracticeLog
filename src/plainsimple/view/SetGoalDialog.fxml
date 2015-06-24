@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="707.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.SetGoalDialogController">
    <children>
       <Text layoutX="247.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set a Goal" underline="true">
          <font>
@@ -28,7 +27,7 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="anyActivity_button" mnemonicParsing="false" text="Any Activity">
+                  <RadioButton fx:id="anyActivity_button" mnemonicParsing="false" onAction="#handleAnyActivity" text="Any Activity">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -40,7 +39,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" text="Time Range:">
+                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" onAction="#handleTimeRange" text="Time Range:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_2" />
                      </toggleGroup>
@@ -66,7 +65,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="noTimeRange_button" mnemonicParsing="false" text="No Time Range" toggleGroup="$group_2">
+                  <RadioButton fx:id="noTimeRange_button" mnemonicParsing="false" onAction="#handleNoTimeRange" text="No Time Range" toggleGroup="$group_2">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -75,7 +74,7 @@
             </Pane>
             <Pane prefHeight="77.0" prefWidth="352.0" GridPane.rowIndex="3">
                <children>
-                  <RadioButton fx:id="targetTime_button" mnemonicParsing="false" text="Target Total Practice Time:">
+                  <RadioButton fx:id="targetTime_button" mnemonicParsing="false" onAction="#handlePracticeTime" text="Target Total Practice Time:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_3" />
                      </toggleGroup>
@@ -100,7 +99,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <RadioButton fx:id="targetSessions_button" mnemonicParsing="false" text="Target Number of Sessions:" toggleGroup="$group_3">
+                  <RadioButton fx:id="targetSessions_button" mnemonicParsing="false" onAction="#handlePracticeSessions" text="Target Number of Sessions:" toggleGroup="$group_3">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -115,7 +114,7 @@
             </Pane>
             <Pane prefHeight="60.0" prefWidth="342.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" text="Specific Activity:">
+                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" onAction="#handleSpecificActivity" text="Specific Activity:">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -134,13 +133,13 @@
             </Pane>
          </children>
       </GridPane>
-      <RadioButton fx:id="repeat_button" layoutX="52.0" layoutY="398.0" mnemonicParsing="false" text="Repeat">
+      <RadioButton fx:id="repeat_button" layoutX="52.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleRepeat" text="Repeat">
          <font>
             <Font size="17.0" />
          </font>
       </RadioButton>
-      <Button layoutX="460.0" layoutY="457.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Ok" />
-      <Button layoutX="579.0" layoutY="457.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Cancel" />
+      <Button layoutX="460.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="25.0" prefWidth="96.0" text="Ok" />
+      <Button layoutX="579.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="96.0" text="Cancel" />
       <Separator layoutX="52.0" layoutY="434.0" prefHeight="3.0" prefWidth="591.0" />
       <ImageView fitHeight="101.0" fitWidth="147.0" layoutX="481.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>

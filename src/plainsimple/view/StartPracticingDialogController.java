@@ -147,10 +147,12 @@ public class StartPracticingDialogController {
             controller.setDialogStage(logDialogStage);
             controller.setSession(session);
 
-            // Show the dialog and wait until the user closes it
+            /* Show LogTime dialog and waits until the user closes it */
             logDialogStage.showAndWait();
 
             okClicked = controller.isOkClicked();
+
+            dialogStage.close();
         } catch(IOException e) {
             e.printStackTrace();
             okClicked = false;

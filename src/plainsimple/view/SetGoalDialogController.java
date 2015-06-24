@@ -95,46 +95,42 @@ public class SetGoalDialogController {
      * from fields and closing the dialog  */
     @FXML private void handleOk() {
         if (isInputValid()) {
-            
+
 
             okClicked = true;
             dialogStage.close();
         }
     }
 
-    /* Handles the user clicking the "Cancel" button
+    /* Handles the user pressing the "Cancel" button
      * Closes the dialog */
     @FXML private void handleCancel() {
         dialogStage.close();
     }
 
-    @FXML private void handleSpecificActivity() {
-
-    }
-
+    /* Handles the user pressing the "Any Activity" RadioButton */
     @FXML private void handleAnyActivity() {
-
+        activity_name.setDisable(true);
     }
 
-    @FXML private void handleTimeRange() {
-
-    }
-
+    /* Handles the user pressing the "No Time Range" RadioButton */
     @FXML private void handleNoTimeRange() {
-
+        timeRange_choice.setDisable(true);
+        startDate_picker.setDisable(true);
+        endDate_picker.setDisable(true);
     }
 
+    /* Handles the user pressing the "Target Total Practice Time" RadioButton */
     @FXML private void handlePracticeTime() {
-
+        goalSessions.setDisable(true);
     }
 
+    /* Handles the user pressing the "Target Number of Sessions" RadioButton */
     @FXML private void handlePracticeSessions() {
-
+        goalTime_hrs.setDisable(true);
+        goalTime_min.setDisable(true);
     }
 
-    @FXML private void handleRepeat() {
-
-    }
 
     /* Validates the user input in the fields
      * @return true if the input is valid */
