@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Session;
+import plainsimple.util.DatePickerUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,22 +34,7 @@ public class LogTimeDialogController {
     @FXML
     private void initialize() {
         /* disable all DateCells after today's date (see Oracle's "Working With JavaFX UI Components" #26) */
-        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
-                    @Override
-                    public DateCell call(final DatePicker datePicker) {
-                        return new DateCell() {
-                            @Override
-                            public void updateItem(LocalDate item, boolean empty) {
-                                super.updateItem(item, empty);
-
-                                if (item.isAfter(LocalDate.now())) {
-                                    setDisable(true);
-                                }
-                            }
-                        };
-                    }
-                };
-        date_picker.setDayCellFactory(dayCellFactory);
+        date_picker.setDayCellFactory(DatePickerUtil.getDayCellFactoryAfter(LocalDate.now()));
     }
 
     /* sets stage of dialog  */
@@ -72,18 +58,21 @@ public class LogTimeDialogController {
         return okClicked;
     }
 
-    /* handles user pressing "Ok" button */
+    /* Handles user pressing "Ok" button
+     * Checks to make sure input is valid before updating Session with information
+     * from fields and closing the dialog  */
     @FXML private void handleOk() {
         if (isInputValid()) {  /* isInputValid() will take care of any input errors */
             okClicked = true;
 
-            /* Make sure session is initialized */
+            /* Make sure Session is initialized */
             if(session == null)
                 session = new Session();
 
             session.setActivity(activity_field.getText());
             session.setTimePracticed(getPracticeTime());
             session.setDate(date_picker.getValue());
+
             dialogStage.close();
         }
     }
@@ -137,7 +126,7 @@ public class LogTimeDialogController {
     }
 
     /* constructs LocalTime object using entries from "hrs" and "min" fields of dialog
-     * entries must me validated first with isValid() method */
+     * entries must be validated first with isValid() method */
     private LocalTime getPracticeTime() {
         int hrs = 0, min = 0;
         if(!isEmpty(hrs_field)) {

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Goal;
+import plainsimple.util.DatePickerUtil;
 
 import java.time.LocalDate;
 
@@ -44,7 +45,6 @@ public class SetGoalDialogController {
     /* Initializes ChoiceBox, adds RadioButtons to togglegroups, and customizes Datepickers
      * Called once SetGoalDialog.fxml has been loaded */
     @FXML private void initialize() {
-        // todo: initialization code
         /* Add choices to timeRange_choice ComboBox */
         timeRange_choice.setItems(FXCollections.observableArrayList("Custom Selection",
                 "Today", "Tomorrow", "1 Week", "30 Days", "This Month", "365 Days", "This Year"));
@@ -57,6 +57,11 @@ public class SetGoalDialogController {
                     }
                 });
 
+        /* Disable all days before today in startDate_picker */
+        startDate_picker.setDayCellFactory(DatePickerUtil.getDayCellFactoryBefore(LocalDate.now()));
+        startDate_picker.setValue(LocalDate.now());
+
+        /* Disable all days before value of startDate_picker so Goal can not end before it starts */
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
             @Override
             public DateCell call(final DatePicker datePicker) {
@@ -65,14 +70,13 @@ public class SetGoalDialogController {
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        if (item.isBefore(LocalDate.now())) {
+                        if (item.isBefore(startDate_picker.getValue())) {
                             setDisable(true);
                         }
                     }
                 };
             }
         };
-        startDate_picker.setDayCellFactory(dayCellFactory);
         endDate_picker.setDayCellFactory(dayCellFactory);
 
         /* Set toggle groups */
@@ -119,14 +123,14 @@ public class SetGoalDialogController {
         if(goal.specifiesTime()) {
             targetTime_button.setSelected(true);
             handlePracticeTime();
-            if(goal.getTime().getHour() != 0)
-                goalTime_hrs.setText(Integer.toString(goal.getTime().getHour()));
-            if(goal.getTime().getMinute() != 0)
-                goalTime_min.setText(Integer.toString(goal.getTime().getMinute()));
+            if(goal.getTargetTime().getHour() != 0)
+                goalTime_hrs.setText(Integer.toString(goal.getTargetTime().getHour()));
+            if(goal.getTargetTime().getMinute() != 0)
+                goalTime_min.setText(Integer.toString(goal.getTargetTime().getMinute()));
         } else {
             targetSessions_button.setSelected(true);
             handlePracticeSessions();
-            goalSessions.setText(Integer.toString(goal.getSessions()));
+            goalSessions.setText(Integer.toString(goal.getTargetSessions()));
         }
 
         if(goal.isRecurring())
@@ -144,9 +148,28 @@ public class SetGoalDialogController {
      * from fields and closing the dialog  */
     @FXML private void handleOk() {
         if (isInputValid()) {
-
-
             okClicked = true;
+
+            /* Make sure Goal is initialized */
+            if(goal == null)
+                goal = new Goal();
+
+            if(specificActivity_button.isSelected()) {
+                goal.setHasActivity(true);
+                goal.setActivity(activity_name.getText());
+            } else {
+                goal.setHasActivity(false);
+            }
+
+            if(timeRange_button.isSelected()) {
+                goal.setStartDate(startDate_picker.getValue());
+                goal.setEndDate(endDate_picker.getValue());
+            }
+
+            if(targetTime_button.isSelected()) {
+               //goal.setTargetTime();
+            }
+
             dialogStage.close();
         }
     }

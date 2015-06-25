@@ -17,15 +17,18 @@ public class Goal {
     /* Name of activity - if empty, no specific activity specified */
     private String activity;
 
-    /* Goal: Number of sessions to practice - if zero, a time was specified */
+    /* Whether an activity was specified */
+    private boolean hasActivity = true;
+
+    /* Number of sessions to practice - if zero, a time was specified */
     private int goalSessions;
 
-    /* Goal: Amount of time to practice - if zero, a number of sessions
+    /* Amount of time to practice - if zero, a number of sessions
      * was specified */
     private LocalTime goalTime;
 
     /* Whether a time limit was set or not */
-    private boolean timeLimit = false;
+    private boolean timeLimit = true;
 
     /* Date time limit starts */
     private LocalDate startDate;
@@ -39,37 +42,40 @@ public class Goal {
     /* Default constructor */
     public Goal() {
         activity = "";
-        goalSessions = 0;
         goalTime = LocalTime.of(0, 0);
     }
 
-    public boolean specifiesActivity() { return !activity.equals(""); }
-
     public String getActivity() { return activity; }
 
-    public void setActivity(String activity) { this.activity = activity; }
+    public void setActivity(String activity) { this.activity = activity;  hasActivity = true; }
+
+    public boolean specifiesActivity() { return hasActivity; }
+
+    public void setHasActivity(boolean hasActivity) { this.hasActivity = hasActivity; }
 
     public boolean specifiesTimeLimit() { return timeLimit; }
 
+    public void setSpecifiesTimeLimit(boolean timeLimit) { this.timeLimit = timeLimit; }
+
     public LocalDate getStartDate() { return startDate; }
 
-    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; timeLimit = true; }
 
     public LocalDate getEndDate() { return endDate; }
 
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+    public void setEndDate(LocalDate endDate) { this.endDate = endDate; timeLimit = true; }
 
     public boolean specifiesSessions() { return goalSessions != 0; }
 
-    public int getSessions() { return goalSessions; }
+    public int getTargetSessions() { return goalSessions; }
 
-    public void setSession(int goalSessions) { this.goalSessions = goalSessions; }
+    public void setTargetSession(int goalSessions) { this.goalSessions = goalSessions; }
 
     public boolean specifiesTime() { return goalSessions == 0; }
 
-    public LocalTime getTime() { return goalTime; }
+    public LocalTime getTargetTime() { return goalTime; }
 
-    public void setTime(LocalTime goalTime) { this.goalTime = goalTime; }
+    public void setTargetTime(LocalTime goalTime) { this.goalTime = goalTime; }
 
     public boolean isRecurring() { return recurring; }
 
