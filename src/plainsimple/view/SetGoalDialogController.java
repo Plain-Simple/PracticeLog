@@ -1,9 +1,15 @@
 package plainsimple.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import plainsimple.Goal;
+
+import java.time.LocalDate;
 
 /* Controller class for "Set a Goal" dialog, which allows user to define
  * a new Goal */
@@ -35,10 +41,40 @@ public class SetGoalDialogController {
     private Goal goal;
     private boolean okClicked = false;
 
-    /* Initializes ChoiceBox, adds listeners to RadioButtons, and customizes Datepickers
+    /* Initializes ChoiceBox and customizes Datepickers
      * Called once SetGoalDialog.fxml has been loaded */
     @FXML private void initialize() {
         // todo: initialization code
+        /* Add choices to timeRange_choice ChoiceBox */
+        timeRange_choice = new ChoiceBox(FXCollections.observableArrayList("Custom Selection",
+                "Today", "Tomorrow", "1 Week", "30 Days", "This Month", "365 Days", "This Year"));
+
+        /* Add a Listener to detect selection changes and call the configureCalendar() method */
+        timeRange_choice.getSelectionModel().selectedIndexProperty()
+                .addListener(new ChangeListener<Number>() {
+                    public void changed(ObservableValue ov, Number value, Number new_value) {
+                        /* Get index of selection */ // todo: finish
+                        new_value.intValue();
+                    }
+                });
+
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                        }
+                    }
+                };
+            }
+        };
+        startDate_picker.setDayCellFactory(dayCellFactory);
+        endDate_picker.setDayCellFactory(dayCellFactory);
     }
 
     /* Sets dialog stage

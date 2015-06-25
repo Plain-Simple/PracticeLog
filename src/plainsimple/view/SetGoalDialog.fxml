@@ -114,7 +114,7 @@
             </Pane>
             <Pane prefHeight="60.0" prefWidth="342.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" onAction="#handleSpecificActivity" text="Specific Activity:">
+                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" text="Specific Activity:">
                      <font>
                         <Font size="17.0" />
                      </font>
