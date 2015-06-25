@@ -127,7 +127,7 @@ public class DataHandler {
         ArrayList<String> data = getData();
         for(int i = data.indexOf("Goals:") + 1; !data.get(i).equals("Log:") ; i++) {
             try {
-                stored_goals.add(new Goal(data.get(i)));
+                //stored_goals.add(new Goal(data.get(i)));
             } catch(Exception e) {} /* ignore corrupted data */
         }
         return stored_goals;
@@ -161,8 +161,8 @@ public class DataHandler {
         long current_time = Calendar.getInstance().get(Calendar.MILLISECOND);
         for(int i = 0; i < stored_goals.size(); i++) {
             /* remove any goals that aren't relevant at current System time */
-            if(!stored_goals.get(i).isRelevant(current_time))
-                stored_goals.remove(i);
+            //if(!stored_goals.get(i).isRelevant(current_time))
+               // stored_goals.remove(i);
         }
         return stored_goals;
     }

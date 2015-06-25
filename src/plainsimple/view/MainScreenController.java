@@ -5,6 +5,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
+import plainsimple.Goal;
 import plainsimple.MainApp;
 import plainsimple.Session;
 import plainsimple.util.SessionUtil;
@@ -104,7 +105,11 @@ public class MainScreenController {
 
     /* handles user pressing the "Set a Goal" button */
     @FXML private void handleSetGoal() {
-
+        Goal temp_goal = new Goal();
+        boolean okClicked = mainApp.showSetGoalDialog(temp_goal);
+        if (okClicked) {
+            mainApp.getGoalData().add(temp_goal);
+        }
     }
 
     /* handles user pressing the "See Full Log" button */

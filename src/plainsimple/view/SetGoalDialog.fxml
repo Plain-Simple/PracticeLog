@@ -39,7 +39,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" onAction="#handleTimeRange" text="Time Range:">
+                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" text="Time Range:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_2" />
                      </toggleGroup>
@@ -133,7 +133,7 @@
             </Pane>
          </children>
       </GridPane>
-      <RadioButton fx:id="repeat_button" layoutX="52.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleRepeat" text="Repeat">
+      <RadioButton fx:id="repeat_button" layoutX="52.0" layoutY="398.0" mnemonicParsing="false" text="Repeat">
          <font>
             <Font size="17.0" />
          </font>

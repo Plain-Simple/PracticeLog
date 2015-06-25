@@ -12,10 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import plainsimple.view.LogTimeDialogController;
-import plainsimple.view.LogViewController;
-import plainsimple.view.MainScreenController;
-import plainsimple.view.StartPracticingDialogController;
+import plainsimple.view.*;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
    as the root stage */
@@ -28,14 +25,22 @@ public class MainApp extends Application {
     private ObservableList<Session> sessionData =
             FXCollections.observableArrayList();
 
+    /* Goals stored as an observable list */
+    private ObservableList<Goal> goalData =
+            FXCollections.observableArrayList();
+
     /* Constructor */
     public MainApp() {
-        // todo: read datafile and add to sessionData
+        // todo: read datafile and add to sessionData and goalData
     }
 
     /* Returns sessionData */
     public ObservableList<Session> getSessionData() { return sessionData; }
 
+    /* Returns goalData */
+    public ObservableList<Goal> getGoalData() { return goalData; }
+
+    /* Starts program, setting up the root layout and displaying the main screen */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -57,6 +62,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -156,11 +162,9 @@ public class MainApp extends Application {
     }
 
     /* Pops up the "Start Practicing!" dialog to allow the user to
-     * time themselves with a countdown/countup clock // todo: figure out logic
-     *
+     * time themselves with a countdown/countup clock
      * @param session the Session object to be created
-     * @return true if the user clicked OK, false otherwise.
-     */
+     * @return true if the user clicked OK, false otherwise. */
     public boolean showStartPracticingDialog(Session session) {
         try {
             /* Load the fxml file and create a new stage for the popup dialog */
@@ -190,6 +194,40 @@ public class MainApp extends Application {
 
             /* Make sure stopwatch has been stopped */
             initial_stopwatch.stop();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /* Pops up the "Set a Goal" dialog to allow the user to
+     * create or edit a Goal
+     * @param goal the Goal object to be created or edited
+     * @return true if the user clicked OK, false otherwise. */
+    public boolean showSetGoalDialog(Goal goal) {
+        try {
+            /* Load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/SetGoalDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            /* Create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Set a Goal");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            /* Sets Goal to be created/edited */
+            SetGoalDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setGoal(goal);
+
+            /* Show the dialog and wait until the user closes it */
+            dialogStage.showAndWait();
 
             return controller.isOkClicked();
         } catch (IOException e) {
