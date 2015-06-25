@@ -39,7 +39,7 @@
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" text="Time Range:">
+                  <RadioButton fx:id="timeRange_button" mnemonicParsing="false" onAction="#handleTimeRange" text="Time Range:">
                      <toggleGroup>
                         <ToggleGroup fx:id="group_2" />
                      </toggleGroup>
@@ -47,7 +47,6 @@
                         <Font size="17.0" />
                      </font>
                   </RadioButton>
-                  <ChoiceBox fx:id="timeRange_choice" layoutX="152.0" layoutY="1.0" prefHeight="25.0" prefWidth="161.0" />
                   <DatePicker fx:id="startDate_picker" layoutX="39.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
                   <DatePicker fx:id="endDate_picker" layoutX="190.0" layoutY="38.0" prefHeight="25.0" prefWidth="123.0" />
                   <Text layoutX="56.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date (inclusive)">
@@ -61,6 +60,7 @@
                      </font>
                   </Text>
                   <Separator layoutY="101.0" prefHeight="3.0" prefWidth="591.0" />
+                  <ComboBox fx:id="timeRange_choice" layoutX="153.0" layoutY="1.0" prefWidth="150.0" promptText="Choose Range..." />
                </children>
             </Pane>
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -114,13 +114,10 @@
             </Pane>
             <Pane prefHeight="60.0" prefWidth="342.0" GridPane.rowIndex="1">
                <children>
-                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" text="Specific Activity:">
+                  <RadioButton fx:id="specificActivity_button" mnemonicParsing="false" onAction="#handleSpecificActivity" text="Specific Activity:" toggleGroup="$group_1">
                      <font>
                         <Font size="17.0" />
                      </font>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="group_11" />
-                     </toggleGroup>
                   </RadioButton>
                   <Text layoutX="203.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity Name">
                      <font>

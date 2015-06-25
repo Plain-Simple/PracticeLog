@@ -25,7 +25,7 @@ public class Goal {
     private LocalTime goalTime;
 
     /* Whether a time limit was set or not */
-    private boolean timeLimit;
+    private boolean timeLimit = false;
 
     /* Date time limit starts */
     private LocalDate startDate;
@@ -34,14 +34,13 @@ public class Goal {
     private LocalDate endDate;
 
     /* Whether or not Goal is recurring, i.e. is reset once completed */
-    private boolean recurring;
+    private boolean recurring = false;
 
     /* Default constructor */
     public Goal() {
         activity = "";
         goalSessions = 0;
         goalTime = LocalTime.of(0, 0);
-        recurring = false;
     }
 
     public boolean specifiesActivity() { return !activity.equals(""); }

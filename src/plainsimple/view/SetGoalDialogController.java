@@ -24,8 +24,8 @@ public class SetGoalDialogController {
     @FXML private RadioButton anyActivity_button;
 
     @FXML private ToggleGroup group_1;
-    @FXML private ToggleGroup group_3;
     @FXML private ToggleGroup group_2;
+    @FXML private ToggleGroup group_3;
 
     @FXML private TextField activity_name;
     @FXML private TextField goalTime_hrs;
@@ -35,26 +35,25 @@ public class SetGoalDialogController {
     @FXML private DatePicker endDate_picker;
     @FXML private DatePicker startDate_picker;
 
-    @FXML private ChoiceBox<String> timeRange_choice;
+    @FXML private ComboBox<String> timeRange_choice;
 
     private Stage dialogStage;
     private Goal goal;
     private boolean okClicked = false;
 
-    /* Initializes ChoiceBox and customizes Datepickers
+    /* Initializes ChoiceBox, adds RadioButtons to togglegroups, and customizes Datepickers
      * Called once SetGoalDialog.fxml has been loaded */
     @FXML private void initialize() {
         // todo: initialization code
-        /* Add choices to timeRange_choice ChoiceBox */
-        timeRange_choice = new ChoiceBox(FXCollections.observableArrayList("Custom Selection",
+        /* Add choices to timeRange_choice ComboBox */
+        timeRange_choice.setItems(FXCollections.observableArrayList("Custom Selection",
                 "Today", "Tomorrow", "1 Week", "30 Days", "This Month", "365 Days", "This Year"));
 
-        /* Add a Listener to detect selection changes and call the configureCalendar() method */
+        /* Add a Listener to detect selection changes and call a handler method */
         timeRange_choice.getSelectionModel().selectedIndexProperty()
                 .addListener(new ChangeListener<Number>() {
                     public void changed(ObservableValue ov, Number value, Number new_value) {
-                        /* Get index of selection */ // todo: finish
-                        new_value.intValue();
+                        handleComboBox(new_value.intValue());
                     }
                 });
 
@@ -75,6 +74,16 @@ public class SetGoalDialogController {
         };
         startDate_picker.setDayCellFactory(dayCellFactory);
         endDate_picker.setDayCellFactory(dayCellFactory);
+
+        /* Set toggle groups */
+        specificActivity_button.setToggleGroup(group_1);
+        anyActivity_button.setToggleGroup(group_1);
+
+        timeRange_button.setToggleGroup(group_2);
+        noTimeRange_button.setToggleGroup(group_2);
+
+        targetTime_button.setToggleGroup(group_3);
+        targetSessions_button.setToggleGroup(group_3);
     }
 
     /* Sets dialog stage
@@ -94,6 +103,7 @@ public class SetGoalDialogController {
             activity_name.setText(goal.getActivity());
         } else {
             anyActivity_button.setSelected(true);
+            handleAnyActivity();
         }
 
         if(goal.specifiesTimeLimit()) {
@@ -103,16 +113,19 @@ public class SetGoalDialogController {
             // todo: set choicebox
         } else {
             noTimeRange_button.setSelected(true);
+            handleNoTimeRange();
         }
 
         if(goal.specifiesTime()) {
             targetTime_button.setSelected(true);
+            handlePracticeTime();
             if(goal.getTime().getHour() != 0)
                 goalTime_hrs.setText(Integer.toString(goal.getTime().getHour()));
             if(goal.getTime().getMinute() != 0)
                 goalTime_min.setText(Integer.toString(goal.getTime().getMinute()));
         } else {
             targetSessions_button.setSelected(true);
+            handlePracticeSessions();
             goalSessions.setText(Integer.toString(goal.getSessions()));
         }
 
@@ -149,6 +162,11 @@ public class SetGoalDialogController {
         activity_name.setDisable(true);
     }
 
+    /* Handles the user pressing the "Specific Activity" RadioButton */
+    @FXML private void handleSpecificActivity() {
+        activity_name.setDisable(false);
+    }
+
     /* Handles the user pressing the "No Time Range" RadioButton */
     @FXML private void handleNoTimeRange() {
         timeRange_choice.setDisable(true);
@@ -156,17 +174,63 @@ public class SetGoalDialogController {
         endDate_picker.setDisable(true);
     }
 
+    /* Handles the user pressing the "Time Range" RadioButton */
+    @FXML private void handleTimeRange() {
+        timeRange_choice.setDisable(false);
+        //startDate_picker.setDisable(false);
+        //endDate_picker.setDisable(false);
+    }
+
     /* Handles the user pressing the "Target Total Practice Time" RadioButton */
     @FXML private void handlePracticeTime() {
+        goalTime_hrs.setDisable(false);
+        goalTime_min.setDisable(false);
         goalSessions.setDisable(true);
     }
 
     /* Handles the user pressing the "Target Number of Sessions" RadioButton */
     @FXML private void handlePracticeSessions() {
+        goalSessions.setDisable(false);
         goalTime_hrs.setDisable(true);
         goalTime_min.setDisable(true);
     }
 
+    /* Handles the user choosing an option in timeRange_choice ComboBox
+     * If "Custom Range" is chosen, DatePickers are enabled
+     * If it is not chosen, DatePickers are disabled, but still display start and end dates
+     * @param combo_index value of selected choice in combo_box as given by listener */
+    private void handleComboBox(int combo_index) {
+        if(combo_index == 0) { /* "Custom Range..." - Enable DatePickers */
+            disableDatePickers(false);
+        } else {
+            disableDatePickers(true);
+            /* By default the start of the time limit must be today */
+            startDate_picker.setValue(LocalDate.now());
+        }
+
+        if(combo_index == 1) { /* "Today" */
+            endDate_picker.setValue(LocalDate.now());
+        } else if(combo_index == 2) { /* "Tomorrow" */
+            endDate_picker.setValue(LocalDate.now().plusDays(1));
+        } else if(combo_index == 3) { /* "1 Week" */
+            endDate_picker.setValue(LocalDate.now().plusDays(7));
+        } else if(combo_index == 4) { /* "30 Days" */
+            endDate_picker.setValue(LocalDate.now().plusDays(30));
+        } else if(combo_index == 5) { /* "This Month" - end date is first day of next month */
+            endDate_picker.setValue(LocalDate.now().plusMonths(1).withDayOfMonth(1));
+        } else if(combo_index == 6) { /* "365 Days" */
+            endDate_picker.setValue(LocalDate.now().plusDays(365));
+        } else if(combo_index == 7) { /* "This Year" */
+            endDate_picker.setValue(LocalDate.now().plusYears(1).withDayOfYear(1));
+        }
+    }
+
+    /* Easily set disable state of both DatePickers
+     * @param disable disables if true, enables if false */
+    private void disableDatePickers(boolean disable) {
+        startDate_picker.setDisable(disable);
+        endDate_picker.setDisable(disable);
+    }
 
     /* Validates the user input in the fields
      * @return true if the input is valid */
