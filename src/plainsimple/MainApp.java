@@ -14,7 +14,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import plainsimple.model.SessionListWrapper;
 import plainsimple.view.*;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 /* This class starts the JavaFX Application using MainScreen.fxml
    as the root stage */
@@ -264,6 +269,50 @@ public class MainApp extends Application {
             prefs.put("sessionFilePath", file.getPath());
         } else {
             prefs.remove("sessionFilePath");
+        }
+    }
+
+    /* Loads Session data from the specified file into sessionData. This overwrites
+     * sessionData
+     * @param file file where persisting Session data is kept */
+    public void loadPersonDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(SessionListWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+
+            /* Read XML from the file and unmarshal the data */
+            SessionListWrapper wrapper = (SessionListWrapper) um.unmarshal(file);
+
+            sessionData.clear();
+            sessionData.addAll(wrapper.getSessions());
+
+            /* Save the file path to the registry */
+            setSessionFilePath(file);
+
+        } catch (Exception e) {
+        }
+    }
+
+    /* Saves the current Session data to the specified file. as XML
+     * @param file file to save persisting Session data to */
+    public void saveSessionDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(SessionListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            /* Wrap Session data from sessionData */
+            SessionListWrapper wrapper = new SessionListWrapper();
+            wrapper.setSessions(sessionData);
+
+            /* Marshal and save XML to the file */
+            m.marshal(wrapper, file);
+
+            /* Save the file path to the registry */
+            setSessionFilePath(file);
+        } catch (Exception e) {
         }
     }
 
