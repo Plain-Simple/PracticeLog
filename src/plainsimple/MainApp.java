@@ -1,7 +1,9 @@
 package plainsimple;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -233,6 +235,36 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    /* Accesses Program Preferences as saved in the OS's system registry and returns
+     * the path to the file where Session data is stored. If the file
+     * preference can't be found, returns null.
+     * @return path to the file containing persisting Session data */
+    public File getSessionFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        /* Retrieve filePath from "filePath" field in Preferences file */
+        String filePath = prefs.get("filePath", null);
+
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /* Accesses Program Preferences as saved in the OS's system and sets the path
+     * to the file where Session data is stored. The path is stored as persisting
+     * data in the OS specific registry.
+     * @param file file where Session data is stored, or null, to remove the path
+     */
+    public void setSessionFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+        } else {
+            prefs.remove("filePath");
         }
     }
 
