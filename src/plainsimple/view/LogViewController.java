@@ -33,7 +33,7 @@ public class LogViewController {
     public void setData(ObservableList<Session> data) {
         this.data = data;
         setSubHeading();
-        setLogDisplay();
+        log_display.setText(getLogText());
     }
 
     /* Handles user pressing "Close" button */
@@ -52,64 +52,56 @@ public class LogViewController {
                     " - " + DateUtil.format(SessionUtil.getNewestDate(data)));
     }
 
-    /* Sets "log_display" textarea using data */
-    private void setLogDisplay() { // todo: painful to look at
-        String log = "";
-        Session this_session;
-        /* space between columns */
-        int columnSeparation = 5;
-        int firstColumn_width = "Activity".length() + columnSeparation;
-        int secondColumn_width = "Time Practiced".length() + columnSeparation;
-        int thirdColumn_width = "Date".length() + columnSeparation;
-        /* total width of table */
-        int total_width = 0;
+    /* Returns a String with formatted log for display in textarea
+     * The first "column" shows the Activity field of each Session.
+     * This column is 14 characters long. The second column shows
+     * time practiced and is 16 characters long, while the third
+     * shows the date practiced and is 8 characters long.
+     * There is a three-character space between each column.
+     * Padding is calculated by taking the fixed column width,
+     * subtracting the length of the field to be displayed in it,
+     * and dividing by two */
+    private String getLogText() { // todo: painful to look at
+        String log = "   Activity       Time Practiced      Date\n";
+        log += "--------------   ----------------   --------\n";
 
-        /* Speed up - If no Sessions to show display "No Data to Show" */
+        /* If no Sessions to show display "No Data to Show" centered in 4th row */
         if(data.isEmpty())
-            log = "Log is Empty: No Sessions to Show";
+            return log + "\n         Log is Empty: No Sessions to Show         ";
         else {
-        /* Establish length of longest String in each column */
+        /* Fill the table with information from data. Each column is centered */
+            Session this_session;
+            String activity;
+            String date;
+            String time;
             for (int i = 0; i < data.size(); i++) {
                 this_session = data.get(i);
-                if (this_session.getActivity().length() > firstColumn_width)
-                    firstColumn_width = this_session.getActivity().length();
-                if (this_session.timePracticedString().length() > secondColumn_width)
-                    secondColumn_width = this_session.timePracticedProperty().get().length();
-                if (this_session.dateString().length() > thirdColumn_width)
-                    thirdColumn_width = this_session.dateString().length();
-            }
+                activity = this_session.getActivity();
+                date = this_session.getDate().toString();
+                time = this_session.getTimePracticed().toString();
+                /* Determine how many spaces before and after each field to leave blank */
+                int firstColPadding = (14 - activity.length()) / 2;
+                int secondColPadding = (16 - time.length()) / 2;
+                int thirdColPadding = (8 - date.length()) / 2;
 
-        /* Format first two rows */
-            log = "Activity";
-            firstColumn_width += columnSeparation;
-            for (int i = 0; i < firstColumn_width; i++)
-                log += " ";
-            log += "Time Practiced";
-            secondColumn_width += columnSeparation;
-            for (int i = 0; i < secondColumn_width; i++)
-                log += " ";
-            log += "Date";
-            thirdColumn_width += columnSeparation;
-            for (int i = 0; i < thirdColumn_width; i++)
-                log += " ";
-            log += "\n";
-            for (int i = 0; i < total_width; i++)
-                log += "-";
-
-        /* Fill the table with information from data */
-            for (int i = 0; i < data.size(); i++) {
-                log += data.get(i).getActivity();
-                for (int j = data.get(i).getActivity().length(); j < firstColumn_width; j++)
-                    log += " ";
-                log += data.get(i).timePracticedString();
-                for (int j = data.get(i).timePracticedString().length(); j < secondColumn_width; j++)
-                    log += " ";
-                log += data.get(i).dateString() + "\n";
+                log += buildSpace(firstColPadding) + activity + buildSpace(firstColPadding);
+                log += "   ";
+                log += buildSpace(secondColPadding) + time + buildSpace(secondColPadding);
+                log += "   ";
+                log += buildSpace(thirdColPadding) + date + buildSpace(thirdColPadding);
+                log += "\n";
             }
+            return log;
         }
         // todo: look into field.setPrefWidth(TextUtils.computeTextWidth(field.getFont(),field.getText(), 0.0D) + 10);
+    }
 
-        /* Set textarea */
-        log_display.setText(log);
+    /* Returns a String of " " of specified length
+     * @param length the length of the String to be created */
+    private String buildSpace(int length) {
+        String spaces = "";
+        for(int i = 0; i < length; i++)
+            spaces += " ";
+        return spaces;
     }
 }

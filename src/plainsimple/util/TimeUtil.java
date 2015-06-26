@@ -42,7 +42,6 @@ public class TimeUtil {
             }
 
             try {
-                System.out.println("Hours = " + hrs + " and min = " + min);
                 return LocalTime.of(hrs, min);
             } catch (DateTimeException e) {
                 return null;

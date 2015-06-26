@@ -21,11 +21,11 @@
             </Text>
          </children>
       </Pane>
-      <ScrollPane layoutX="11.0" layoutY="75.0" prefHeight="374.0" prefWidth="578.0">
-         <content>
-            <TextArea fx:id="log_display" prefHeight="0.0" prefWidth="576.0" />
-         </content>
-      </ScrollPane>
+      <TextArea fx:id="log_display" layoutX="12.0" layoutY="69.0" prefHeight="371.0" prefWidth="576.0">
+         <font>
+            <Font name="Courier New" size="20.0" />
+         </font>
+      </TextArea>
       <Button layoutX="260.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleClose" prefHeight="25.0" prefWidth="81.0" text="Close" />
    </children>
 </AnchorPane>

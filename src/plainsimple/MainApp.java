@@ -72,7 +72,7 @@ public class MainApp extends Application {
                     new File(System.getProperty("user.home")));
             /* Create a folder titled "PracticeLog" in chosen directory */
             new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
-            createFolder(new_directory); // todo: nullpointerexception
+            createFolder(new_directory); // todo: nullpointerexception if no file chosen
 
             /* Create xml datafiles for sessionData and goalData and update properties file with new paths */
             File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
