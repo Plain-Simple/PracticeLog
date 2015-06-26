@@ -3,7 +3,9 @@ package plainsimple;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import plainsimple.util.DateUtil;
+import plainsimple.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -78,6 +80,7 @@ public class Session {
         return new SimpleStringProperty(time);
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getDate() {
         return date;
     }

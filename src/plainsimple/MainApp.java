@@ -73,6 +73,12 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /* Try to open file containing path to persisting Session data */
+        File file = getSessionFilePath();
+        if (file != null) {
+            loadPersonDataFromFile(file);
+        }
     }
 
     /* Returns main stage */
