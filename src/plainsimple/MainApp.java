@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import plainsimple.model.GoalListWrapper;
 import plainsimple.model.SessionListWrapper;
 import plainsimple.view.*;
 
@@ -63,6 +64,7 @@ public class MainApp extends Application {
         System.out.println("File location: " + file.getPath());
         if (file != null) {
             loadSessionDataFromFile(file);
+            loadGoalDataFromFile(file); // todo: goalData not being saved correctly
         } else { /* File not found - Open directory chooser for user to choose where to save data */
             // todo: read datafile and add to sessionData and goalData
             // todo: pop-up asking to specify a directory
@@ -71,14 +73,25 @@ public class MainApp extends Application {
             /* Create a folder titled "PracticeLog" in chosen directory */
             new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
             createFolder(new_directory); // todo: nullpointerexception
+
+            /* Create xml datafiles for sessionData and goalData and update properties file with new paths */
             File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
             setSessionFilePath(sessionDataFile);
+            File goalDataFile = new File(new_directory.getPath() + File.separator + "GoalData.xml");
+            setGoalFilePath(goalDataFile);
         }
 
         sessionData.addListener(new ListChangeListener<Session>() {
             @Override
             public void onChanged(Change<? extends Session> c) {
                 saveSessionDataToFile(getSessionFilePath());
+            }
+        });
+
+        goalData.addListener(new ListChangeListener<Goal>() {
+            @Override
+            public void onChanged(Change<? extends Goal> c) {
+                saveGoalDataToFile(getGoalFilePath());
             }
         });
     }
@@ -367,6 +380,50 @@ public class MainApp extends Application {
             prefs.put("goalFilePath", file.getPath());
         } else {
             prefs.remove("goalFilePath");
+        }
+    }
+
+    /* Loads Goal data from the specified file into goalData. This overwrites
+     * goalData
+     * @param file file where persisting Session data is kept */
+    public void loadGoalDataFromFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(SessionListWrapper.class);
+            Unmarshaller um = context.createUnmarshaller();
+
+            /* Read XML from the file and unmarshal the data */
+            GoalListWrapper wrapper = (GoalListWrapper) um.unmarshal(file);
+
+            goalData.clear();
+            goalData.addAll(wrapper.getGoals());
+
+            /* Save the file path to the registry */
+            setGoalFilePath(file);
+
+        } catch (Exception e) {
+        }
+    }
+
+    /* Saves the current Goal data to the specified file as XML
+     * @param file file to save persisting Goal data to */
+    public void saveGoalDataToFile(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(SessionListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            /* Wrap Goal data from sessionData */
+            GoalListWrapper wrapper = new GoalListWrapper();
+            wrapper.setGoals(goalData);
+
+            /* Marshal and save XML to the file */
+            m.marshal(wrapper, file);
+
+            /* Save the file path to the registry */
+            setGoalFilePath(file);
+        } catch (Exception e) {
         }
     }
 
