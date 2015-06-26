@@ -245,7 +245,7 @@ public class MainApp extends Application {
     public File getSessionFilePath() {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         /* Retrieve filePath from "filePath" field in Preferences file */
-        String filePath = prefs.get("filePath", null);
+        String filePath = prefs.get("sessionFilePath", null);
 
         if (filePath != null) {
             return new File(filePath);
@@ -257,14 +257,42 @@ public class MainApp extends Application {
     /* Accesses Program Preferences as saved in the OS's system and sets the path
      * to the file where Session data is stored. The path is stored as persisting
      * data in the OS specific registry.
-     * @param file file where Session data is stored, or null, to remove the path
-     */
+     * @param file file where Session data is stored, or null, to remove the path */
     public void setSessionFilePath(File file) {
         Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
         if (file != null) {
-            prefs.put("filePath", file.getPath());
+            prefs.put("sessionFilePath", file.getPath());
         } else {
-            prefs.remove("filePath");
+            prefs.remove("sessionFilePath");
+        }
+    }
+
+    /* Accesses Program Preferences as saved in the OS's system registry and returns
+     * the path to the file where Goal data is stored. If the file
+     * preference can't be found, returns null.
+     * @return path to the file containing persisting Goal data */
+    public File getGoalFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        /* Retrieve filePath from "filePath" field in Preferences file */
+        String filePath = prefs.get("goalFilePath", null);
+
+        if (filePath != null) {
+            return new File(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    /* Accesses Program Preferences as saved in the OS's system and sets the path
+     * to the file where Goal data is stored. The path is stored as persisting
+     * data in the OS specific registry.
+     * @param file file where Goal data is stored, or null, to remove the path */
+    public void setGoalFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
+        if (file != null) {
+            prefs.put("goalFilePath", file.getPath());
+        } else {
+            prefs.remove("goalFilePath");
         }
     }
 
