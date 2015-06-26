@@ -167,7 +167,7 @@ public class StartPracticingDialogController {
 
     /* Extracts data from TextFields and returns time as a LocalTime object
      * @return set_time  */
-    private LocalTime getTime() { // todo: error-handling
+    private LocalTime getTime() { // todo: error-handling and use TimeUtil
         int hours = Integer.parseInt(hr_field.getText());
         int min = Integer.parseInt(min_field.getText());
         int seconds = Integer.parseInt(sec_field.getText());

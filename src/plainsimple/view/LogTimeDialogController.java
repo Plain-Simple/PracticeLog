@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Session;
 import plainsimple.util.DatePickerUtil;
+import plainsimple.util.TimeUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -70,7 +71,7 @@ public class LogTimeDialogController {
                 session = new Session();
 
             session.setActivity(activity_field.getText());
-            session.setTimePracticed(getPracticeTime());
+            session.setTimePracticed(TimeUtil.stringsToTime(hrs_field.getText(), min_field.getText()));
             session.setDate(date_picker.getValue());
 
             dialogStage.close();
@@ -120,25 +121,8 @@ public class LogTimeDialogController {
         }
     }
 
-    /* simple helper function, returns whether a TextField is empty or not */
+    /* Simple helper function, returns whether a TextField is empty or not */
     private boolean isEmpty(TextField field) {
         return field.getText() == null || field.getText().length() == 0;
-    }
-
-    /* constructs LocalTime object using entries from "hrs" and "min" fields of dialog
-     * entries must be validated first with isValid() method */
-    private LocalTime getPracticeTime() {
-        int hrs = 0, min = 0;
-        if(!isEmpty(hrs_field)) {
-            hrs = Integer.parseInt(hrs_field.getText());
-        }
-        if(!isEmpty(min_field)) {
-            min = Integer.parseInt(min_field.getText());
-        }
-        if(min > 59) {
-            hrs += min / 60;
-            min = min % 60;
-        }
-        return LocalTime.of(hrs, min);
     }
  }

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Goal;
 import plainsimple.util.DatePickerUtil;
+import plainsimple.util.TimeUtil;
 
 import java.time.LocalDate;
 
@@ -167,7 +168,13 @@ public class SetGoalDialogController {
             }
 
             if(targetTime_button.isSelected()) {
-               //goal.setTargetTime();
+               goal.setTargetTime(TimeUtil.stringsToTime(goalTime_hrs.getText(), goalTime_min.getText()));
+            } else {
+                goal.setTargetSession(Integer.parseInt(goalSessions.getText()));
+            }
+
+            if(repeat_button.isSelected()) {
+                goal.setRecurring(true);
             }
 
             dialogStage.close();
@@ -200,8 +207,6 @@ public class SetGoalDialogController {
     /* Handles the user pressing the "Time Range" RadioButton */
     @FXML private void handleTimeRange() {
         timeRange_choice.setDisable(false);
-        //startDate_picker.setDisable(false);
-        //endDate_picker.setDisable(false);
     }
 
     /* Handles the user pressing the "Target Total Practice Time" RadioButton */
@@ -259,7 +264,6 @@ public class SetGoalDialogController {
      * @return true if the input is valid */
     private boolean isInputValid() {
         String errorMessage = "";
-
 
         if (errorMessage.length() == 0) {
             return true;
