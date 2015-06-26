@@ -80,4 +80,26 @@ public class Goal {
     public boolean isRecurring() { return recurring; }
 
     public void setRecurring(boolean recurring) { this.recurring = recurring; }
+
+    /* Returns a String containing information about the Goal (debugging purposes) */
+    @Override public String toString() {
+        String string = "";
+        if(specifiesActivity()) {
+            string += "Specifies activity \"" + activity + "\"\n";
+        } else {
+            string += "Does not specify activity\n";
+        }
+        if(specifiesTimeLimit()) {
+            string += "Specifies time limit: " + startDate.toString() + " - " +
+                    endDate.toString() + "\n";
+        } else {
+            string += "Does not specify time limit\n";
+        }
+        if(specifiesSessions()) {
+            string += "Specifies [" + goalSessions + "] Sessions\n";
+        } else {
+            string += "Specifies [" + goalTime.toString() + "] Time Practiced\n";
+        }
+        return string;
+    }
 }

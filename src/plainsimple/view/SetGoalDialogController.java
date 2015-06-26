@@ -163,8 +163,11 @@ public class SetGoalDialogController {
             }
 
             if(timeRange_button.isSelected()) {
+                goal.setSpecifiesTimeLimit(true);
                 goal.setStartDate(startDate_picker.getValue());
                 goal.setEndDate(endDate_picker.getValue());
+            } else {
+                goal.setSpecifiesTimeLimit(false);
             }
 
             if(targetTime_button.isSelected()) {
@@ -176,6 +179,8 @@ public class SetGoalDialogController {
             if(repeat_button.isSelected()) {
                 goal.setRecurring(true);
             }
+
+            System.out.println(goal.toString());
 
             dialogStage.close();
         }
@@ -264,10 +269,29 @@ public class SetGoalDialogController {
      * @return true if the input is valid */
     private boolean isInputValid() {
         String errorMessage = "";
+        // todo: make code look nicer
+        if(specificActivity_button.isSelected() && (activity_name == null || activity_name.getText().length() == 0))
+            errorMessage += "An activity must be specified if \"Specific Activity\" is selected\n";
+        if(timeRange_button.isSelected() && (startDate_picker.getValue() == null ||
+            endDate_picker.getValue() == null))
+            errorMessage += "A start date and end date must be specified if \"Time Range\" is selected\n";
+        if(targetTime_button.isSelected() && !TimeUtil.validTime(goalTime_hrs.getText(), goalTime_min.getText())) {
+            errorMessage += "Positive integers must be entered in the Hours and Minutes fields if" +
+                    "\"Target Total Practice Time\" is selected\n";
+        } else if(targetSessions_button.isSelected()) {
+            try {
+                if(Integer.parseInt(goalSessions.getText()) <= 0)
+                    errorMessage += "Target Number of Sessions cannot be zero or negative\n";
+            } catch(NumberFormatException e) {
+                errorMessage += "Positive integer must be entered in the Sessions field if " +
+                        "\"Target Number of Sessions\" is selected\n";
+            }
+        }
 
         if (errorMessage.length() == 0) {
             return true;
         } else {
+            System.out.print(errorMessage);
             // Show the error message.
          /*   Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
