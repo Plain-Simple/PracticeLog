@@ -44,11 +44,13 @@ public class MainScreenController {
         date_column.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
     }
 
-    /* set main app */
+    /* Set main app */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        /* add observable list data to session_table */
+        /* Add observable list data to session_table */
         session_table.setItems(mainApp.getSessionData());
+        updateRecentStats(null);
+
     }
 
     /* handles user pressing the "Start Practicing!" button */
@@ -83,12 +85,19 @@ public class MainScreenController {
             }
     }
 
-    /* updates values for time practiced recently */
+    /* Updates values for time practiced recently
+     * @param added_session the most recently added Session. If null, recalculates
+     * all values */
     private void updateRecentStats(Session added_session) {
-        /* calculate number of days between newest-added session and today */
-        Period p = Period.between(added_session.getDate(), LocalDate.now());
-        int days_since = p.getDays();
-        /* see what needs to be updated */
+        System.out.println("Updating...");
+        int days_since;
+        /* Calculate number of days between newest-added Session and today */
+        if(added_session == null)
+            days_since = 0;
+        else
+            days_since = Period.between(added_session.getDate(), LocalDate.now()).getDays();
+
+        /* Only update values that are affected by the most recent addition */
         if(days_since == 0) {  //todo: this needs to be checked. A little confusing
             setHoursToday(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 1)));
         }

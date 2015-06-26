@@ -61,7 +61,8 @@ public class MainApp extends Application {
 
         /* Access file containing persisting data using path found in Preferences */
         File file = getSessionFilePath();
-        System.out.println("File location: " + file.getPath());
+        System.out.println("File location: " + file.getPath()); // todo: need to find a way to load data before
+        // todo: initializing main screen so stats are up to date
         if (file != null) {
             loadSessionDataFromFile(file);
             loadGoalDataFromFile(file); // todo: goalData not being saved correctly
