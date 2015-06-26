@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import plainsimple.util.DateUtil;
 import plainsimple.util.LocalDateAdapter;
+import plainsimple.util.LocalTimeAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
@@ -52,6 +53,7 @@ public class Session {
         return activity;
     }
 
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     public LocalTime getTimePracticed() {
         return time_practiced;
     }

@@ -7,11 +7,13 @@ import java.util.prefs.Preferences;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.model.SessionListWrapper;
@@ -38,7 +40,6 @@ public class MainApp extends Application {
 
     /* Constructor */
     public MainApp() {
-        // todo: read datafile and add to sessionData and goalData
     }
 
     /* Returns sessionData */
@@ -56,6 +57,30 @@ public class MainApp extends Application {
         initRootLayout();
 
         showMainScreen();
+
+        /* Access file containing persisting data using path found in Preferences */
+        File file = getSessionFilePath();
+        System.out.println("File location: " + file.getPath());
+        if (file != null) {
+            loadSessionDataFromFile(file);
+        } else { /* File not found - Open directory chooser for user to choose where to save data */
+            // todo: read datafile and add to sessionData and goalData
+            // todo: pop-up asking to specify a directory
+            File new_directory = showDirectoryChooser("Choose Save Location",
+                    new File(System.getProperty("user.home")));
+            /* Create a folder titled "PracticeLog" in chosen directory */
+            new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
+            createFolder(new_directory); // todo: nullpointerexception
+            File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
+            setSessionFilePath(sessionDataFile);
+        }
+
+        sessionData.addListener(new ListChangeListener<Session>() {
+            @Override
+            public void onChanged(Change<? extends Session> c) {
+                saveSessionDataToFile(getSessionFilePath());
+            }
+        });
     }
 
     /* Initializes root layout */
@@ -72,12 +97,6 @@ public class MainApp extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        /* Try to open file containing path to persisting Session data */
-        File file = getSessionFilePath();
-        if (file != null) {
-            loadPersonDataFromFile(file);
         }
     }
 
@@ -281,7 +300,7 @@ public class MainApp extends Application {
     /* Loads Session data from the specified file into sessionData. This overwrites
      * sessionData
      * @param file file where persisting Session data is kept */
-    public void loadPersonDataFromFile(File file) {
+    public void loadSessionDataFromFile(File file) {
         try {
             JAXBContext context = JAXBContext
                     .newInstance(SessionListWrapper.class);
@@ -300,7 +319,7 @@ public class MainApp extends Application {
         }
     }
 
-    /* Saves the current Session data to the specified file. as XML
+    /* Saves the current Session data to the specified file as XML
      * @param file file to save persisting Session data to */
     public void saveSessionDataToFile(File file) {
         try {
@@ -348,6 +367,28 @@ public class MainApp extends Application {
             prefs.put("goalFilePath", file.getPath());
         } else {
             prefs.remove("goalFilePath");
+        }
+    }
+
+    /* Opens a DirectoryChooser allowing user to choose a directory
+     * @param title the title to be displayed on the chooser
+     * @param defaultDirectory the directory the chooser opens to initially
+     * @return the directory chosen by the user */
+    private File showDirectoryChooser(String title, File defaultDirectory) {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle(title);
+        chooser.setInitialDirectory(defaultDirectory);
+        return(chooser.showDialog(primaryStage));
+    }
+
+    /* Creates a folder with specified path
+     * @param location the path of the new folder */
+    public boolean createFolder(File location) {
+        try{
+            return location.mkdir();
+        } catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
     }
 
