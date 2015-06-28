@@ -1,13 +1,9 @@
 package plainsimple.util;
 
 import javafx.collections.ObservableList;
-import plainsimple.DataHandler;
 import plainsimple.Session;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /* Helper functions for handling Sessions */
 public class SessionUtil {

@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.model.GoalListWrapper;
 import plainsimple.model.SessionListWrapper;
+import plainsimple.util.DataHandler;
 import plainsimple.view.*;
 
 import javax.xml.bind.JAXBContext;
@@ -60,12 +61,12 @@ public class MainApp extends Application {
         showMainScreen();
 
         /* Access file containing persisting data using path found in Preferences */
-        File file = getSessionFilePath();
+        File file = DataHandler.getSessionFilePath();
         System.out.println("File location: " + file.getPath()); // todo: need to find a way to load data before
         // todo: initializing main screen so stats are up to date
         if (file != null) {
-            loadSessionDataFromFile(file);
-            loadGoalDataFromFile(file); // todo: goalData not being saved correctly
+            DataHandler.loadSessionDataFromFile(file);
+            DataHandler.loadGoalDataFromFile(file); // todo: goalData not being saved correctly
         } else { /* File not found - Open directory chooser for user to choose where to save data */
             // todo: read datafile and add to sessionData and goalData
             // todo: pop-up asking to specify a directory
@@ -77,22 +78,22 @@ public class MainApp extends Application {
 
             /* Create xml datafiles for sessionData and goalData and update properties file with new paths */
             File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
-            setSessionFilePath(sessionDataFile);
+            DataHandler.setSessionFilePath(sessionDataFile);
             File goalDataFile = new File(new_directory.getPath() + File.separator + "GoalData.xml");
-            setGoalFilePath(goalDataFile);
+            DataHandler.setGoalFilePath(goalDataFile);
         }
 
         sessionData.addListener(new ListChangeListener<Session>() {
             @Override
             public void onChanged(Change<? extends Session> c) {
-                saveSessionDataToFile(getSessionFilePath());
+                DataHandler.saveSessionDataToFile(DataHandler.getSessionFilePath(), sessionData);
             }
         });
 
         goalData.addListener(new ListChangeListener<Goal>() {
             @Override
             public void onChanged(Change<? extends Goal> c) {
-                saveGoalDataToFile(getGoalFilePath());
+                DataHandler.saveGoalDataToFile(DataHandler.getGoalFilePath(), goalData);
             }
         });
     }
@@ -279,152 +280,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-
-    /* Accesses Program Preferences as saved in the OS's system registry and returns
-     * the path to the file where Session data is stored. If the file
-     * preference can't be found, returns null.
-     * @return path to the file containing persisting Session data */
-    public File getSessionFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        /* Retrieve filePath from "filePath" field in Preferences file */
-        String filePath = prefs.get("sessionFilePath", null);
-
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
-    }
-
-    /* Accesses Program Preferences as saved in the OS's system and sets the path
-     * to the file where Session data is stored. The path is stored as persisting
-     * data in the OS specific registry.
-     * @param file file where Session data is stored, or null, to remove the path */
-    public void setSessionFilePath(File file) {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        if (file != null) {
-            prefs.put("sessionFilePath", file.getPath());
-        } else {
-            prefs.remove("sessionFilePath");
-        }
-    }
-
-    /* Loads Session data from the specified file into sessionData. This overwrites
-     * sessionData
-     * @param file file where persisting Session data is kept */
-    public void loadSessionDataFromFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(SessionListWrapper.class);
-            Unmarshaller um = context.createUnmarshaller();
-
-            /* Read XML from the file and unmarshal the data */
-            SessionListWrapper wrapper = (SessionListWrapper) um.unmarshal(file);
-
-            sessionData.clear();
-            sessionData.addAll(wrapper.getSessions());
-
-            /* Save the file path to the registry */
-            setSessionFilePath(file);
-
-        } catch (Exception e) {
-        }
-    }
-
-    /* Saves the current Session data to the specified file as XML
-     * @param file file to save persisting Session data to */
-    public void saveSessionDataToFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(SessionListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            /* Wrap Session data from sessionData */
-            SessionListWrapper wrapper = new SessionListWrapper();
-            wrapper.setSessions(sessionData);
-
-            /* Marshal and save XML to the file */
-            m.marshal(wrapper, file);
-
-            /* Save the file path to the registry */
-            setSessionFilePath(file);
-        } catch (Exception e) {
-        }
-    }
-
-    /* Accesses Program Preferences as saved in the OS's system registry and returns
-     * the path to the file where Goal data is stored. If the file
-     * preference can't be found, returns null.
-     * @return path to the file containing persisting Goal data */
-    public File getGoalFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        /* Retrieve filePath from "filePath" field in Preferences file */
-        String filePath = prefs.get("goalFilePath", null);
-
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
-    }
-
-    /* Accesses Program Preferences as saved in the OS's system and sets the path
-     * to the file where Goal data is stored. The path is stored as persisting
-     * data in the OS specific registry.
-     * @param file file where Goal data is stored, or null, to remove the path */
-    public void setGoalFilePath(File file) {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        if (file != null) {
-            prefs.put("goalFilePath", file.getPath());
-        } else {
-            prefs.remove("goalFilePath");
-        }
-    }
-
-    /* Loads Goal data from the specified file into goalData. This overwrites
-     * goalData
-     * @param file file where persisting Session data is kept */
-    public void loadGoalDataFromFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(SessionListWrapper.class);
-            Unmarshaller um = context.createUnmarshaller();
-
-            /* Read XML from the file and unmarshal the data */
-            GoalListWrapper wrapper = (GoalListWrapper) um.unmarshal(file);
-
-            goalData.clear();
-            goalData.addAll(wrapper.getGoals());
-
-            /* Save the file path to the registry */
-            setGoalFilePath(file);
-
-        } catch (Exception e) {
-        }
-    }
-
-    /* Saves the current Goal data to the specified file as XML
-     * @param file file to save persisting Goal data to */
-    public void saveGoalDataToFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(SessionListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            /* Wrap Goal data from sessionData */
-            GoalListWrapper wrapper = new GoalListWrapper();
-            wrapper.setGoals(goalData);
-
-            /* Marshal and save XML to the file */
-            m.marshal(wrapper, file);
-
-            /* Save the file path to the registry */
-            setGoalFilePath(file);
-        } catch (Exception e) {
         }
     }
 
