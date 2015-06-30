@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text layoutX="56.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This program is designed to help you keep track of the activities&#10;you do and how much time you spend doing them.&#10;" textAlignment="CENTER" wrappingWidth="507.6298828125">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="34.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to the Practice Log!">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Text>
+      <Text layoutX="31.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time yourself doing an activity using the &quot;Start Practicing!&quot; Feature&#10;Keep track of how long you've practiced with the &quot;Log a Time&quot; Feature&#10;Set goals and keep track of progress with the &quot;Set a Goal&quot; Feature" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="64.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Additionally use our analytics features to see what, when, and &#10;how often you practice" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="49.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="But first, please choose a directory to save this program's data to: ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button layoutX="238.0" layoutY="390.0" mnemonicParsing="false" text="Choose Directory">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
