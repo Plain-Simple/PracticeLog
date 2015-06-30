@@ -68,8 +68,7 @@ public class MainApp extends Application {
             DataHandler.loadGoalDataFromFile(file);
         } else { /* File not found - Open directory chooser for user to choose where to save data */
             // todo: pop-up asking to specify a directory
-            File new_directory = showDirectoryChooser("Choose Save Location",
-                    new File(System.getProperty("user.home")));
+            File new_directory = showWelcomeDialog();
             /* Create a folder titled "PracticeLog" in chosen directory */
             new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
             createFolder(new_directory); // todo: nullpointerexception if no file chosen
@@ -139,6 +138,36 @@ public class MainApp extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /* Pops up the Welcome dialog to introduce the user to the program
+     * and have them choose a directory to save persistent data to */
+    public File showWelcomeDialog() {
+        try {
+            /* load the fxml file and create a new stage for the popup dialog */
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/WelcomeDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            /* create the dialog stage */
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Welcome");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            WelcomeDialogController controller = new WelcomeDialogController();
+            controller.setMainApp(this);
+
+            /* Show the dialog and wait until the user closes it */
+            dialogStage.showAndWait();
+
+            return controller.getSaveDirectory();
+        } catch(IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

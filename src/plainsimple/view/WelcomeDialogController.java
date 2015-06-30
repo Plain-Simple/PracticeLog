@@ -25,6 +25,7 @@ public class WelcomeDialogController {
     /* Sets mainApp, allowing this dialog to communicate with the main class */
     public void setMainApp(MainApp mainApp) { this.mainApp = mainApp; }
 
+    public File getSaveDirectory() { return saveDirectory; }
     /* Handles the user pressing the "Choose Directory" Button, which
      * opens a directory chooser to the user's home directory */
     @FXML private void handleChooseDirectory() {
