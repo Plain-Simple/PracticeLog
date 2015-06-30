@@ -62,9 +62,8 @@ public class MainApp extends Application {
 
         /* Access file containing persisting data using path found in Preferences */
         File file = DataHandler.getSessionFilePath();
-        System.out.println("File location: " + file.getPath()); // todo: need to find a way to load data before
-        // todo: initializing main screen so stats are up to date
-        if (file != null) {
+        if (file != null && file.exists()) {
+            System.out.println("File location: " + file.getPath());
             DataHandler.loadSessionDataFromFile(file);
             DataHandler.loadGoalDataFromFile(file); // todo: goalData not being saved correctly
         } else { /* File not found - Open directory chooser for user to choose where to save data */
@@ -81,6 +80,10 @@ public class MainApp extends Application {
             DataHandler.setSessionFilePath(sessionDataFile);
             File goalDataFile = new File(new_directory.getPath() + File.separator + "GoalData.xml");
             DataHandler.setGoalFilePath(goalDataFile);
+
+            /* Save data to file ensures that the files are created despite being blank */
+            DataHandler.saveSessionDataToFile(sessionDataFile, sessionData);
+            DataHandler.saveGoalDataToFile(goalDataFile, goalData);
         }
 
         sessionData.addListener(new ListChangeListener<Session>() {

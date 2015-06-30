@@ -51,6 +51,7 @@ public class DataHandler {
     }
 
     /* Loads Session data from the specified file into an ObservableList.
+     * // todo: If the file does not exist a new file will be created.
      * @param file XML file where persisting Session data is kept
      * @return an ObservableList of Session objects retrieved from the XML file */
     public static ObservableList<Session> loadSessionDataFromFile(File file) {
