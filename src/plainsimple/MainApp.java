@@ -158,8 +158,8 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            WelcomeDialogController controller = new WelcomeDialogController();
-            controller.setMainApp(this);
+            WelcomeDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
 
             /* Show the dialog and wait until the user closes it */
             dialogStage.showAndWait();

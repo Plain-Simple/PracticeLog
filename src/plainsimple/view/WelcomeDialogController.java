@@ -10,11 +10,11 @@ import java.io.File;
 /* Controller class for the welcome dialog, which is shown the first time
  * the program runs. It gives a brief description of the program and prompts
  * the user to select a directory in which to save program data */
-public class WelcomeDialogController {
+public class WelcomeDialogController extends Stage {
 
     private Stage dialogStage;
     private File saveDirectory;
-    private MainApp mainApp;
+    private boolean directoryChosen = false;
 
     /* Sets dialog stage
      * @param dialogStage */
@@ -22,8 +22,8 @@ public class WelcomeDialogController {
         this.dialogStage = dialogStage;
     }
 
-    /* Sets mainApp, allowing this dialog to communicate with the main class */
-    public void setMainApp(MainApp mainApp) { this.mainApp = mainApp; }
+    /* Returns whether a directory was chosen */
+    public boolean directoryChosen() { return directoryChosen; }
 
     public File getSaveDirectory() { return saveDirectory; }
     /* Handles the user pressing the "Choose Directory" Button, which
@@ -33,8 +33,12 @@ public class WelcomeDialogController {
                 new File(System.getProperty("user.home")));
 
         /* Valid file chosen - Close chooser */
-        //if(saveDirectory != null && saveDirectory.exists()) // todo: call mainapp to close this dialog
-            //mainApp.close
+        if(saveDirectory != null && saveDirectory.exists()) {
+            dialogStage.close();
+        } else { // todo: alert
+
+        }
+
     }
 
     /* Opens a DirectoryChooser allowing user to choose a directory

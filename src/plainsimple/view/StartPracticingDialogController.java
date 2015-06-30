@@ -155,7 +155,6 @@ public class StartPracticingDialogController {
             dialogStage.close();
         } catch(IOException e) {
             e.printStackTrace();
-            okClicked = false;
         }
     }
 
