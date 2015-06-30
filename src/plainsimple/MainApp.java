@@ -65,9 +65,8 @@ public class MainApp extends Application {
         if (file != null && file.exists()) {
             System.out.println("File location: " + file.getPath());
             DataHandler.loadSessionDataFromFile(file);
-            DataHandler.loadGoalDataFromFile(file); // todo: goalData not being saved correctly
+            DataHandler.loadGoalDataFromFile(file);
         } else { /* File not found - Open directory chooser for user to choose where to save data */
-            // todo: read datafile and add to sessionData and goalData
             // todo: pop-up asking to specify a directory
             File new_directory = showDirectoryChooser("Choose Save Location",
                     new File(System.getProperty("user.home")));
@@ -284,17 +283,6 @@ public class MainApp extends Application {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /* Opens a DirectoryChooser allowing user to choose a directory
-     * @param title the title to be displayed on the chooser
-     * @param defaultDirectory the directory the chooser opens to initially
-     * @return the directory chosen by the user */
-    private File showDirectoryChooser(String title, File defaultDirectory) {
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle(title);
-        chooser.setInitialDirectory(defaultDirectory);
-        return(chooser.showDialog(primaryStage));
     }
 
     /* Creates a folder with specified path

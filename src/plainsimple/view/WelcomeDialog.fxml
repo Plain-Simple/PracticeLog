@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plainsimple.view.WelcomeDialogController">
    <children>
       <Text layoutX="56.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This program is designed to help you keep track of the activities&#10;you do and how much time you spend doing them.&#10;" textAlignment="CENTER" wrappingWidth="507.6298828125">
          <font>
@@ -33,7 +32,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button layoutX="238.0" layoutY="390.0" mnemonicParsing="false" text="Choose Directory">
+      <Button layoutX="238.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleChooseDirectory" text="Choose Directory">
          <font>
             <Font size="16.0" />
          </font>
