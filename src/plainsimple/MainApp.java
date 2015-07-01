@@ -73,9 +73,10 @@ public class MainApp extends Application {
         } else if (file != null && !file.exists()) { /* A file has been specified but doesn't exist */
             Alert invalid_directory = AlertUtil.getInfoAlert("Invalid Directory Specified",
                     null, "The directory specified to store PracticeLog data " + "(\"" +
-                            file.getPath() + "\") could not be accessed. As a result you will not " +
-                            "be able to save any data you enter. It is recommended you set a new " +
-                            "save directory by accessing the options menu (see gear in bottom right corner).");
+                    file.getPath() + "\") could not be accessed. As a result you will not " +
+                    "be able to save any data you enter. It is recommended you set a new " +
+                    "save directory by accessing the options menu (see gear in bottom right corner).");
+            invalid_directory.initOwner(primaryStage);
             invalid_directory.showAndWait();
 
         } else { /* No file specified in preferences. Show the welcome dialog */
@@ -85,9 +86,10 @@ public class MainApp extends Application {
                 /* User did not specify a directory.  */
                 Alert no_directory = AlertUtil.getInfoAlert("No Directory Specified",
                         null, "You have not specified a directory for PracticeLog data to be" +
-                                "stored. Consequently you will not be able to save any data" +
-                                "you enter. It is recommended you set a save directory by accessing" +
-                                "the options menu (see gear in bottom right corner).");
+                        "stored. Consequently you will not be able to save any data" +
+                        "you enter. It is recommended you set a save directory by accessing" +
+                        "the options menu (see gear in bottom right corner).");
+                no_directory.initOwner(primaryStage);
                 no_directory.showAndWait();
 
             } else {

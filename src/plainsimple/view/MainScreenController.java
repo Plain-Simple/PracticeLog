@@ -89,7 +89,6 @@ public class MainScreenController {
      * @param added_session the most recently added Session. If null, recalculates
      * all values */
     private void updateRecentStats(Session added_session) {
-        System.out.println("Updating...");
         int days_since;
         /* Calculate number of days between newest-added Session and today */
         if(added_session == null)
@@ -98,7 +97,7 @@ public class MainScreenController {
             days_since = Period.between(added_session.getDate(), LocalDate.now()).getDays();
 
         /* Only update values that are affected by the most recent addition */
-        if(days_since == 0) {  //todo: this needs to be checked. A little confusing
+        if(days_since == 0) {  //todo: this needs to be checked
             setHoursToday(SessionUtil.getTotalHours(SessionUtil.getRecentSessions(mainApp.getSessionData(), 1)));
         }
         if(days_since < 7) {

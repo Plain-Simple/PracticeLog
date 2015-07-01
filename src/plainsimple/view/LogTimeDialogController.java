@@ -4,12 +4,14 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 //import javafx.scene.control.Alert;
 //import javafx.scene.control.Alert.AlertType; // todo: get Alert working
+import javafx.scene.control.Alert;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Session;
+import plainsimple.util.AlertUtil;
 import plainsimple.util.DatePickerUtil;
 import plainsimple.util.TimeUtil;
 
@@ -110,13 +112,12 @@ public class LogTimeDialogController {
         if(error_message.length() == 0) {
             return true;
         } else {
-            System.out.println(error_message);
-            /* popup error message */ // todo: find workaround for javafx Alert
-            //Alert alert = new Alert(AlertType.ERROR);
-            //alert.initOwner(dialogStage);
-            //alert.setTitle("Error Saving Log");
-            //alert.setContentText(error_message);
-            //alert.showAndWait();
+            /* popup error message */
+            Alert inputError_alert = AlertUtil.getErrorAlert("Errors Encountered", null,
+                "The following issues were encountered:\n\n" + error_message +
+                "\nPlease fix these issues before trying to save again.");
+            inputError_alert.initOwner(dialogStage);
+            inputError_alert.showAndWait();
             return false;
         }
     }

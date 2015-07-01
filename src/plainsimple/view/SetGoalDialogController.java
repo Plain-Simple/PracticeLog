@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import plainsimple.Goal;
+import plainsimple.util.AlertUtil;
 import plainsimple.util.DatePickerUtil;
 import plainsimple.util.TimeUtil;
 
@@ -115,7 +116,6 @@ public class SetGoalDialogController {
             timeRange_button.setSelected(true);
             startDate_picker.setValue(goal.getStartDate());
             endDate_picker.setValue(goal.getEndDate());
-            // todo: set choicebox
         } else {
             noTimeRange_button.setSelected(true);
             handleNoTimeRange();
@@ -268,38 +268,34 @@ public class SetGoalDialogController {
     /* Validates the user input in the fields
      * @return true if the input is valid */
     private boolean isInputValid() {
-        String errorMessage = "";
-        // todo: make code look nicer
+        String error_message = "";
         if(specificActivity_button.isSelected() && (activity_name == null || activity_name.getText().length() == 0))
-            errorMessage += "An activity must be specified if \"Specific Activity\" is selected\n";
+            error_message += "An activity must be specified if \"Specific Activity\" is selected\n";
         if(timeRange_button.isSelected() && (startDate_picker.getValue() == null ||
             endDate_picker.getValue() == null))
-            errorMessage += "A start date and end date must be specified if \"Time Range\" is selected\n";
+            error_message += "A start date and end date must be specified if \"Time Range\" is selected\n";
         if(targetTime_button.isSelected() && !TimeUtil.validTime(goalTime_hrs.getText(), goalTime_min.getText())) {
-            errorMessage += "Positive integers must be entered in the Hours and Minutes fields if" +
+            error_message += "Positive integers must be entered in the Hours and Minutes fields if" +
                     "\"Target Total Practice Time\" is selected\n";
         } else if(targetSessions_button.isSelected()) {
             try {
                 if(Integer.parseInt(goalSessions.getText()) <= 0)
-                    errorMessage += "Target Number of Sessions cannot be zero or negative\n";
+                    error_message += "Target Number of Sessions cannot be zero or negative\n";
             } catch(NumberFormatException e) {
-                errorMessage += "Positive integer must be entered in the Sessions field if " +
+                error_message += "Positive integer must be entered in the Sessions field if " +
                         "\"Target Number of Sessions\" is selected\n";
             }
         }
 
-        if (errorMessage.length() == 0) {
+        if (error_message.length() == 0) {
             return true;
         } else {
-            System.out.print(errorMessage);
-            // Show the error message.
-         /*   Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();*/
+            /* Display error message in an alert */
+            Alert inputError_alert = AlertUtil.getErrorAlert("Errors Encountered", null,
+                "The following issues were encountered:\n\n" + error_message +
+                "\nPlease fix these issues before trying to save again.");
+            inputError_alert.initOwner(dialogStage);
+            inputError_alert.showAndWait();
 
             return false;
         }
