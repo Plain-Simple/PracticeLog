@@ -10,6 +10,8 @@ import plainsimple.Session;
 import plainsimple.util.SessionUtil;
 import plainsimple.util.TimeUtil;
 
+import java.time.LocalDate;
+
 /* Dialog to display full practice log */
 public class LogViewController {
 
@@ -48,9 +50,24 @@ public class LogViewController {
             sub_heading.setText("");
         else if(data.size() == 1)
             sub_heading.setText(DateUtil.format(data.get(0).getDate()));
-        else
-            sub_heading.setText(DateUtil.format(SessionUtil.getOldestDate(data)) +
-                    " - " + DateUtil.format(SessionUtil.getNewestDate(data)));
+        else {
+            /* Test if all dates are the same, in which case only display a single date */
+            boolean unique = false;
+            LocalDate compare = data.get(0).getDate();
+
+            for(int i = 0; i < data.size(); i++) {
+                /* Found at least one unique date */
+                if(!data.get(i).getDate().isEqual(compare)) {
+                    sub_heading.setText(DateUtil.format(SessionUtil.getOldestDate(data)) +
+                            " - " + DateUtil.format(SessionUtil.getNewestDate(data)));
+                    break;
+                }
+            }
+            if(!unique) {
+                sub_heading.setText(DateUtil.format(compare));
+            }
+
+        }
     }
 
     /* Returns a String with formatted log for display in textarea
@@ -70,16 +87,18 @@ public class LogViewController {
         if(data.isEmpty())
             return log + "\n      Log is Empty: No Sessions to Show        ";
         else {
-        /* Fill the table with information from data. Each column is centered */
+            /* Fill the table with information from data. Each column is centered */
             Session this_session;
             String activity;
             String date;
             String time;
+
             for (int i = 0; i < data.size(); i++) {
                 this_session = data.get(i);
                 activity = this_session.getActivity();
-                date = this_session.getDate().toString();
+                date = DateUtil.format(this_session.getDate());
                 time = TimeUtil.format(this_session.getTimePracticed());
+
                 /* Determine how many spaces before and after each field to leave blank */
                 int firstColPadding = (14 - activity.length()) / 2;
                 int secondColPadding = (16 - time.length()) / 2;
