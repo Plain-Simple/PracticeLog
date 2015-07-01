@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import plainsimple.util.DateUtil;
 import plainsimple.Session;
 import plainsimple.util.SessionUtil;
+import plainsimple.util.TimeUtil;
 
 /* Dialog to display full practice log */
 public class LogViewController {
@@ -78,7 +79,7 @@ public class LogViewController {
                 this_session = data.get(i);
                 activity = this_session.getActivity();
                 date = this_session.getDate().toString();
-                time = this_session.getTimePracticed().toString();
+                time = TimeUtil.format(this_session.getTimePracticed());
                 /* Determine how many spaces before and after each field to leave blank */
                 int firstColPadding = (14 - activity.length()) / 2;
                 int secondColPadding = (16 - time.length()) / 2;

@@ -59,4 +59,18 @@ public class TimeUtil {
     public static boolean validTime(String hr_field, String min_field) {
         return stringsToTime(hr_field, min_field) != null;
     }
+
+     /* Returns LocalTime formatted in "HHhMMm"
+     * @param time LocalTime to format
+     * @return a formatted String */
+    public static String format(LocalTime time) {
+        String formatted = "";
+        if(time.getHour() != 0)
+            formatted += time.getHour() + "h";
+        if(time.getMinute() != 0)
+            formatted += time.getMinute() + "m";
+        if(time.getMinute() == 0 && time.getHour() == 0)
+            formatted = "0h0m";
+        return formatted;
+    }
 }
