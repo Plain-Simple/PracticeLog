@@ -140,7 +140,7 @@
       <Separator layoutX="52.0" layoutY="434.0" prefHeight="3.0" prefWidth="591.0" />
       <ImageView fitHeight="101.0" fitWidth="147.0" layoutX="481.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Check1_Modified.png" />
+            <Image url="@Check1_Modified%20(2).png" />
          </image>
       </ImageView>
    </children>

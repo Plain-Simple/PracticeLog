@@ -33,7 +33,7 @@ public class WelcomeDialogController extends Stage {
         /* Valid file chosen - Close chooser */
         if(saveDirectory != null && saveDirectory.exists()) {
             dialogStage.close();
-        } 
+        }
     }
 
     /* Opens a DirectoryChooser allowing user to choose a directory
