@@ -11,6 +11,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
@@ -18,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import plainsimple.model.GoalListWrapper;
 import plainsimple.model.SessionListWrapper;
+import plainsimple.util.AlertUtil;
 import plainsimple.util.DataHandler;
 import plainsimple.view.*;
 
@@ -62,26 +64,47 @@ public class MainApp extends Application {
 
         /* Access file containing persisting data using path found in Preferences */
         File file = DataHandler.getSessionFilePath();
+
+        /* File specified in Preferences exists */
         if (file != null && file.exists()) {
             System.out.println("File location: " + file.getPath());
             DataHandler.loadSessionDataFromFile(file);
             DataHandler.loadGoalDataFromFile(file);
-        } else { /* File not found - Open directory chooser for user to choose where to save data */
-            // todo: pop-up asking to specify a directory
+        } else if (file != null && !file.exists()) { /* A file has been specified but doesn't exist */
+            Alert invalid_directory = AlertUtil.getInfoAlert("Invalid Directory Specified",
+                    null, "The directory specified to store PracticeLog data " + "(\"" +
+                            file.getPath() + "\") could not be accessed. As a result you will not " +
+                            "be able to save any data you enter. It is recommended you set a new " +
+                            "save directory by accessing the options menu (see gear in bottom right corner).");
+            invalid_directory.showAndWait();
+
+        } else { /* No file specified in preferences. Show the welcome dialog */
             File new_directory = showWelcomeDialog();
-            /* Create a folder titled "PracticeLog" in chosen directory */
-            new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
-            createFolder(new_directory); // todo: nullpointerexception if no file chosen
 
-            /* Create xml datafiles for sessionData and goalData and update properties file with new paths */
-            File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
-            DataHandler.setSessionFilePath(sessionDataFile);
-            File goalDataFile = new File(new_directory.getPath() + File.separator + "GoalData.xml");
-            DataHandler.setGoalFilePath(goalDataFile);
+            if(new_directory == null) {
+                /* User did not specify a directory.  */
+                Alert no_directory = AlertUtil.getInfoAlert("No Directory Specified",
+                        null, "You have not specified a directory for PracticeLog data to be" +
+                                "stored. Consequently you will not be able to save any data" +
+                                "you enter. It is recommended you set a save directory by accessing" +
+                                "the options menu (see gear in bottom right corner).");
+                no_directory.showAndWait();
 
-            /* Save data to file ensures that the files are created despite being blank */
-            DataHandler.saveSessionDataToFile(sessionDataFile, sessionData);
-            DataHandler.saveGoalDataToFile(goalDataFile, goalData);
+            } else {
+                /* User specified a directory. Create a folder titled "PracticeLog" in chosen directory */
+                new_directory = new File(new_directory.getPath() + File.separator + "PracticeLog");
+                createFolder(new_directory);
+
+                /* Create xml datafiles for sessionData and goalData and update properties file with new paths */
+                File sessionDataFile = new File(new_directory.getPath() + File.separator + "SessionData.xml");
+                DataHandler.setSessionFilePath(sessionDataFile);
+                File goalDataFile = new File(new_directory.getPath() + File.separator + "GoalData.xml");
+                DataHandler.setGoalFilePath(goalDataFile);
+
+                /* Save data to file ensures that the files are created despite being blank */
+                DataHandler.saveSessionDataToFile(sessionDataFile, sessionData);
+                DataHandler.saveGoalDataToFile(goalDataFile, goalData);
+            }
         }
 
         sessionData.addListener(new ListChangeListener<Session>() {

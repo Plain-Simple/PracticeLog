@@ -14,7 +14,6 @@ public class WelcomeDialogController extends Stage {
 
     private Stage dialogStage;
     private File saveDirectory;
-    private boolean directoryChosen = false;
 
     /* Sets dialog stage
      * @param dialogStage */
@@ -22,10 +21,9 @@ public class WelcomeDialogController extends Stage {
         this.dialogStage = dialogStage;
     }
 
-    /* Returns whether a directory was chosen */
-    public boolean directoryChosen() { return directoryChosen; }
-
+    /* Returns directory user has chosen (null if not chosen) */
     public File getSaveDirectory() { return saveDirectory; }
+
     /* Handles the user pressing the "Choose Directory" Button, which
      * opens a directory chooser to the user's home directory */
     @FXML private void handleChooseDirectory() {
@@ -38,7 +36,6 @@ public class WelcomeDialogController extends Stage {
         } else { // todo: alert
 
         }
-
     }
 
     /* Opens a DirectoryChooser allowing user to choose a directory
