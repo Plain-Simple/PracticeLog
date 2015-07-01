@@ -67,7 +67,7 @@ public class LogViewController {
 
         /* If no Sessions to show display "No Data to Show" centered in 4th row */
         if(data.isEmpty())
-            return log + "\n         Log is Empty: No Sessions to Show         ";
+            return log + "\n      Log is Empty: No Sessions to Show        ";
         else {
         /* Fill the table with information from data. Each column is centered */
             Session this_session;

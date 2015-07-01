@@ -152,7 +152,9 @@ public class StartPracticingDialogController {
 
             okClicked = controller.isOkClicked();
 
-            dialogStage.close();
+            /* Close clock if user has logged a time successfully */
+            if(okClicked)
+                dialogStage.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
