@@ -2,8 +2,6 @@ package plainsimple.view;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-//import javafx.scene.control.Alert;
-//import javafx.scene.control.Alert.AlertType; // todo: get Alert working
 import javafx.scene.control.Alert;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;

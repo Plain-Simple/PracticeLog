@@ -91,16 +91,14 @@ public class StartPracticingDialogController {
     }
 
     /* Handles user pressing startStop_button, which toggles the clock's on/off state */
-    @FXML private void handleStartStop() { // todo: toggle function and start/stop functions
+    @FXML private void handleStartStop() {
         hr_field.setEditable(false);
         min_field.setEditable(false);
         sec_field.setEditable(false);
 
-        if(clockRunning) {
-            /* Clock was running - stop it */
+        if(clockRunning) { /* Clock was running - stop it */
             stopClock();
-        } else {
-            /* Clock was not running - start it */
+        } else { /* Clock was not running - start it */
             startClock();
         }
     }
