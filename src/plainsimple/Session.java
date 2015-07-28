@@ -16,7 +16,7 @@ import java.time.LocalTime;
  * Activity, Time Practiced (milliseconds), and Date of Session (milliseconds)
  * A Session is constructed using a String taken from the program's datafile
  * This String holds all necessary information */
-public class Session {
+public class Session implements Comparable<Session> {
 
     private final StringProperty activity;
     private LocalTime time_practiced;
@@ -89,5 +89,19 @@ public class Session {
     /* returns a String representation of session, for logging purposes */
     @Override public String toString() {
         return activity + "," + time_practiced + "," + date;
+    }
+
+    /** Compares two Sessions by date. +1 signifies a more recent Session,
+     * -1 signifies a earlier Session, and 0 signifies two Sessions from the
+     * same date.
+     * @return How given Session compares to this Session
+     */
+    public int compareTo(Session compareSession) { // todo: make sure this works
+        if(compareSession.getDate().isBefore(this.date))
+            return -1;
+        else if(compareSession.getDate().isAfter(this.date))
+            return 1;
+        else
+            return 0;
     }
 }
