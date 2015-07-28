@@ -10,6 +10,7 @@ public class SessionUtil {
 
     /* Sorts data by date, from newest to oldest */
     public static ObservableList<Session> sort(ObservableList<Session> data) {
+        return data.sort(); // todo: testing
         int calculations = 0;
         int counter;
         boolean keep_going;
